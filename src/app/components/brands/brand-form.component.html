@@ -1,0 +1,24 @@
+<!-- src/app/components/brand/brand-form.component.html -->
+
+<form (ngSubmit)="handleSubmit()" class="form">
+  <div class="formGroup">
+    <label class="label">Nome da Marca</label>
+    <input
+      class="input"
+      type="text"
+      [(ngModel)]="name"
+      name="brandName"
+      autofocus
+    />
+    <span *ngIf="error" class="error">{{ error }}</span>
+  </div>
+  <button type="submit" class="successBtn">Salvar</button>
+  <button
+    *ngIf="onCancel.observers.length"
+    type="button"
+    class="cancelBtn"
+    (click)="handleCancel()"
+  >
+    Cancelar
+  </button>
+</form>

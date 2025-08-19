@@ -1,0 +1,28 @@
+<!-- src/app/components/category/category-list.component.html -->
+
+<div *ngIf="categories.length === 0" class="empty">
+  Nenhuma categoria cadastrada.
+</div>
+
+<table *ngIf="categories.length > 0" class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of categories">
+      <td>{{ category.id }}</td>
+      <td>{{ category.name }}</td>
+      <td>{{ category.description }}</td>
+      <td>
+        <button class="btn btnInfo" (click)="goToDetails(category.id)">Detalhes</button>
+        <button class="btn btnWarning" (click)="goToEdit(category.id)">Editar</button>
+        <button class="btn btnDanger" (click)="deleteCategory(category)">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

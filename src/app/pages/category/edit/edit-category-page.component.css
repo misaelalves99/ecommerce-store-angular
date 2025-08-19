@@ -1,0 +1,32 @@
+.pageContainer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.heading {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: #777;
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 1.5rem;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+  }
+}

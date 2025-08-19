@@ -1,0 +1,102 @@
+/* src/app/components/category/category-list.component.css */
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+}
+
+.table thead {
+  background-color: #34495e;
+  color: #fff;
+}
+
+.table th,
+.table td {
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: middle;
+}
+
+.table td:last-child {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table th {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btnInfo {
+  background-color: #17a2b8;
+  color: #fff;
+}
+.btnInfo:hover {
+  background-color: #117a8b;
+}
+
+.btnWarning {
+  background-color: #ffc107;
+  color: #212529;
+}
+.btnWarning:hover {
+  background-color: #d39e00;
+}
+
+.btnDanger {
+  background-color: #dc3545;
+  color: #fff;
+}
+.btnDanger:hover {
+  background-color: #c82333;
+}
+
+.btn + .btn {
+  margin-left: 0.5rem;
+}
+
+.empty {
+  text-align: center;
+  color: #6c757d;
+  font-size: 1.25rem;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}

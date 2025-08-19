@@ -1,0 +1,98 @@
+/* src/app/components/product/product-form.component.css */
+
+.form {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.controlLabel {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #34495e;
+  margin-bottom: 0.5rem;
+}
+
+.formControl {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #495057;
+  border: 1px solid #ced4da;
+  border-radius: 0.5rem;
+}
+
+textarea.formControl {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.formCheck {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.formCheckInput {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.75rem;
+  cursor: pointer;
+}
+
+.formCheckLabel {
+  font-weight: 600;
+  color: #495057;
+  cursor: pointer;
+}
+
+.textDanger {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.btn {
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-right: 0.75rem;
+}
+
+.btn:last-child {
+  margin-right: 0;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btnSuccess {
+  background-color: #28a745;
+  color: #fff;
+}
+.btnSuccess:hover {
+  background-color: #218838;
+}
+
+.btnSecondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+.btnSecondary:hover {
+  background-color: #5a6268;
+}

@@ -1,0 +1,9 @@
+<!-- src/app/pages/category/create/create-category-page.component.html -->
+
+<div>
+  <h1 class="page-title">Adicionar Categoria</h1>
+  <app-category-form
+    (submitEvent)="handleCreate($event)"
+    (cancelEvent)="handleCancel()">
+  </app-category-form>
+</div>

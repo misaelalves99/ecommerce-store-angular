@@ -1,0 +1,107 @@
+/* src/pages/Products/EditProductPage.module.css */
+
+.title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.controlLabel {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.formControl {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.formControl:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+  outline: none;
+}
+
+.formCheck {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.formCheckInput {
+  margin-right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.formCheckLabel {
+  font-weight: 600;
+  color: #333;
+}
+
+.textDanger {
+  font-size: 0.875rem;
+  color: #dc3545;
+}
+
+.btn {
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.2s, transform 0.1s;
+  cursor: pointer;
+  border: none;
+}
+
+.btnSuccess {
+  background-color: #198754;
+  color: white;
+}
+
+.btnSuccess:hover {
+  background-color: #157347;
+  transform: scale(1.03);
+}
+
+.btnSecondary {
+  background-color: #6c757d;
+  color: white;
+  margin-left: 0.5rem;
+}
+
+.btnSecondary:hover {
+  background-color: #5c636a;
+  transform: scale(1.03);
+}
+
+@media (max-width: 576px) {
+  .form {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}

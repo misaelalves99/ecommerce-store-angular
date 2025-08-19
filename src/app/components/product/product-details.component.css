@@ -1,0 +1,39 @@
+/* src/app/components/product/product-details.component.css */
+
+.title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.card {
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+}
+
+.cardBody {
+  padding: 2rem;
+}
+
+.cardTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.cardText {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.6rem;
+}
+
+.cardText strong {
+  color: #212529;
+}

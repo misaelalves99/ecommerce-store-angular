@@ -1,0 +1,15 @@
+<!-- src/app/pages/products/details-product-page.component.html -->
+
+<div class="pageContainer" *ngIf="product; else loading">
+  <h1 class="title">Detalhes do Produto</h1>
+
+  <app-product-details [product]="product"></app-product-details>
+
+  <button class="btnPrimary" (click)="goBack()">
+    Voltar para a lista
+  </button>
+</div>
+
+<ng-template #loading>
+  <p class="loading">Carregando produto...</p>
+</ng-template>

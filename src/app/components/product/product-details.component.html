@@ -1,0 +1,18 @@
+<!-- src/app/components/product/product-details.component.html -->
+
+<div>
+  <h1 class="title">{{ product.name }}</h1>
+
+  <div class="card">
+    <div class="cardBody">
+      <h5 class="cardTitle">{{ product.name }}</h5>
+      <p class="cardText"><strong>Descrição:</strong> {{ product.description }}</p>
+      <p class="cardText"><strong>SKU:</strong> {{ product.sku }}</p>
+      <p class="cardText"><strong>Preço:</strong> {{ formatPrice(product.price) }}</p>
+      <p class="cardText"><strong>Estoque:</strong> {{ product.stock }}</p>
+      <p class="cardText"><strong>Categoria:</strong> {{ product.category?.name || '-' }}</p>
+      <p class="cardText"><strong>Marca:</strong> {{ product.brand?.name || '-' }}</p>
+      <p class="cardText"><strong>Status:</strong> {{ product.isActive ? 'Ativo' : 'Inativo' }}</p>
+    </div>
+  </div>
+</div>

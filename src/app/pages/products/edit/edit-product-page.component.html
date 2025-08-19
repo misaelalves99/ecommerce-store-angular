@@ -1,0 +1,18 @@
+<!-- src/app/pages/products/edit-product-page.component.html -->
+
+<div class="pageContainer" *ngIf="product; else loading">
+  <h1 class="title">Editar Produto</h1>
+
+  <app-product-form
+    [initialProduct]="product"
+    [categories]="categories"
+    [brands]="brands"
+    (submitEvent)="handleSave($event)"
+    (cancelEvent)="handleCancel()"
+  >
+  </app-product-form>
+</div>
+
+<ng-template #loading>
+  <p class="loading">Carregando produto...</p>
+</ng-template>

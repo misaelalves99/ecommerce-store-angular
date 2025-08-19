@@ -1,0 +1,33 @@
+<form (ngSubmit)="handleSubmit()" class="form">
+  <div class="formGroup">
+    <label class="label">Nome</label>
+    <input
+      class="input"
+      type="text"
+      [(ngModel)]="name"
+      name="categoryName"
+      autofocus
+    />
+    <span *ngIf="errors.name" class="error">{{ errors.name }}</span>
+  </div>
+
+  <div class="formGroup mt2">
+    <label class="label">Descrição</label>
+    <textarea
+      class="input"
+      [(ngModel)]="description"
+      name="categoryDescription"
+    ></textarea>
+    <span *ngIf="errors.description" class="error">{{ errors.description }}</span>
+  </div>
+
+  <button type="submit" class="successBtn mt3">Salvar</button>
+  <button
+    *ngIf="cancelEvent.observers.length"
+    type="button"
+    class="cancelBtn mt3"
+    (click)="handleCancel()"
+  >
+    Cancelar
+  </button>
+</form>

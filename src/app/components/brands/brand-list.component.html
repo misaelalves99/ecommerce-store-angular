@@ -1,0 +1,24 @@
+<!-- src/app/components/brand/brand-list.component.html -->
+
+<p *ngIf="brands.length === 0" class="empty">Nenhuma marca cadastrada.</p>
+
+<table *ngIf="brands.length > 0" class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let brand of brands">
+      <td>{{ brand.id }}</td>
+      <td>{{ brand.name }}</td>
+      <td>
+        <a [routerLink]="['/brands', brand.id]" class="btn btn-info btn-sm">Detalhes</a>
+        <a [routerLink]="['/brands/edit', brand.id]" class="btn btn-warning btn-sm">Editar</a>
+        <button class="btn btn-danger btn-sm" (click)="handleDelete(brand)">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

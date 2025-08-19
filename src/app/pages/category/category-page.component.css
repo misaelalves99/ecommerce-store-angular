@@ -1,0 +1,51 @@
+/* src/app/pages/category/category-page.component.css */
+
+/*
+  Styles for the main category list page header and the primary action button.
+  This mirrors the styling of product-page.component.css for a consistent look.
+*/
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Flex container for the title and button */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem; /* Creates space between the header and the table */
+}
+
+.heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0; /* Remove default margin to control spacing with the parent container */
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.btn {
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+  background-color: #007bff; /* Primary blue for main actions */
+  border: 1px solid #007bff;
+}
+
+.btn:hover,
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  background-color: #0056b3;
+}
