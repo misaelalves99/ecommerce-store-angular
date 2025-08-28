@@ -1,0 +1,18 @@
+<!-- src/app/pages/brands/delete/delete-brand-page.component.html -->
+
+<div class="pageContainer" *ngIf="brand; else loading">
+  <h1 class="heading">Deletar Marca</h1>
+
+  <div class="confirmationCard">
+    <p>Tem certeza que deseja deletar a marca:</p>
+    <p class="brandName">{{ brand.name }}</p>
+    <div class="buttons">
+      <button class="btnDanger" (click)="handleDelete()">Deletar</button>
+      <button class="btnSecondary" (click)="handleCancel()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p class="loading">Carregando marca...</p>
+</ng-template>

@@ -1,29 +1,23 @@
 /* src/app/pages/category/category-page.component.css */
 
-/*
-  Styles for the main category list page header and the primary action button.
-  This mirrors the styling of product-page.component.css for a consistent look.
-*/
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
 
-/* Flex container for the title and button */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem; /* Creates space between the header and the table */
+  margin-bottom: 2rem;
 }
 
 .heading {
   font-size: 2.5rem;
   font-weight: 700;
   color: #2c3e50;
-  margin: 0; /* Remove default margin to control spacing with the parent container */
+  margin: 0;
   text-transform: uppercase;
   letter-spacing: 1.2px;
 }

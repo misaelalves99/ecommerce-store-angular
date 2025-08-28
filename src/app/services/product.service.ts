@@ -1,4 +1,5 @@
 // src/app/services/product.service.ts
+
 import { Injectable } from '@angular/core';
 import { Product } from '../types/product.model';
 import { BrandService } from './brand.service';
@@ -10,7 +11,10 @@ import { CategoryService } from './category.service';
 export class ProductService {
   private products: Product[] = [];
 
-  constructor(private brandService: BrandService, private categoryService: CategoryService) {
+  constructor(
+    private brandService: BrandService,
+    private categoryService: CategoryService
+  ) {
     const brands = this.brandService.getBrands();
     const categories = this.categoryService.getCategories();
 
@@ -61,11 +65,21 @@ export class ProductService {
     return this.products;
   }
 
-  addProduct(product: Product): void {
-    const newId = this.products.length ? Math.max(...this.products.map(p => p.id)) + 1 : 1;
+  getProductById(id: number): Product | undefined {
+    return this.products.find(p => p.id === id);
+  }
 
-    const category = this.categoryService.getCategories().find(c => c.id === product.categoryId);
-    const brand = this.brandService.getBrands().find(b => b.id === product.brandId);
+  addProduct(product: Product): void {
+    const newId = this.products.length
+      ? Math.max(...this.products.map(p => p.id)) + 1
+      : 1;
+
+    const category = this.categoryService
+      .getCategories()
+      .find(c => c.id === product.categoryId);
+    const brand = this.brandService
+      .getBrands()
+      .find(b => b.id === product.brandId);
 
     const newProduct: Product = {
       ...product,
@@ -75,5 +89,28 @@ export class ProductService {
     };
 
     this.products.push(newProduct);
+  }
+
+  updateProduct(id: number, updatedProduct: Product): void {
+    const index = this.products.findIndex(p => p.id === id);
+    if (index !== -1) {
+      const category = this.categoryService
+        .getCategories()
+        .find(c => c.id === updatedProduct.categoryId);
+      const brand = this.brandService
+        .getBrands()
+        .find(b => b.id === updatedProduct.brandId);
+
+      this.products[index] = {
+        ...updatedProduct,
+        id,
+        category,
+        brand,
+      };
+    }
+  }
+
+  deleteProduct(id: number): void {
+    this.products = this.products.filter(p => p.id !== id);
   }
 }

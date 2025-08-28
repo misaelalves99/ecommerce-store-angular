@@ -1,4 +1,5 @@
 // src/app/services/brand.service.ts
+
 import { Injectable } from '@angular/core';
 import { Brand } from '../types/brand.model';
 
@@ -28,5 +29,9 @@ export class BrandService {
       createdAt: new Date().toISOString(),
     };
     this.brands.push(newBrand);
+  }
+
+  deleteBrand(id: number): void {
+    this.brands = this.brands.filter((b) => b.id !== id);
   }
 }

@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+/* Fonte global */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+html, body {
+  font-family: 'Inter', sans-serif; /* Fonte moderna e profissional */
+  font-size: 16px;
+  color: #1f2937; /* cor padrão de texto */
+  margin: 0;
+  padding: 0;
+  background-color: #f9fafb; /* cor de fundo suave */
+}
+
+/* Links padrão */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Cabeçalhos */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+/* Parágrafos */
+p {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+}
+
+/* Botões */
+button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+/* Inputs, selects e textareas */
+input, select, textarea {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+main {
+    min-height: 100vh;
+}

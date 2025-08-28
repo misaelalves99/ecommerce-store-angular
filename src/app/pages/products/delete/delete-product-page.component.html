@@ -1,0 +1,13 @@
+<div class="pageContainer" *ngIf="product">
+  <h1 class="title">Deletar Produto</h1>
+
+  <p class="confirmation">
+    Tem certeza que deseja deletar o produto:
+    <strong>{{ product.name }}</strong>?
+  </p>
+
+  <div class="buttons">
+    <button class="btn btnDanger" (click)="handleDelete()">Deletar</button>
+    <button class="btn btnSecondary" (click)="handleCancel()">Cancelar</button>
+  </div>
+</div>
