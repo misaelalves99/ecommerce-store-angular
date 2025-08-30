@@ -27,16 +27,16 @@ export class DetailsBrandPageComponent implements OnInit {
         this.brand = foundBrand;
       } else {
         alert('Marca não encontrada.');
-        this.navigateToBrands();
+        this.router.navigate(['/brands']);
       }
     }
   }
 
-  navigateToBrands(): void {
+  goBack(): void {
     this.router.navigate(['/brands']);
   }
 
-  navigateToEdit(): void {
+  goToEdit(): void {
     if (this.brand) {
       this.router.navigate(['/brands/edit', this.brand.id]);
     }

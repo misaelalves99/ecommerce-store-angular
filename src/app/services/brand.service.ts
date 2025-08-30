@@ -31,6 +31,13 @@ export class BrandService {
     this.brands.push(newBrand);
   }
 
+  updateBrand(id: number, name: string): void {
+    const brand = this.brands.find(b => b.id === id);
+    if (brand) {
+      brand.name = name;
+    }
+  }
+
   deleteBrand(id: number): void {
     this.brands = this.brands.filter((b) => b.id !== id);
   }

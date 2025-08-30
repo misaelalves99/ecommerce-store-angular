@@ -1,106 +1,56 @@
 /* src/app/pages/brands/delete/delete-brand-page.component.css */
 
-/* Container centralizado */
 .pageContainer {
-  max-width: 40rem;
-  margin: 2rem auto;
-  padding: 2rem 1.5rem;
-  font-family: 'Inter', sans-serif;
-  background-color: #ffffff;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Título da página */
-.heading {
+.title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #c62828;
   text-align: center;
-  font-size: 1.875rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 1rem;
 }
 
-/* Card de confirmação */
-.confirmationCard {
-  padding: 1.5rem;
-  background-color: #f8fafc;
-  border-radius: 0.5rem;
-  border: 1px solid #e5e7eb;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.confirmation {
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+  text-align: center;
 }
 
-/* Nome da marca em destaque */
-.brandName {
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: #dc2626; /* vermelho alerta */
-}
-
-/* Botões */
 .buttons {
   display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-  margin-top: 1rem;
-  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .btnDanger {
-  background-color: #dc2626;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  font-weight: 600;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  background-color: #e53935;
+  color: white;
 }
 
 .btnDanger:hover {
-  background-color: #b91c1c;
-  transform: translateY(-1px);
+  background-color: #c62828;
 }
 
 .btnSecondary {
-  background-color: #6b7280;
+  background-color: #757575;
   color: white;
-  padding: 0.5rem 1rem;
-  font-weight: 600;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .btnSecondary:hover {
-  background-color: #4b5563;
-  transform: translateY(-1px);
-}
-
-/* Loading */
-.loading {
-  text-align: center;
-  font-size: 1.25rem;
-  color: #4b5563;
-}
-
-/* Responsividade */
-@media (max-width: 480px) {
-  .pageContainer {
-    padding: 1.5rem 1rem;
-  }
-
-  .buttons {
-    flex-direction: column;
-  }
-
-  .btnDanger,
-  .btnSecondary {
-    width: 100%;
-  }
+  background-color: #616161;
 }

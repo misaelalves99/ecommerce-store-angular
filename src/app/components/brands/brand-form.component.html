@@ -12,13 +12,16 @@
     />
     <span *ngIf="error" class="error">{{ error }}</span>
   </div>
-  <button type="submit" class="successBtn">Salvar</button>
-  <button
-    *ngIf="onCancel.observers.length"
-    type="button"
-    class="cancelBtn"
-    (click)="handleCancel()"
-  >
-    Cancelar
-  </button>
+
+  <div class="buttonGroup">
+    <button type="submit" class="successBtn">Salvar</button>
+    <button
+      *ngIf="onCancel.observers.length"
+      type="button"
+      class="cancelBtn"
+      (click)="handleCancel()"
+    >
+      Cancelar
+    </button>
+  </div>
 </form>

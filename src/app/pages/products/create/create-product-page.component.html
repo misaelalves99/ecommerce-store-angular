@@ -1,14 +1,14 @@
 <!-- src/app/pages/products/create-product-page.component.html -->
 
-<div class="pageContainer">
-  <h1 class="heading">Adicionar Produto</h1>
+<div class="container">
+  <h1 class="pageTitle">Adicionar Produto</h1>
 
   <app-product-form
+    [initialData]="emptyProduct"
     [categories]="categories"
     [brands]="brands"
-    [initialProduct]="emptyProduct"
-    (submitEvent)="handleSave($event)"
-    (cancelEvent)="handleCancel()"
-  >
-  </app-product-form>
+    submitLabel="Adicionar"
+    (onSubmit)="handleSave($event)"
+    (onCancel)="handleCancel()"
+  ></app-product-form>
 </div>

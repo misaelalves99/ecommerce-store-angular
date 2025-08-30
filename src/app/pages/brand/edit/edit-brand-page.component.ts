@@ -39,8 +39,8 @@ export class EditBrandPageComponent implements OnInit {
   handleUpdate(name: string): void {
     if (!this.brand) return;
 
-    // Atualiza via service
-    this.brandService.addBrand(name); // ou criar método update se precisar atualizar existente
+    // Atualiza a marca existente
+    this.brandService.updateBrand(this.brand.id, name);
     console.log('Marca atualizada:', { id: this.brand.id, name });
 
     this.router.navigate(['/brands']);

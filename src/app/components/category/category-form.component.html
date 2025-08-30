@@ -11,23 +11,25 @@
     <span *ngIf="errors.name" class="error">{{ errors.name }}</span>
   </div>
 
-  <div class="formGroup mt2">
+  <div class="formGroup">
     <label class="label">Descrição</label>
     <textarea
-      class="input"
+      class="textarea"
       [(ngModel)]="description"
       name="categoryDescription"
     ></textarea>
     <span *ngIf="errors.description" class="error">{{ errors.description }}</span>
   </div>
 
-  <button type="submit" class="successBtn mt3">Salvar</button>
-  <button
-    *ngIf="cancelEvent.observers.length"
-    type="button"
-    class="cancelBtn mt3"
-    (click)="handleCancel()"
-  >
-    Cancelar
-  </button>
+  <div class="buttonGroup">
+    <button type="submit" class="btnPrimary">Salvar</button>
+    <button
+      *ngIf="cancelEvent.observers.length"
+      type="button"
+      class="btnSecondary"
+      (click)="handleCancel()"
+    >
+      Cancelar
+    </button>
+  </div>
 </form>

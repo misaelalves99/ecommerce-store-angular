@@ -1,22 +1,23 @@
 // src/app/pages/brands/create/create-brand-page.component.ts
 
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { BrandFormComponent } from '../../../components/brands/brand-form.component';
 import { BrandService } from '../../../services/brand.service';
+import { BrandFormComponent } from '../../../components/brands/brand-form.component';
 
 @Component({
   selector: 'app-create-brand-page',
   standalone: true,
-  imports: [CommonModule, BrandFormComponent],
+  imports: [BrandFormComponent],
   templateUrl: './create-brand-page.component.html',
+  styleUrls: ['./create-brand-page.component.css'],
 })
 export class CreateBrandPageComponent {
-  constructor(private brandService: BrandService, private router: Router) {}
+  constructor(private router: Router, private brandService: BrandService) {}
 
+  // Recebe diretamente a string emitida pelo form
   handleCreate(name: string) {
-    this.brandService.addBrand(name);
+    this.brandService.addBrand(name);  // Passa o nome direto para o service
     this.router.navigate(['/brands']);
   }
 

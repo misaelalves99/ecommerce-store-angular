@@ -1,6 +1,7 @@
 // src/app/services/product.service.ts
 
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../types/product.model';
 import { BrandService } from './brand.service';
 import { CategoryService } from './category.service';
@@ -9,7 +10,7 @@ import { CategoryService } from './category.service';
   providedIn: 'root',
 })
 export class ProductService {
-  private products: Product[] = [];
+  private products$: BehaviorSubject<Product[]>;
 
   constructor(
     private brandService: BrandService,
@@ -18,7 +19,7 @@ export class ProductService {
     const brands = this.brandService.getBrands();
     const categories = this.categoryService.getCategories();
 
-    this.products = [
+    const initialProducts: Product[] = [
       {
         id: 1,
         name: 'Notebook Gamer',
@@ -59,58 +60,48 @@ export class ProductService {
         brand: brands.find(b => b.id === 3),
       },
     ];
+
+    this.products$ = new BehaviorSubject<Product[]>(initialProducts);
   }
 
-  getProducts(): Product[] {
-    return this.products;
+  getProducts(): Observable<Product[]> {
+    return this.products$.asObservable();
   }
 
   getProductById(id: number): Product | undefined {
-    return this.products.find(p => p.id === id);
+    return this.products$.value.find(p => p.id === id);
   }
 
   addProduct(product: Product): void {
-    const newId = this.products.length
-      ? Math.max(...this.products.map(p => p.id)) + 1
+    const newId = this.products$.value.length
+      ? Math.max(...this.products$.value.map(p => p.id)) + 1
       : 1;
 
     const category = this.categoryService
       .getCategories()
       .find(c => c.id === product.categoryId);
-    const brand = this.brandService
-      .getBrands()
-      .find(b => b.id === product.brandId);
+    const brand = this.brandService.getBrands().find(b => b.id === product.brandId);
 
-    const newProduct: Product = {
-      ...product,
-      id: newId,
-      category,
-      brand,
-    };
-
-    this.products.push(newProduct);
+    const newProduct: Product = { ...product, id: newId, category, brand };
+    this.products$.next([...this.products$.value, newProduct]);
   }
 
   updateProduct(id: number, updatedProduct: Product): void {
-    const index = this.products.findIndex(p => p.id === id);
-    if (index !== -1) {
+    const products = this.products$.value.map(p => {
+      if (p.id !== id) return p;
+
       const category = this.categoryService
         .getCategories()
         .find(c => c.id === updatedProduct.categoryId);
-      const brand = this.brandService
-        .getBrands()
-        .find(b => b.id === updatedProduct.brandId);
+      const brand = this.brandService.getBrands().find(b => b.id === updatedProduct.brandId);
 
-      this.products[index] = {
-        ...updatedProduct,
-        id,
-        category,
-        brand,
-      };
-    }
+      return { ...updatedProduct, id, category, brand };
+    });
+
+    this.products$.next(products);
   }
 
   deleteProduct(id: number): void {
-    this.products = this.products.filter(p => p.id !== id);
+    this.products$.next(this.products$.value.filter(p => p.id !== id));
   }
 }

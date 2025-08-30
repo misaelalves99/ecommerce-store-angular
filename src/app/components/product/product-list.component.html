@@ -22,14 +22,35 @@
       <td>{{ product.category?.name || '-' }}</td>
       <td>{{ product.brand?.name || '-' }}</td>
       <td>
-        <span class="badge" [ngClass]="product.isActive ? 'badgeSuccess' : 'badgeSecondary'">
+        <span
+          class="badge"
+          [ngClass]="product.isActive ? 'badgeSuccess' : 'badgeSecondary'"
+        >
           {{ product.isActive ? 'Ativo' : 'Inativo' }}
         </span>
       </td>
       <td>
-        <a [routerLink]="['/products', product.id]" class="btn btnInfo btn-sm me-1">Detalhes</a>
-        <a [routerLink]="['/products/edit', product.id]" class="btn btnWarning btn-sm me-1">Editar</a>
-        <a [routerLink]="['/products/delete', product.id]" class="btn btnDanger btn-sm">Excluir</a>
+        <button
+          type="button"
+          class="btn btnInfo btn-sm me-1"
+          (click)="onDetails(product.id)"
+        >
+          Detalhes
+        </button>
+        <button
+          type="button"
+          class="btn btnWarning btn-sm me-1"
+          (click)="onEdit(product.id)"
+        >
+          Editar
+        </button>
+        <button
+          type="button"
+          class="btn btnDanger btn-sm"
+          (click)="onDelete(product.id)"
+        >
+          Excluir
+        </button>
       </td>
     </tr>
   </tbody>

@@ -1,22 +1,21 @@
 // src/app/pages/category/create/create-category-page.component.ts
 
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { CategoryFormComponent } from '../../../components/category/category-form.component';
 import { CategoryService } from '../../../services/category.service';
+import { CategoryFormComponent, CategoryFormData } from '../../../components/category/category-form.component';
 
 @Component({
   selector: 'app-create-category-page',
   standalone: true,
-  imports: [CommonModule, CategoryFormComponent],
+  imports: [CategoryFormComponent],
   templateUrl: './create-category-page.component.html',
-  styleUrls: ['./create-category-page.component.css']
+  styleUrls: ['./create-category-page.component.css'],
 })
 export class CreateCategoryPageComponent {
-  constructor(private categoryService: CategoryService, private router: Router) {}
+  constructor(private router: Router, private categoryService: CategoryService) {}
 
-  handleCreate(data: { name: string; description: string }) {
+  handleCreate(data: CategoryFormData) {
     this.categoryService.addCategory(data);
     this.router.navigate(['/categories']);
   }

@@ -5,9 +5,10 @@
 
   <app-product-details [product]="product"></app-product-details>
 
-  <button class="btnPrimary" (click)="goBack()">
-    Voltar para a lista
-  </button>
+  <div class="actions">
+    <button class="btnPrimary" (click)="goBack()">Voltar</button>
+    <button class="btnSecondary" (click)="goToEdit()">Editar</button>
+  </div>
 </div>
 
 <ng-template #loading>

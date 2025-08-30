@@ -4,11 +4,12 @@
   <h1 class="title">Editar Produto</h1>
 
   <app-product-form
-    [initialProduct]="product"
+    [initialData]="product"
     [categories]="categories"
     [brands]="brands"
-    (submitEvent)="handleSave($event)"
-    (cancelEvent)="handleCancel()"
+    submitLabel="Salvar"
+    (onSubmit)="handleSave($event)"
+    (onCancel)="handleCancel()"
   >
   </app-product-form>
 </div>

@@ -22,6 +22,7 @@
   letter-spacing: 1.2px;
 }
 
+/* Botão estilizado igual ao ProductPage */
 .btn {
   font-weight: 600;
   padding: 0.75rem 1.5rem;
@@ -29,17 +30,20 @@
   text-decoration: none;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border: none;
   cursor: pointer;
-  user-select: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btnPrimary {
+  background-color: #007bff;
   color: #fff;
-  background-color: #007bff; /* Primary blue for main actions */
   border: 1px solid #007bff;
 }
 
-.btn:hover,
 .btnPrimary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
   background-color: #0056b3;
 }

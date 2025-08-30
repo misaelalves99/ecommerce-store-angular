@@ -12,7 +12,7 @@ import { Product } from '../../../types/product.model';
   standalone: true,
   imports: [CommonModule, RouterModule, ProductDetailsComponent],
   templateUrl: './details-product-page.component.html',
-  styleUrls: ['./details-product-page.component.css']
+  styleUrls: ['./details-product-page.component.css'],
 })
 export class DetailsProductPageComponent implements OnInit {
   product: Product | null = null;
@@ -24,19 +24,27 @@ export class DetailsProductPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const idParam = this.route.snapshot.paramMap.get('id');
+    const idParam = Number(this.route.snapshot.paramMap.get('id'));
     if (idParam) {
-      const foundProduct = this.productService.getProducts().find(p => p.id === Number(idParam));
-      if (foundProduct) {
-        this.product = foundProduct;
-      } else {
-        alert('Produto não encontrado.');
-        this.router.navigate(['/products']);
-      }
+      this.productService.getProducts().subscribe(products => {
+        const foundProduct = products.find(p => p.id === idParam);
+        if (foundProduct) {
+          this.product = foundProduct;
+        } else {
+          alert('Produto não encontrado.');
+          this.router.navigate(['/products']);
+        }
+      });
     }
   }
 
   goBack(): void {
     this.router.navigate(['/products']);
+  }
+
+  goToEdit(): void {
+    if (this.product) {
+      this.router.navigate(['/products/edit', this.product.id]);
+    }
   }
 }

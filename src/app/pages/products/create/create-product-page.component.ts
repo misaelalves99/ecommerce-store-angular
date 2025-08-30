@@ -1,26 +1,26 @@
 // src/app/pages/products/create-product-page.component.ts
 
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { ProductFormComponent } from '../../../components/product/product-form.component';
+import { Product } from '../../../types/product.model';
 import { ProductService } from '../../../services/product.service';
+import { ProductFormComponent } from '../../../components/product/product-form.component';
 import { CategoryService } from '../../../services/category.service';
 import { BrandService } from '../../../services/brand.service';
-import { Product } from '../../../types/product.model';
 import { Category } from '../../../types/category.model';
 import { Brand } from '../../../types/brand.model';
 
 @Component({
   selector: 'app-create-product-page',
   standalone: true,
-  imports: [CommonModule, ProductFormComponent],
+  imports: [ProductFormComponent],
   templateUrl: './create-product-page.component.html',
   styleUrls: ['./create-product-page.component.css'],
 })
 export class CreateProductPageComponent {
   categories: Category[] = [];
   brands: Brand[] = [];
+
   emptyProduct: Product = {
     id: 0,
     name: '',
@@ -39,12 +39,13 @@ export class CreateProductPageComponent {
     private categoryService: CategoryService,
     private brandService: BrandService
   ) {
+    // Inicializando os arrays com tipo correto
     this.categories = this.categoryService.getCategories();
     this.brands = this.brandService.getBrands();
   }
 
-  handleSave(newProduct: Product) {
-    this.productService.addProduct(newProduct);
+  handleSave(product: Product) {
+    this.productService.addProduct(product);
     this.router.navigate(['/products']);
   }
 

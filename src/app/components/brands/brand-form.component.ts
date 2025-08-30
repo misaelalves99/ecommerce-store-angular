@@ -1,5 +1,7 @@
 // src/app/components/brand/brand-form.component.ts
 
+// src/app/components/brand/brand-form.component.ts
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class BrandFormComponent {
   @Input() initialName: string = '';
-  @Output() onSubmit = new EventEmitter<string>();
+  @Output() onSubmit = new EventEmitter<string>();  // ✅ emite string
   @Output() onCancel = new EventEmitter<void>();
 
   name: string = '';

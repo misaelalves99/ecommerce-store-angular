@@ -3,8 +3,11 @@
 <div class="container">
   <div class="header">
     <h1 class="heading">Marcas</h1>
-    <a routerLink="/brands/create" class="btn">Adicionar Marca</a>
+    <button class="btn btnPrimary" (click)="navigateToCreate()">Adicionar Marca</button>
   </div>
 
-  <app-brand-list [brands]="brands"></app-brand-list>
+  <app-brand-list
+    [brands]="brands"
+    (deleteBrandEvent)="handleDelete($event)">
+  </app-brand-list>
 </div>

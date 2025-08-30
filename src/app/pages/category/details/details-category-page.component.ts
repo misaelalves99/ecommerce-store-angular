@@ -20,15 +20,25 @@ export class DetailsCategoryPageComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private categoryService: CategoryService) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      const foundCategory = this.categoryService.getCategories().find(c => c.id === Number(id));
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      const foundCategory = this.categoryService.getCategories().find(c => c.id === Number(idParam));
       if (foundCategory) {
         this.category = foundCategory;
       } else {
         alert('Categoria não encontrada.');
         this.router.navigate(['/categories']);
       }
+    }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/categories']);
+  }
+
+  goToEdit(): void {
+    if (this.category) {
+      this.router.navigate(['/categories/edit', this.category.id]);
     }
   }
 }

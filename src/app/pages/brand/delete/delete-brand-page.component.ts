@@ -1,8 +1,8 @@
 // src/app/pages/brands/delete/delete-brand-page.component.ts
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BrandService } from '../../../services/brand.service';
 import { Brand } from '../../../types/brand.model';
 
@@ -13,15 +13,18 @@ import { Brand } from '../../../types/brand.model';
   templateUrl: './delete-brand-page.component.html',
   styleUrls: ['./delete-brand-page.component.css'],
 })
-export class DeleteBrandPageComponent {
-  brand: Brand | undefined;
+export class DeleteBrandPageComponent implements OnInit {
+  brand?: Brand;
 
-  constructor(private brandService: BrandService, private router: Router) {
-    const url = window.location.pathname;
-    const idStr = url.split('/').pop();
-    const id = idStr ? Number(idStr) : 0;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private brandService: BrandService
+  ) {}
 
-    this.brand = this.brandService.getBrands().find((b) => b.id === id);
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.brand = this.brandService.getBrands().find(b => b.id === id);
 
     if (!this.brand) {
       alert('Marca não encontrada.');
@@ -31,11 +34,8 @@ export class DeleteBrandPageComponent {
 
   handleDelete() {
     if (this.brand) {
-      const confirmed = confirm(`Deseja realmente deletar a marca "${this.brand.name}"?`);
-      if (confirmed) {
-        this.brandService.deleteBrand(this.brand.id);
-        this.router.navigate(['/brands']);
-      }
+      this.brandService.deleteBrand(this.brand.id);
+      this.router.navigate(['/brands']);
     }
   }
 

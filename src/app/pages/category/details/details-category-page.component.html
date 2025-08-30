@@ -1,20 +1,16 @@
 <!-- src/app/pages/category/details/details-category-page.component.html -->
 
-<div *ngIf="!category" class="loading">
-  Carregando detalhes da categoria...
-</div>
-
-<div *ngIf="category" class="pageContainer">
-  <h1 class="heading">Categoria - Detalhes</h1>
+<div class="pageContainer" *ngIf="category; else loading">
+  <h1 class="title">Detalhes da Categoria</h1>
 
   <app-category-details [category]="category"></app-category-details>
 
   <div class="actions">
-    <a routerLink="/categories" class="btn btn-secondary btn-custom">
-      Voltar
-    </a>
-    <a [routerLink]="['/categories/edit', category.id]" class="btn btn-warning btn-custom">
-      Editar
-    </a>
+    <button class="btnPrimary" (click)="goBack()">Voltar</button>
+    <button class="btnSecondary" (click)="goToEdit()">Editar</button>
   </div>
 </div>
+
+<ng-template #loading>
+  <p class="loading">Carregando detalhes da categoria...</p>
+</ng-template>

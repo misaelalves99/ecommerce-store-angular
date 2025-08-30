@@ -1,7 +1,8 @@
 // src/app/pages/category/delete-category-page.component.ts
-import { Component } from '@angular/core';
+
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../types/category.model';
 
@@ -12,15 +13,17 @@ import { Category } from '../../../types/category.model';
   templateUrl: './delete-category-page.component.html',
   styleUrls: ['./delete-category-page.component.css'],
 })
-export class DeleteCategoryPageComponent {
-  category: Category | undefined;
+export class DeleteCategoryPageComponent implements OnInit {
+  category?: Category;
 
-  constructor(private categoryService: CategoryService, private router: Router) {
-    // Pegar o id da URL
-    const url = window.location.pathname;
-    const idStr = url.split('/').pop();
-    const id = idStr ? Number(idStr) : 0;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private categoryService: CategoryService
+  ) {}
 
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
     this.category = this.categoryService.getCategories().find(c => c.id === id);
 
     if (!this.category) {
@@ -31,11 +34,8 @@ export class DeleteCategoryPageComponent {
 
   handleDelete() {
     if (this.category) {
-      const confirmed = confirm(`Deseja realmente deletar a categoria "${this.category.name}"?`);
-      if (confirmed) {
-        this.categoryService.deleteCategory(this.category.id);
-        this.router.navigate(['/categories']);
-      }
+      this.categoryService.deleteCategory(this.category.id);
+      this.router.navigate(['/categories']);
     }
   }
 

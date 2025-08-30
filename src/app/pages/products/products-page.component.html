@@ -3,10 +3,13 @@
 <div class="container">
   <div class="header">
     <h1 class="heading">Produtos</h1>
-    <a routerLink="/products/create" class="btn btnPrimary">
-      Adicionar Produto
-    </a>
+    <a class="btn btnPrimary" (click)="navigateToCreate()">Adicionar Produto</a>
   </div>
 
-  <app-product-list [products]="products"></app-product-list>
+  <app-product-list
+    [products]="products"
+    (edit)="handleEdit($event)"
+    (delete)="handleDelete($event)"
+    (details)="handleDetails($event)"
+  ></app-product-list>
 </div>

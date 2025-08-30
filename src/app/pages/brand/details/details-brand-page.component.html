@@ -1,16 +1,16 @@
 <!-- src/app/pages/brands/details/details-brand-page.component.html -->
 
-<div *ngIf="!brand" class="loading">
-  Carregando detalhes da marca...
-</div>
-
-<div *ngIf="brand" class="pageContainer">
-  <h1 class="heading">Marca - Detalhes</h1>
+<div class="pageContainer" *ngIf="brand; else loading">
+  <h1 class="title">Detalhes da Marca</h1>
 
   <app-brand-details [brand]="brand"></app-brand-details>
 
   <div class="actions">
-    <button class="btn btn-secondary" (click)="navigateToBrands()">Voltar</button>
-    <button class="btn btn-warning" (click)="navigateToEdit()">Editar</button>
+    <button class="btnPrimary" (click)="goBack()">Voltar</button>
+    <button class="btnSecondary" (click)="goToEdit()">Editar</button>
   </div>
 </div>
+
+<ng-template #loading>
+  <p class="loading">Carregando detalhes da marca...</p>
+</ng-template>
