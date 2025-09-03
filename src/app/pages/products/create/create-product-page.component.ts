@@ -1,6 +1,4 @@
-// src/app/pages/products/create-product-page.component.ts
-
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../../../types/product.model';
 import { ProductService } from '../../../services/product.service';
@@ -17,7 +15,7 @@ import { Brand } from '../../../types/brand.model';
   templateUrl: './create-product-page.component.html',
   styleUrls: ['./create-product-page.component.css'],
 })
-export class CreateProductPageComponent {
+export class CreateProductPageComponent implements OnInit {
   categories: Category[] = [];
   brands: Brand[] = [];
 
@@ -38,15 +36,18 @@ export class CreateProductPageComponent {
     private productService: ProductService,
     private categoryService: CategoryService,
     private brandService: BrandService
-  ) {
-    // Inicializando os arrays com tipo correto
-    this.categories = this.categoryService.getCategories();
-    this.brands = this.brandService.getBrands();
+  ) {}
+
+  ngOnInit(): void {
+    // Subscribes para receber dados corretamente dos serviços
+    this.categoryService.getCategories().subscribe((cats) => (this.categories = cats));
+    this.brandService.getBrands().subscribe((brands) => (this.brands = brands));
   }
 
   handleSave(product: Product) {
-    this.productService.addProduct(product);
-    this.router.navigate(['/products']);
+    this.productService.addProduct(product).subscribe(() => {
+      this.router.navigate(['/products']);
+    });
   }
 
   handleCancel() {

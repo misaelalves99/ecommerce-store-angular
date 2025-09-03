@@ -17,18 +17,28 @@ import { BrandService } from '../../../services/brand.service';
 export class DetailsBrandPageComponent implements OnInit {
   brand: Brand | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router, private brandService: BrandService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private brandService: BrandService
+  ) {}
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
-      const foundBrand = this.brandService.getBrands().find(b => b.id === Number(idParam));
-      if (foundBrand) {
-        this.brand = foundBrand;
-      } else {
-        alert('Marca não encontrada.');
-        this.router.navigate(['/brands']);
-      }
+      const brandId = Number(idParam);
+
+      // Assina o Observable
+      this.brandService.getBrands().subscribe((brands) => {
+        const foundBrand = brands.find(b => b.id === brandId);
+
+        if (foundBrand) {
+          this.brand = foundBrand;
+        } else {
+          alert('Marca não encontrada.');
+          this.router.navigate(['/brands']);
+        }
+      });
     }
   }
 

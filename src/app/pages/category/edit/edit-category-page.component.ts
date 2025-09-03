@@ -27,19 +27,20 @@ export class EditCategoryPageComponent implements OnInit {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       const id = Number(idParam);
-      const foundCategory = this.categoryService.getCategories().find(c => c.id === id);
-      if (foundCategory) {
-        this.category = foundCategory;
-      } else {
-        alert('Categoria não encontrada.');
-        this.router.navigate(['/categories']);
-      }
+      this.categoryService.getCategories().subscribe(categories => {
+        const foundCategory = categories.find(c => c.id === id);
+        if (foundCategory) {
+          this.category = foundCategory;
+        } else {
+          alert('Categoria não encontrada.');
+          this.router.navigate(['/categories']);
+        }
+      });
     }
   }
 
   handleUpdate(data: { name: string; description: string }) {
     if (this.category) {
-      // Atualiza a categoria via service
       this.categoryService.updateCategory(this.category.id, data);
       console.log('Categoria atualizada:', { id: this.category.id, ...data });
       this.router.navigate(['/categories']);

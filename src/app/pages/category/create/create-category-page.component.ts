@@ -3,7 +3,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
-import { CategoryFormComponent, CategoryFormData } from '../../../components/category/category-form.component';
+import { CategoryFormComponent } from '../../../components/category/category-form.component';
+import { CategoryFormData } from '../../../types/category-form-data.model';
 
 @Component({
   selector: 'app-create-category-page',

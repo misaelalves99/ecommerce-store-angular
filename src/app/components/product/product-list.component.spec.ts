@@ -8,13 +8,13 @@ import type { Brand } from '../../types/brand.model';
 
 describe('ProductListComponent', () => {
   const categories: Category[] = [
-    { id: 1, name: 'Categoria 1', description: 'Desc 1', createdAt: '2025-08-23' },
-    { id: 2, name: 'Categoria 2', description: 'Desc 2', createdAt: '2025-08-23' }
+    { id: 1, name: 'Categoria 1', description: 'Desc 1', createdAt: '2025-08-23', isActive: true },
+    { id: 2, name: 'Categoria 2', description: 'Desc 2', createdAt: '2025-08-23', isActive: true }
   ];
 
   const brands: Brand[] = [
-    { id: 1, name: 'Marca 1', createdAt: '2025-08-23' },
-    { id: 2, name: 'Marca 2', createdAt: '2025-08-23' }
+    { id: 1, name: 'Marca 1', createdAt: '2025-08-23', isActive: true },
+    { id: 2, name: 'Marca 2', createdAt: '2025-08-23', isActive: false }
   ];
 
   const products: Product[] = [

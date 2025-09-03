@@ -31,8 +31,8 @@ describe('BrandListComponent', () => {
 
   it('should render a table when brands array has items', () => {
     component.brands = [
-      { id: 1, name: 'Marca A' },
-      { id: 2, name: 'Marca B' }
+      { id: 1, name: 'Marca A', createdAt: new Date().toISOString(), isActive: true },
+      { id: 2, name: 'Marca B', createdAt: new Date().toISOString(), isActive: false }
     ];
     fixture.detectChanges();
     const table = fixture.nativeElement.querySelector('table');
@@ -41,15 +41,15 @@ describe('BrandListComponent', () => {
     expect(rows.length).toBe(2);
   });
 
-  it('should call handleDelete and trigger alert', () => {
-    spyOn(window, 'alert');
-    const brand: Brand = { id: 1, name: 'Marca Teste' };
-    component.handleDelete(brand);
-    expect(window.alert).toHaveBeenCalledWith('Excluir marca Marca Teste');
+  it('should call goToDelete and emit event', () => {
+    spyOn(component.deleteBrandEvent, 'emit');
+    const brand: Brand = { id: 1, name: 'Marca Teste', createdAt: new Date().toISOString(), isActive: true };
+    component.goToDelete(brand.id);
+    expect(component.deleteBrandEvent.emit).toHaveBeenCalledWith(brand.id);
   });
 
   it('should display brand data correctly in the table', () => {
-    component.brands = [{ id: 10, name: 'Marca X' }];
+    component.brands = [{ id: 10, name: 'Marca X', createdAt: new Date().toISOString(), isActive: true }];
     fixture.detectChanges();
     const tdElements = fixture.nativeElement.querySelectorAll('tbody td');
     expect(tdElements[0].textContent).toContain('10');

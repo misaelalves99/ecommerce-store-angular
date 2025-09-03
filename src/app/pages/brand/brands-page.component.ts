@@ -20,7 +20,9 @@ export class BrandsPageComponent implements OnInit {
   constructor(private router: Router, private brandService: BrandService) {}
 
   ngOnInit(): void {
-    this.brands = this.brandService.getBrands();
+    this.brandService.getBrands().subscribe((brands: Brand[]) => {
+      this.brands = brands;
+    });
   }
 
   navigateToCreate() {
@@ -28,7 +30,6 @@ export class BrandsPageComponent implements OnInit {
   }
 
   handleDelete(id: number) {
-    // Atualiza a lista local ao navegar para delete
     this.brands = this.brands.filter(b => b.id !== id);
   }
 }

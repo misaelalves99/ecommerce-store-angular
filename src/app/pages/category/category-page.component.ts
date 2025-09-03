@@ -1,7 +1,5 @@
 // src/app/pages/category/category-page.component.ts
 
-// src/app/pages/category/category-page.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -22,7 +20,10 @@ export class CategoryPageComponent implements OnInit {
   constructor(private router: Router, private categoryService: CategoryService) {}
 
   ngOnInit(): void {
-    this.categories = this.categoryService.getCategories();
+    // Subscribing ao Observable para receber os dados
+    this.categoryService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    });
   }
 
   navigateToCreate() {
@@ -30,7 +31,6 @@ export class CategoryPageComponent implements OnInit {
   }
 
   handleDelete(id: number) {
-    // Remove a categoria da lista local ao navegar para delete
     this.categories = this.categories.filter(c => c.id !== id);
   }
 }

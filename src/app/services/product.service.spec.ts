@@ -5,6 +5,7 @@ import { ProductService } from './product.service';
 import { BrandService } from './brand.service';
 import { CategoryService } from './category.service';
 import { Product } from '../types/product.model';
+import { firstValueFrom } from 'rxjs';
 
 describe('ProductService', () => {
   let service: ProductService;
@@ -25,8 +26,8 @@ describe('ProductService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('deve retornar a lista inicial de produtos', () => {
-    const products = service.getProducts();
+  it('deve retornar a lista inicial de produtos', async () => {
+    const products: Product[] = await firstValueFrom(service.getProducts());
     expect(products.length).toBe(3);
 
     const notebook = products.find(p => p.id === 1);
@@ -36,7 +37,7 @@ describe('ProductService', () => {
     expect(notebook?.brand?.name).toBe('Nike');
   });
 
-  it('deve adicionar um novo produto corretamente', () => {
+  it('deve adicionar um novo produto corretamente', async () => {
     const newProduct: Product = {
       id: 0, // será sobrescrito
       name: 'Mouse Gamer',
@@ -51,10 +52,12 @@ describe('ProductService', () => {
       brand: undefined,
     };
 
-    const beforeCount = service.getProducts().length;
-    service.addProduct(newProduct);
+    let products: Product[] = await firstValueFrom(service.getProducts());
+    const beforeCount = products.length;
 
-    const products = service.getProducts();
+    await firstValueFrom(service.addProduct(newProduct));
+    products = await firstValueFrom(service.getProducts());
+
     expect(products.length).toBe(beforeCount + 1);
 
     const added = products[products.length - 1];
@@ -63,5 +66,35 @@ describe('ProductService', () => {
     expect(added.sku).toBe(newProduct.sku);
     expect(added.category?.name).toBe('Eletrônicos');
     expect(added.brand?.name).toBe('Nike');
+  });
+
+  it('deve atualizar um produto existente', async () => {
+    let products: Product[] = await firstValueFrom(service.getProducts());
+    const updatedData = { ...products[0], name: 'Notebook Atualizado' };
+
+    await firstValueFrom(service.updateProduct(updatedData.id, updatedData));
+
+    products = await firstValueFrom(service.getProducts());
+    const updated = products.find(p => p.id === updatedData.id);
+
+    expect(updated).toBeTruthy();
+    expect(updated?.name).toBe('Notebook Atualizado');
+  });
+
+  it('deve deletar um produto existente', async () => {
+    let products: Product[] = await firstValueFrom(service.getProducts());
+    const beforeCount = products.length;
+
+    service.deleteProduct(1);
+
+    products = await firstValueFrom(service.getProducts());
+    expect(products.length).toBe(beforeCount - 1);
+    expect(products.find(p => p.id === 1)).toBeUndefined();
+  });
+
+  it('deve retornar produto por id', async () => {
+    const product = await firstValueFrom(service.getProductById(2));
+    expect(product).toBeTruthy();
+    expect(product?.id).toBe(2);
   });
 });

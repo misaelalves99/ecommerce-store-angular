@@ -1,11 +1,10 @@
-// src/app/components/category/category-list.component.spec.ts
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CategoryListComponent } from './category-list.component';
 import { Router } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../types/category.model';
 import { CommonModule } from '@angular/common';
+import { of } from 'rxjs';
 import '@testing-library/jasmine-dom';
 
 describe('CategoryListComponent', () => {
@@ -17,6 +16,7 @@ describe('CategoryListComponent', () => {
   beforeEach(async () => {
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     categoryServiceSpy = jasmine.createSpyObj('CategoryService', ['deleteCategory']);
+    categoryServiceSpy.deleteCategory.and.returnValue(of(null));
 
     await TestBed.configureTestingModule({
       imports: [CategoryListComponent, CommonModule],
@@ -38,13 +38,14 @@ describe('CategoryListComponent', () => {
   it('should render "Nenhuma categoria cadastrada" if categories is empty', () => {
     component.categories = [];
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('.empty')?.textContent).toContain('Nenhuma categoria cadastrada');
+    expect(fixture.nativeElement.querySelector('.empty')?.textContent)
+      .toContain('Nenhuma categoria cadastrada');
   });
 
   it('should render categories in the table', () => {
     const categories: Category[] = [
-      { id: 1, name: 'Cat 1', description: 'Desc 1', createdAt: '2025-08-23' },
-      { id: 2, name: 'Cat 2', description: 'Desc 2', createdAt: '2025-08-23' }
+      { id: 1, name: 'Cat 1', description: 'Desc 1', createdAt: '2025-08-23', isActive: true },
+      { id: 2, name: 'Cat 2', description: 'Desc 2', createdAt: '2025-08-23', isActive: true }
     ];
     component.categories = categories;
     fixture.detectChanges();
@@ -57,7 +58,7 @@ describe('CategoryListComponent', () => {
 
   it('should navigate to details page on goToDetails', () => {
     component.goToDetails(5);
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/categories', 5]);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/categories/details', 5]);
   });
 
   it('should navigate to edit page on goToEdit', () => {
@@ -68,7 +69,7 @@ describe('CategoryListComponent', () => {
   it('should delete category when confirmed', () => {
     spyOn(window, 'confirm').and.returnValue(true);
 
-    const category: Category = { id: 1, name: 'Cat 1', description: 'Desc 1', createdAt: '2025-08-23' };
+    const category: Category = { id: 1, name: 'Cat 1', description: 'Desc 1', createdAt: '2025-08-23', isActive: true };
     component.categories = [category];
     fixture.detectChanges();
 
@@ -81,7 +82,7 @@ describe('CategoryListComponent', () => {
   it('should not delete category when canceled', () => {
     spyOn(window, 'confirm').and.returnValue(false);
 
-    const category: Category = { id: 1, name: 'Cat 1', description: 'Desc 1', createdAt: '2025-08-23' };
+    const category: Category = { id: 1, name: 'Cat 1', description: 'Desc 1', createdAt: '2025-08-23', isActive: true };
     component.categories = [category];
     fixture.detectChanges();
 

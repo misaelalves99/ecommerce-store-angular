@@ -2,7 +2,6 @@
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrandDetailsComponent, Brand } from './brand-details.component';
-import { By } from '@angular/platform-browser';
 
 describe('BrandDetailsComponent', () => {
   let component: BrandDetailsComponent;

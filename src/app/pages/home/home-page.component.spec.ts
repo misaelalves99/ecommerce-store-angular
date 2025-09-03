@@ -31,25 +31,39 @@ describe('HomePageComponent', () => {
       .toContain('Bem-vindo ao Painel Administrativo');
   });
 
-  it('deve chamar navigateTo com o caminho correto (categorias)', () => {
+  it('deve chamar navigate com o caminho correto (categorias)', () => {
     const navigateSpy = spyOn(router, 'navigate');
-    component.navigateTo('/categories');
+    component.navigate('/categories'); // <-- corrigido
     expect(navigateSpy).toHaveBeenCalledWith(['/categories']);
   });
 
-  it('deve chamar navigateTo quando botão "Gerenciar Marcas" for clicado', () => {
+  it('deve chamar navigate quando o card "Gerenciar Marcas" for clicado', () => {
     const navigateSpy = spyOn(router, 'navigate');
     const compiled = fixture.nativeElement as HTMLElement;
-    const button = compiled.querySelector('button.btn-outline-primary') as HTMLButtonElement;
-    button.click();
+    const card = Array.from(compiled.querySelectorAll('.card'))
+      .find(c => c.textContent?.includes('Gerenciar Marcas')) as HTMLElement;
+
+    card.click();
     expect(navigateSpy).toHaveBeenCalledWith(['/brands']);
   });
 
-  it('deve chamar navigateTo quando botão "Gerenciar Produtos" for clicado', () => {
+  it('deve chamar navigate quando o card "Gerenciar Produtos" for clicado', () => {
     const navigateSpy = spyOn(router, 'navigate');
     const compiled = fixture.nativeElement as HTMLElement;
-    const button = compiled.querySelector('button.btn-outline-dark') as HTMLButtonElement;
-    button.click();
+    const card = Array.from(compiled.querySelectorAll('.card'))
+      .find(c => c.textContent?.includes('Gerenciar Produtos')) as HTMLElement;
+
+    card.click();
     expect(navigateSpy).toHaveBeenCalledWith(['/products']);
+  });
+
+  it('deve chamar navigate quando o card "Gerenciar Categorias" for clicado', () => {
+    const navigateSpy = spyOn(router, 'navigate');
+    const compiled = fixture.nativeElement as HTMLElement;
+    const card = Array.from(compiled.querySelectorAll('.card'))
+      .find(c => c.textContent?.includes('Gerenciar Categorias')) as HTMLElement;
+
+    card.click();
+    expect(navigateSpy).toHaveBeenCalledWith(['/categories']);
   });
 });

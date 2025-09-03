@@ -7,19 +7,24 @@ import type { Brand } from '../../types/brand.model';
 import type { Category } from '../../types/category.model';
 
 describe('ProductDetailsComponent', () => {
+  // Mock de Category com isActive
   const mockCategory: Category = {
     id: 1,
     name: 'Categoria Teste',
     description: 'Descrição da categoria',
-    createdAt: '2025-08-23'
+    createdAt: '2025-08-23',
+    isActive: true, // corrigido
   };
 
+  // Mock de Brand com isActive
   const mockBrand: Brand = {
     id: 1,
     name: 'Marca Teste',
-    createdAt: '2025-08-23'
+    createdAt: '2025-08-23',
+    isActive: true,
   };
 
+  // Mock de Product completo
   const mockProduct: Product = {
     id: 1,
     name: 'Produto Teste',
@@ -36,22 +41,22 @@ describe('ProductDetailsComponent', () => {
 
   it('should render product details correctly', async () => {
     await render(ProductDetailsComponent, {
-      componentProperties: { product: mockProduct }
+      componentProperties: { product: mockProduct },
     });
 
     expect(screen.getByText(mockProduct.name)).toBeTruthy();
-    expect(screen.getByText(`Descrição:`).nextSibling?.textContent).toContain(mockProduct.description);
-    expect(screen.getByText(`SKU:`).nextSibling?.textContent).toContain(mockProduct.sku);
-    expect(screen.getByText(`Preço:`).nextSibling?.textContent).toContain('R$');
-    expect(screen.getByText(`Estoque:`).nextSibling?.textContent).toContain(mockProduct.stock.toString());
-    expect(screen.getByText(`Categoria:`).nextSibling?.textContent).toContain(mockCategory.name);
-    expect(screen.getByText(`Marca:`).nextSibling?.textContent).toContain(mockBrand.name);
-    expect(screen.getByText(`Status:`).nextSibling?.textContent).toContain('Ativo');
+    expect(screen.getByText('Descrição:').nextSibling?.textContent).toContain(mockProduct.description);
+    expect(screen.getByText('SKU:').nextSibling?.textContent).toContain(mockProduct.sku);
+    expect(screen.getByText('Preço:').nextSibling?.textContent).toContain('R$');
+    expect(screen.getByText('Estoque:').nextSibling?.textContent).toContain(mockProduct.stock.toString());
+    expect(screen.getByText('Categoria:').nextSibling?.textContent).toContain(mockCategory.name);
+    expect(screen.getByText('Marca:').nextSibling?.textContent).toContain(mockBrand.name);
+    expect(screen.getByText('Status:').nextSibling?.textContent).toContain('Ativo');
   });
 
   it('should format price correctly', async () => {
     const { fixture } = await render(ProductDetailsComponent, {
-      componentProperties: { product: mockProduct }
+      componentProperties: { product: mockProduct },
     });
 
     const instance = fixture.componentInstance;
@@ -63,18 +68,20 @@ describe('ProductDetailsComponent', () => {
     const productNoCatBrand: Product = {
       ...mockProduct,
       category: undefined,
-      brand: undefined
+      brand: undefined,
     };
+
     await render(ProductDetailsComponent, { componentProperties: { product: productNoCatBrand } });
 
-    expect(screen.getByText(`Categoria:`).nextSibling?.textContent).toContain('-');
-    expect(screen.getByText(`Marca:`).nextSibling?.textContent).toContain('-');
+    expect(screen.getByText('Categoria:').nextSibling?.textContent).toContain('-');
+    expect(screen.getByText('Marca:').nextSibling?.textContent).toContain('-');
   });
 
   it('should display "Inativo" when product is not active', async () => {
     const inactiveProduct: Product = { ...mockProduct, isActive: false };
+
     await render(ProductDetailsComponent, { componentProperties: { product: inactiveProduct } });
 
-    expect(screen.getByText(`Status:`).nextSibling?.textContent).toContain('Inativo');
+    expect(screen.getByText('Status:').nextSibling?.textContent).toContain('Inativo');
   });
 });

@@ -1,32 +1,37 @@
-// src/app/pages/category/details/details-category-page.component.spec.ts
-
 import { render, screen } from '@testing-library/angular';
+import { of } from 'rxjs';
 import { DetailsCategoryPageComponent } from './details-category-page.component';
 import { CategoryDetailsComponent } from '../../../components/category/category-details.component';
 import { CategoryService } from '../../../services/category.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
+import { Category } from '../../../types/category.model';
 
 describe('DetailsCategoryPageComponent', () => {
   let mockCategoryService: jasmine.SpyObj<CategoryService>;
   let mockRouter: jasmine.SpyObj<Router>;
+
+  const fakeCategory: Category = {
+    id: 1,
+    name: 'Categoria Teste',
+    description: 'Descrição teste',
+    createdAt: '2025-08-23T12:00:00Z',
+    isActive: true, // corrigido
+  };
 
   beforeEach(() => {
     mockCategoryService = jasmine.createSpyObj('CategoryService', ['getCategories']);
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
   });
 
-  it('should render "Carregando" when no category is found initially', async () => {
-    mockCategoryService.getCategories.and.returnValue([]);
-    const fakeActivatedRoute = {
-      snapshot: { paramMap: new Map([['id', '1']]) }
-    };
+  it('should render loading when category not yet loaded', async () => {
+    mockCategoryService.getCategories.and.returnValue(of([]));
 
     await render(DetailsCategoryPageComponent, {
       imports: [CategoryDetailsComponent],
       providers: [
         { provide: CategoryService, useValue: mockCategoryService },
         { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: fakeActivatedRoute },
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({ id: '1' }) } } },
       ],
     });
 
@@ -35,23 +40,18 @@ describe('DetailsCategoryPageComponent', () => {
   });
 
   it('should load category details when found', async () => {
-    const fakeCategory = { id: 1, name: 'Categoria Teste', description: 'Desc', createdAt: '2025-08-23T12:00:00Z' };
-    mockCategoryService.getCategories.and.returnValue([fakeCategory]);
-
-    const fakeActivatedRoute = {
-      snapshot: { paramMap: new Map([['id', '1']]) }
-    };
+    mockCategoryService.getCategories.and.returnValue(of([fakeCategory]));
 
     await render(DetailsCategoryPageComponent, {
       imports: [CategoryDetailsComponent],
       providers: [
         { provide: CategoryService, useValue: mockCategoryService },
         { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: fakeActivatedRoute },
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({ id: '1' }) } } },
       ],
     });
 
-    const heading = screen.getByText(/Categoria - Detalhes/i);
+    const heading = screen.getByText(/Detalhes da Categoria/i);
     expect(heading).toBeTruthy();
 
     const name = screen.getByText(fakeCategory.name);
@@ -60,17 +60,14 @@ describe('DetailsCategoryPageComponent', () => {
 
   it('should alert and navigate when category not found', async () => {
     spyOn(window, 'alert');
-    mockCategoryService.getCategories.and.returnValue([]);
-    const fakeActivatedRoute = {
-      snapshot: { paramMap: new Map([['id', '99']]) }
-    };
+    mockCategoryService.getCategories.and.returnValue(of([]));
 
     await render(DetailsCategoryPageComponent, {
       imports: [CategoryDetailsComponent],
       providers: [
         { provide: CategoryService, useValue: mockCategoryService },
         { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: fakeActivatedRoute },
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({ id: '999' }) } } },
       ],
     });
 

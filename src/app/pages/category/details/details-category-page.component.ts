@@ -17,18 +17,25 @@ import { CategoryDetailsComponent } from '../../../components/category/category-
 export class DetailsCategoryPageComponent implements OnInit {
   category: Category | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router, private categoryService: CategoryService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private categoryService: CategoryService
+  ) {}
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
-      const foundCategory = this.categoryService.getCategories().find(c => c.id === Number(idParam));
-      if (foundCategory) {
-        this.category = foundCategory;
-      } else {
-        alert('Categoria não encontrada.');
-        this.router.navigate(['/categories']);
-      }
+      const id = Number(idParam);
+      this.categoryService.getCategories().subscribe(categories => {
+        const foundCategory = categories.find(c => c.id === id);
+        if (foundCategory) {
+          this.category = foundCategory;
+        } else {
+          alert('Categoria não encontrada.');
+          this.router.navigate(['/categories']);
+        }
+      });
     }
   }
 

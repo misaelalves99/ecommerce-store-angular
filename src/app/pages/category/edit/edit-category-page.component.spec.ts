@@ -1,14 +1,24 @@
 // src/app/pages/category/edit-category-page.component.spec.ts
 
 import { render, screen } from '@testing-library/angular';
+import { of } from 'rxjs';
 import { EditCategoryPageComponent } from './edit-category-page.component';
 import { CategoryFormComponent } from '../../../components/category/category-form.component';
 import { CategoryService } from '../../../services/category.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
+import { Category } from '../../../types/category.model';
 
 describe('EditCategoryPageComponent', () => {
   let mockCategoryService: jasmine.SpyObj<CategoryService>;
   let mockRouter: jasmine.SpyObj<Router>;
+
+  const fakeCategory: Category = {
+    id: 1,
+    name: 'Categoria Teste',
+    description: 'Descrição teste',
+    createdAt: '2025-08-23T12:00:00Z',
+    isActive: true, // corrigido
+  };
 
   beforeEach(() => {
     mockCategoryService = jasmine.createSpyObj('CategoryService', ['getCategories', 'updateCategory']);
@@ -16,17 +26,14 @@ describe('EditCategoryPageComponent', () => {
   });
 
   it('should show "Carregando" when no category found initially', async () => {
-    mockCategoryService.getCategories.and.returnValue([]);
-    const fakeActivatedRoute = {
-      snapshot: { paramMap: new Map([['id', '1']]) }
-    };
+    mockCategoryService.getCategories.and.returnValue(of([]));
 
     await render(EditCategoryPageComponent, {
       imports: [CategoryFormComponent],
       providers: [
         { provide: CategoryService, useValue: mockCategoryService },
         { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: fakeActivatedRoute }
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({ id: '1' }) } } }
       ]
     });
 
@@ -35,19 +42,14 @@ describe('EditCategoryPageComponent', () => {
   });
 
   it('should load category and render the form when found', async () => {
-    const fakeCategory = { id: 1, name: 'Categoria Teste', description: 'Desc', createdAt: '2025-08-23T12:00:00Z' };
-    mockCategoryService.getCategories.and.returnValue([fakeCategory]);
-
-    const fakeActivatedRoute = {
-      snapshot: { paramMap: new Map([['id', '1']]) }
-    };
+    mockCategoryService.getCategories.and.returnValue(of([fakeCategory]));
 
     await render(EditCategoryPageComponent, {
       imports: [CategoryFormComponent],
       providers: [
         { provide: CategoryService, useValue: mockCategoryService },
         { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: fakeActivatedRoute }
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({ id: '1' }) } } }
       ]
     });
 
@@ -58,17 +60,14 @@ describe('EditCategoryPageComponent', () => {
 
   it('should alert and navigate if category does not exist', async () => {
     spyOn(window, 'alert');
-    mockCategoryService.getCategories.and.returnValue([]);
-    const fakeActivatedRoute = {
-      snapshot: { paramMap: new Map([['id', '99']]) }
-    };
+    mockCategoryService.getCategories.and.returnValue(of([]));
 
     await render(EditCategoryPageComponent, {
       imports: [CategoryFormComponent],
       providers: [
         { provide: CategoryService, useValue: mockCategoryService },
         { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: fakeActivatedRoute }
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({ id: '99' }) } } }
       ]
     });
 
@@ -77,19 +76,14 @@ describe('EditCategoryPageComponent', () => {
   });
 
   it('should call updateCategory and navigate when handleUpdate is triggered', async () => {
-    const fakeCategory = { id: 1, name: 'Old Name', description: 'Old Desc', createdAt: '2025-08-23T12:00:00Z' };
-    mockCategoryService.getCategories.and.returnValue([fakeCategory]);
-
-    const fakeActivatedRoute = {
-      snapshot: { paramMap: new Map([['id', '1']]) }
-    };
+    mockCategoryService.getCategories.and.returnValue(of([fakeCategory]));
 
     const { fixture } = await render(EditCategoryPageComponent, {
       imports: [CategoryFormComponent],
       providers: [
         { provide: CategoryService, useValue: mockCategoryService },
         { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: fakeActivatedRoute }
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({ id: '1' }) } } }
       ]
     });
 
@@ -100,24 +94,18 @@ describe('EditCategoryPageComponent', () => {
   });
 
   it('should navigate when handleCancel is triggered', async () => {
-    const fakeCategory = { id: 1, name: 'Categoria Teste', description: 'Desc', createdAt: '2025-08-23T12:00:00Z' };
-    mockCategoryService.getCategories.and.returnValue([fakeCategory]);
-
-    const fakeActivatedRoute = {
-      snapshot: { paramMap: new Map([['id', '1']]) }
-    };
+    mockCategoryService.getCategories.and.returnValue(of([fakeCategory]));
 
     const { fixture } = await render(EditCategoryPageComponent, {
       imports: [CategoryFormComponent],
       providers: [
         { provide: CategoryService, useValue: mockCategoryService },
         { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: fakeActivatedRoute }
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({ id: '1' }) } } }
       ]
     });
 
     fixture.componentInstance.handleCancel();
-
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/categories']);
   });
 });

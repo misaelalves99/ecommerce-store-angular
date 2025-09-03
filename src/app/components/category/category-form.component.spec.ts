@@ -1,8 +1,9 @@
 // src/app/components/category/category-form.component.spec.ts
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CategoryFormComponent, CategoryFormData } from './category-form.component';
+import { CategoryFormComponent } from './category-form.component';
 import { FormsModule } from '@angular/forms';
+import { CategoryFormData } from '../../types/category-form-data.model';
 import '@testing-library/jasmine-dom';
 
 describe('CategoryFormComponent', () => {
@@ -57,7 +58,7 @@ describe('CategoryFormComponent', () => {
     expect(component.cancelEvent.emit).toHaveBeenCalled();
   });
 
-  it('should render input and textarea with bound values', async () => {
+  it('should render input and textarea with bound values', () => {
     component.name = 'Nome Teste';
     component.description = 'Descrição Teste';
     fixture.detectChanges();
@@ -67,5 +68,18 @@ describe('CategoryFormComponent', () => {
 
     expect(input.value).toBe('Nome Teste');
     expect(textarea.value).toBe('Descrição Teste');
+  });
+
+  it('should display error messages in template when invalid', () => {
+    component.name = '';
+    component.description = '';
+    component.handleSubmit();
+    fixture.detectChanges();
+
+    const nameError = fixture.nativeElement.querySelector('.error');
+    const descriptionError = fixture.nativeElement.querySelectorAll('.error')[1];
+
+    expect(nameError.textContent).toContain('O nome é obrigatório.');
+    expect(descriptionError.textContent).toContain('A descrição é obrigatória.');
   });
 });

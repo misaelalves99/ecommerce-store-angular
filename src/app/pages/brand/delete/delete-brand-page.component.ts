@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrandService } from '../../../services/brand.service';
 import { Brand } from '../../../types/brand.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-delete-brand-page',
@@ -24,12 +25,18 @@ export class DeleteBrandPageComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.brand = this.brandService.getBrands().find(b => b.id === id);
 
-    if (!this.brand) {
-      alert('Marca não encontrada.');
-      this.router.navigate(['/brands']);
-    }
+    // Subscribe para obter a lista de marcas
+    this.brandService.getBrands()
+      .pipe(take(1)) // Pega apenas uma vez
+      .subscribe(brands => {
+        this.brand = brands.find(b => b.id === id);
+
+        if (!this.brand) {
+          alert('Marca não encontrada.');
+          this.router.navigate(['/brands']);
+        }
+      });
   }
 
   handleDelete() {

@@ -20,8 +20,8 @@ class MockCategoryListComponent {
 class MockCategoryService {
   getCategories(): Category[] {
     return [
-      { id: 1, name: 'Categoria A', description: 'Desc A', createdAt: '2025-08-23T12:00:00Z' },
-      { id: 2, name: 'Categoria B', description: 'Desc B', createdAt: '2025-08-23T12:00:00Z' }
+      { id: 1, name: 'Categoria A', description: 'Desc A', createdAt: '2025-08-23T12:00:00Z', isActive: true },
+      { id: 2, name: 'Categoria B', description: 'Desc B', createdAt: '2025-08-23T12:00:00Z', isActive: true }
     ];
   }
 }

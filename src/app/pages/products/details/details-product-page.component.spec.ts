@@ -1,7 +1,6 @@
 // src/app/pages/products/details-product-page.component.spec.ts
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { DetailsProductPageComponent } from './details-product-page.component';
@@ -15,14 +14,15 @@ describe('DetailsProductPageComponent', () => {
   let productServiceSpy: jasmine.SpyObj<ProductService>;
 
   const mockProducts: Product[] = [
-    { id: 1, name: 'Produto A', description: '', sku: 'A1', price: 100, stock: 10, categoryId: 1, brandId: 1, isActive: true },
-    { id: 2, name: 'Produto B', description: '', sku: 'B1', price: 200, stock: 20, categoryId: 2, brandId: 2, isActive: true }
+    { id: 1, name: 'Produto A', description: '', sku: 'A1', price: 100, stock: 10, categoryId: 1, brandId: 1, isActive: true, category: null!, brand: null! },
+    { id: 2, name: 'Produto B', description: '', sku: 'B1', price: 200, stock: 20, categoryId: 2, brandId: 2, isActive: true, category: null!, brand: null! }
   ];
 
   beforeEach(async () => {
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     productServiceSpy = jasmine.createSpyObj('ProductService', ['getProducts']);
-    productServiceSpy.getProducts.and.returnValue(mockProducts);
+    // <-- Retorna Observable agora
+    productServiceSpy.getProducts.and.returnValue(of(mockProducts));
 
     await TestBed.configureTestingModule({
       imports: [DetailsProductPageComponent],
@@ -32,10 +32,16 @@ describe('DetailsProductPageComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            snapshot: { paramMap: new Map([['id', '1']]) }
+            snapshot: {
+              paramMap: {
+                get: (key: string) => {
+                  if (key === 'id') return '1';
+                  return null;
+                }
+              }
+            }
           }
-        },
-        provideRouter([])
+        }
       ]
     }).compileComponents();
 
@@ -58,9 +64,8 @@ describe('DetailsProductPageComponent', () => {
   });
 
   it('deve redirecionar para /products se o produto não for encontrado', () => {
-    // simula rota com id inexistente
     const route = TestBed.inject(ActivatedRoute);
-    (route.snapshot.paramMap as any) = new Map([['id', '999']]);
+    (route.snapshot.paramMap as any).get = () => '999'; // simula id inexistente
 
     component.ngOnInit();
 

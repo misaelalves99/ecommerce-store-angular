@@ -1,34 +1,19 @@
 <form (ngSubmit)="handleSubmit()" class="form">
   <div class="formGroup">
     <label class="label">Nome</label>
-    <input
-      class="input"
-      type="text"
-      [(ngModel)]="name"
-      name="categoryName"
-      autofocus
-    />
+    <input class="input" type="text" [(ngModel)]="name" name="categoryName" autofocus />
     <span *ngIf="errors.name" class="error">{{ errors.name }}</span>
   </div>
 
   <div class="formGroup">
     <label class="label">Descrição</label>
-    <textarea
-      class="textarea"
-      [(ngModel)]="description"
-      name="categoryDescription"
-    ></textarea>
+    <textarea class="textarea" [(ngModel)]="description" name="categoryDescription"></textarea>
     <span *ngIf="errors.description" class="error">{{ errors.description }}</span>
   </div>
 
   <div class="buttonGroup">
     <button type="submit" class="btnPrimary">Salvar</button>
-    <button
-      *ngIf="cancelEvent.observers.length"
-      type="button"
-      class="btnSecondary"
-      (click)="handleCancel()"
-    >
+    <button *ngIf="cancelEvent.observers.length" type="button" class="btnSecondary" (click)="handleCancel()">
       Cancelar
     </button>
   </div>

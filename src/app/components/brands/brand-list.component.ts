@@ -14,7 +14,7 @@ import { Brand } from '../../types/brand.model';
 })
 export class BrandListComponent {
   @Input() brands: Brand[] = [];
-  @Output() deleteBrandEvent = new EventEmitter<number>(); // ✅
+  @Output() deleteBrandEvent = new EventEmitter<number>();
 
   constructor(private router: Router) {}
 
@@ -27,9 +27,10 @@ export class BrandListComponent {
   }
 
   goToDelete(id: number) {
-    // Navega para a rota de delete
     this.router.navigate(['/brands/delete', id]);
-    // Emite o id para o componente pai atualizar lista se necessário
     this.deleteBrandEvent.emit(id);
   }
 }
+
+// ✅ Re-exportando tipo corretamente
+export type { Brand };

@@ -2,9 +2,8 @@
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrandFormComponent } from './brand-form.component';
-import { FormsModule } from '@angular/forms';
-import { render, screen, fireEvent } from '@testing-library/angular';
 import '@testing-library/jasmine-dom';
+import { render } from '@testing-library/angular';
 
 describe('BrandFormComponent', () => {
   let component: BrandFormComponent;
@@ -12,11 +11,12 @@ describe('BrandFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BrandFormComponent, FormsModule],
+      imports: [BrandFormComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BrandFormComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create the component', () => {
@@ -29,13 +29,13 @@ describe('BrandFormComponent', () => {
     expect(component.name).toBe('Marca Inicial');
   });
 
-  it('should display error if name is empty on submit', async () => {
+  it('should display error if name is empty on submit', () => {
     component.name = '   ';
     component.handleSubmit();
     expect(component.error).toBe('O nome da marca é obrigatório.');
   });
 
-  it('should emit onSubmit event with trimmed name when valid', async () => {
+  it('should emit onSubmit event with trimmed name when valid', () => {
     spyOn(component.onSubmit, 'emit');
     component.name = '  Nova Marca  ';
     component.handleSubmit();
@@ -49,18 +49,18 @@ describe('BrandFormComponent', () => {
     expect(component.onCancel.emit).toHaveBeenCalled();
   });
 
-  it('should display error message in the template', async () => {
+  it('should display error message in the template', () => {
     component.error = 'Erro de teste';
     fixture.detectChanges();
     const span = fixture.nativeElement.querySelector('.error');
     expect(span.textContent).toContain('Erro de teste');
   });
 
-  it('should bind input to name property', async () => {
-    await render(BrandFormComponent, {
+  it('should bind input to name property (with testing-library)', async () => {
+    const { container } = await render(BrandFormComponent, {
       componentProperties: { initialName: 'Marca X' },
     });
-    const input = screen.getByRole('textbox') as HTMLInputElement;
+    const input = container.querySelector('input[name="brandName"]') as HTMLInputElement;
     expect(input.value).toBe('Marca X');
   });
 });

@@ -25,24 +25,27 @@ export class EditBrandPageComponent implements OnInit {
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
-    if (idParam) {
-      const foundBrand = this.brandService.getBrands().find(b => b.id === Number(idParam));
+    if (!idParam) return;
+
+    const brandId = Number(idParam);
+
+    // Assina o Observable do service
+    this.brandService.getBrands().subscribe((brands) => {
+      const foundBrand = brands.find(b => b.id === brandId);
+
       if (foundBrand) {
         this.brand = foundBrand;
       } else {
         alert('Marca não encontrada.');
         this.router.navigate(['/brands']);
       }
-    }
+    });
   }
 
   handleUpdate(name: string): void {
     if (!this.brand) return;
 
-    // Atualiza a marca existente
     this.brandService.updateBrand(this.brand.id, name);
-    console.log('Marca atualizada:', { id: this.brand.id, name });
-
     this.router.navigate(['/brands']);
   }
 
