@@ -27,12 +27,10 @@ export class ProductFormComponent implements OnInit, OnChanges {
   errors: Partial<Record<keyof Product, string>> = {};
 
   ngOnInit() {
-    // Inicializa o produto
     this.product = { ...this.initialData };
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // Atualiza o produto caso initialData mude
     if (changes['initialData'] && changes['initialData'].currentValue) {
       this.product = { ...changes['initialData'].currentValue };
     }

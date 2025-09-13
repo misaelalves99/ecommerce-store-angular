@@ -1,11 +1,11 @@
 // src/app/pages/brands/delete/delete-brand-page.component.ts
-
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrandService } from '../../../services/brand.service';
 import { Brand } from '../../../types/brand.model';
-import { take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-delete-brand-page',
@@ -14,36 +14,33 @@ import { take } from 'rxjs/operators';
   templateUrl: './delete-brand-page.component.html',
   styleUrls: ['./delete-brand-page.component.css'],
 })
-export class DeleteBrandPageComponent implements OnInit {
-  brand?: Brand;
+export class DeleteBrandPageComponent {
+  brand$: Observable<Brand | undefined>;
+  private brandId!: number;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private brandService: BrandService
-  ) {}
+  ) {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (!idParam) {
+      this.brand$ = of(undefined);
+      this.router.navigate(['/brands']);
+      return;
+    }
 
-  ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.brandId = +idParam;
 
-    // Subscribe para obter a lista de marcas
-    this.brandService.getBrands()
-      .pipe(take(1)) // Pega apenas uma vez
-      .subscribe(brands => {
-        this.brand = brands.find(b => b.id === id);
-
-        if (!this.brand) {
-          alert('Marca não encontrada.');
-          this.router.navigate(['/brands']);
-        }
-      });
+    this.brand$ = this.brandService.getBrands().pipe(
+      map((brands) => brands.find((b) => b.id === this.brandId))
+    );
   }
 
   handleDelete() {
-    if (this.brand) {
-      this.brandService.deleteBrand(this.brand.id);
-      this.router.navigate(['/brands']);
-    }
+    if (!this.brandId) return;
+    this.brandService.deleteBrand(this.brandId);
+    this.router.navigate(['/brands']);
   }
 
   handleCancel() {

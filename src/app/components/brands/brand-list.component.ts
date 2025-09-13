@@ -13,7 +13,8 @@ import { Brand } from '../../types/brand.model';
   styleUrls: ['./brand-list.component.css'],
 })
 export class BrandListComponent {
-  @Input() brands: Brand[] = [];
+  // Aceita null ou undefined sem quebrar
+  @Input() brands: Brand[] | null = [];
   @Output() deleteBrandEvent = new EventEmitter<number>();
 
   constructor(private router: Router) {}
@@ -31,6 +32,3 @@ export class BrandListComponent {
     this.deleteBrandEvent.emit(id);
   }
 }
-
-// ✅ Re-exportando tipo corretamente
-export type { Brand };

@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../types/category.model';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-delete-category-page',
@@ -31,23 +30,18 @@ export class DeleteCategoryPageComponent implements OnInit {
       return;
     }
 
-    this.categoryService.getCategories()
-      .pipe(take(1))
-      .subscribe(categories => {
-        this.category = categories.find(c => c.id === id);
-
-        if (!this.category) {
-          alert('Categoria não encontrada.');
-          this.router.navigate(['/categories']);
-        }
-      });
+    // Corrigido: atualiza category dentro do subscribe
+    this.categoryService.getCategories().subscribe(categories => {
+      const found = categories.find(c => c.id === id);
+      this.category = found; // ✅ aqui apenas atualiza a variável
+    });
   }
 
   handleDelete(): void {
     if (!this.category) return;
-
-    this.categoryService.deleteCategory(this.category.id);
-    this.router.navigate(['/categories']);
+    this.categoryService.deleteCategory(this.category.id).subscribe(() => {
+      this.router.navigate(['/categories']);
+    });
   }
 
   handleCancel(): void {

@@ -1,10 +1,10 @@
 // src/app/components/category/category-list.component.ts
 
+// src/app/components/category/category-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { Category } from '../../types/category.model';
-import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-category-list',
@@ -14,10 +14,10 @@ import { CategoryService } from '../../services/category.service';
   styleUrls: ['./category-list.component.css'],
 })
 export class CategoryListComponent {
-  @Input() categories: Category[] = [];
+  @Input() categories: Category[] | null = [];
   @Output() deleteCategoryEvent = new EventEmitter<number>();
 
-  constructor(private router: Router, private categoryService: CategoryService) {}
+  constructor(private router: Router) {}
 
   goToDetails(id: number) {
     this.router.navigate(['/categories/details', id]);
@@ -30,13 +30,5 @@ export class CategoryListComponent {
   goToDelete(id: number) {
     this.router.navigate(['/categories/delete', id]);
     this.deleteCategoryEvent.emit(id);
-  }
-
-  deleteCategory(category: Category) {
-    if (window.confirm(`Deseja realmente excluir a categoria ${category.name}?`)) {
-      this.categoryService.deleteCategory(category.id).subscribe(() => {
-        this.categories = this.categories.filter(c => c.id !== category.id);
-      });
-    }
   }
 }

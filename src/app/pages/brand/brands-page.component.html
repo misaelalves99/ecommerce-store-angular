@@ -3,11 +3,13 @@
 <div class="container">
   <div class="header">
     <h1 class="heading">Marcas</h1>
-    <button class="btn btnPrimary" (click)="navigateToCreate()">Adicionar Marca</button>
+    <button class="btn btnPrimary" (click)="navigateToCreate()">
+      Adicionar Marca
+    </button>
   </div>
 
   <app-brand-list
-    [brands]="brands"
+    [brands]="(brands$ | async) ?? []"
     (deleteBrandEvent)="handleDelete($event)">
   </app-brand-list>
 </div>

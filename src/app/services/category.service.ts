@@ -1,12 +1,13 @@
+// src/app/services/category.service.ts
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Category } from '../types/category.model';
-import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  private categories: Category[] = [
+  private categories$ = new BehaviorSubject<Category[]>([
     {
       id: 1,
       name: 'Eletrônicos',
@@ -35,16 +36,15 @@ export class CategoryService {
       createdAt: '2023-03-20T09:20:00Z',
       isActive: true,
     },
-  ];
+  ]);
 
   getCategories(): Observable<Category[]> {
-    return of(this.categories);
+    return this.categories$.asObservable();
   }
 
   addCategory(category: Omit<Category, 'id' | 'createdAt' | 'isActive'>): Observable<Category> {
-    const newId = this.categories.length
-      ? Math.max(...this.categories.map(c => c.id)) + 1
-      : 1;
+    const current = this.categories$.value;
+    const newId = current.length ? Math.max(...current.map(c => c.id)) + 1 : 1;
 
     const newCategory: Category = {
       id: newId,
@@ -53,26 +53,36 @@ export class CategoryService {
       ...category,
     };
 
-    this.categories.push(newCategory);
+    this.categories$.next([...current, newCategory]);
     return of(newCategory);
   }
 
-  updateCategory(id: number, data: { name: string; description: string; isActive?: boolean }): Observable<Category | null> {
-    const index = this.categories.findIndex(c => c.id === id);
-    if (index !== -1) {
-      this.categories[index] = { ...this.categories[index], ...data };
-      return of(this.categories[index]);
+  updateCategory(id: number, data: Partial<Category>): Observable<Category | null> {
+    let updated: Category | null = null;
+
+    const updatedCategories = this.categories$.value.map(c => {
+      if (c.id === id) {
+        updated = { ...c, ...data };
+        return updated;
+      }
+      return c;
+    });
+
+    if (updated) {
+      this.categories$.next(updatedCategories);
+      return of(updated);
     }
+
     return of(null);
   }
 
   deleteCategory(id: number): Observable<null> {
-    this.categories = this.categories.filter(c => c.id !== id);
+    this.categories$.next(this.categories$.value.filter(c => c.id !== id));
     return of(null);
   }
 
   getCategoryById(id: number): Observable<Category | null> {
-    const category = this.categories.find(c => c.id === id) || null;
+    const category = this.categories$.value.find(c => c.id === id) || null;
     return of(category);
   }
 }

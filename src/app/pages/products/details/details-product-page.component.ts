@@ -1,4 +1,4 @@
-// src/app/pages/products/details-product-page.component.ts
+// src/app/pages/products/details/details-product-page.component.ts
 
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';

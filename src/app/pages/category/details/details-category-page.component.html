@@ -3,7 +3,8 @@
 <div class="pageContainer" *ngIf="category; else loading">
   <h1 class="title">Detalhes da Categoria</h1>
 
-  <app-category-details [category]="category"></app-category-details>
+  <!-- Usando o CategoryDetailsComponent -->
+  <app-category-details [category]="category" class="app-category-details"></app-category-details>
 
   <div class="actions">
     <button class="btnPrimary" (click)="goBack()">Voltar</button>

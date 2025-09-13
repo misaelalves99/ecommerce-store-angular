@@ -8,6 +8,12 @@
   </div>
 
   <div class="formGroup">
+    <label class="controlLabel">Descrição</label>
+    <textarea class="formControl" [(ngModel)]="product.description" name="description" rows="3"></textarea>
+  </div>
+
+
+  <div class="formGroup">
     <label class="controlLabel">SKU</label>
     <input type="text" class="formControl" [(ngModel)]="product.sku" name="sku" />
     <span *ngIf="errors.sku" class="textDanger">{{ errors.sku }}</span>
@@ -41,6 +47,11 @@
       <option *ngFor="let b of brands" [value]="b.id">{{ b.name }}</option>
     </select>
     <span *ngIf="errors.brandId" class="textDanger">{{ errors.brandId }}</span>
+  </div>
+
+  <div class="formGroup formCheck">
+    <input type="checkbox" id="isActive" [(ngModel)]="product.isActive" name="isActive" />
+    <label for="isActive">Ativo</label>
   </div>
 
   <div class="buttons">
