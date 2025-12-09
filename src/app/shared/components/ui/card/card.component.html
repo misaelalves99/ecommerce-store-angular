@@ -1,0 +1,47 @@
+<!-- src/app/shared/components/ui/card/card.component.html -->
+
+<section
+  class="card"
+  [class.card--clickable]="clickable"
+>
+  <header
+    class="card__header"
+    *ngIf="title || subtitle || icon"
+  >
+    <div class="card__header-main">
+      <div
+        class="card__icon"
+        *ngIf="icon"
+      >
+        {{ icon }}
+      </div>
+
+      <div class="card__titles">
+        <h2
+          *ngIf="title"
+          class="card__title"
+        >
+          {{ title }}
+        </h2>
+        <p
+          *ngIf="subtitle"
+          class="card__subtitle"
+        >
+          {{ subtitle }}
+        </p>
+      </div>
+    </div>
+
+    <div class="card__header-actions">
+      <ng-content select="[card-actions]"></ng-content>
+    </div>
+  </header>
+
+  <div class="card__body">
+    <ng-content></ng-content>
+  </div>
+
+  <footer class="card__footer">
+    <ng-content select="[card-footer]"></ng-content>
+  </footer>
+</section>

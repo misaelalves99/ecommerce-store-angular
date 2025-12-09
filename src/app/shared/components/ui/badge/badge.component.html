@@ -1,0 +1,26 @@
+<!-- src/app/shared/components/ui/badge/badge.component.html -->
+
+<span
+  class="badge"
+  [ngClass]="[
+    'badge--' + variant,
+    'badge--size-' + size,
+    pill ? 'badge--pill' : '',
+    upper ? 'badge--upper' : ''
+  ]"
+>
+  <span
+    *ngIf="dot"
+    class="badge__dot"
+  ></span>
+
+  <span class="badge__label">
+    <ng-container *ngIf="label !== undefined && label !== null && label !== ''; else projectedContent">
+      {{ label }}
+    </ng-container>
+
+    <ng-template #projectedContent>
+      <ng-content></ng-content>
+    </ng-template>
+  </span>
+</span>

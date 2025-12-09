@@ -1,0 +1,48 @@
+<!-- src/app/shared/components/ui/pagination/pagination.component.html -->
+
+<div class="pagination">
+  <div class="pagination__info">
+    <span class="pagination__range">
+      {{ rangeLabel }}
+    </span>
+
+    <label class="pagination__page-size">
+      <span>por página</span>
+      <select
+        [value]="pageSize"
+        (change)="onPageSizeChange($event)"
+      >
+        <option
+          *ngFor="let size of pageSizeOptions"
+          [value]="size"
+        >
+          {{ size }}
+        </option>
+      </select>
+    </label>
+  </div>
+
+  <div class="pagination__controls">
+    <button
+      type="button"
+      class="pagination__btn"
+      [disabled]="!canPrev"
+      (click)="changePage(page - 1)"
+    >
+      ‹ Anterior
+    </button>
+
+    <span class="pagination__page-indicator">
+      Página {{ page }} de {{ totalPages }}
+    </span>
+
+    <button
+      type="button"
+      class="pagination__btn"
+      [disabled]="!canNext"
+      (click)="changePage(page + 1)"
+    >
+      Próxima ›
+    </button>
+  </div>
+</div>

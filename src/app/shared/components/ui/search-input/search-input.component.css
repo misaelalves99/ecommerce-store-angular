@@ -1,0 +1,61 @@
+/* src/app/shared/components/ui/search-input/search-input.component.css */
+
+.search {
+  width: 100%;
+}
+
+.search__field {
+  position: relative;
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid rgba(51, 65, 85, 0.95);
+  background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.98), #020617);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.7rem;
+  gap: 0.4rem;
+  min-height: 34px;
+}
+
+.search__icon {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.search__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 0.8rem;
+}
+
+.search__input::placeholder {
+  color: #64748b;
+}
+
+.search__clear {
+  border-radius: 999px;
+  border: 1px solid rgba(51, 65, 85, 0.9);
+  background: rgba(15, 23, 42, 0.96);
+  color: #9ca3af;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.7rem;
+  padding: 0;
+  transition:
+    background 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.search__clear:hover {
+  background: rgba(30, 64, 175, 0.9);
+  border-color: rgba(59, 130, 246, 0.95);
+  color: #e5e7eb;
+}

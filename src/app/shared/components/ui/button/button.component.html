@@ -1,0 +1,26 @@
+<!-- src/app/shared/components/ui/button/button.component.html -->
+
+<button
+  class="btn"
+  [ngClass]="[
+    'btn--' + variant,
+    'btn--' + size,
+    fullWidth ? 'btn--full' : ''
+  ]"
+  [attr.type]="type"
+  [disabled]="isDisabled"
+  (click)="onClick($event)"
+>
+  <span
+    *ngIf="loading"
+    class="btn__spinner"
+    aria-hidden="true"
+  ></span>
+
+  <span
+    class="btn__label"
+    [class.btn__label--hidden]="loading"
+  >
+    <ng-content></ng-content>
+  </span>
+</button>

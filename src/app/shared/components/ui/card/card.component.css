@@ -1,0 +1,120 @@
+/* src/app/shared/components/ui/card/card.component.css */
+
+.card {
+  position: relative;
+  border-radius: 1.2rem;
+  padding: 1rem 1.1rem;
+  background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.95) 0, #020617 55%);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  box-shadow:
+    0 16px 40px rgba(15, 23, 42, 0.85),
+    0 0 0 1px rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card--clickable {
+  cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.card--clickable:hover {
+  transform: translateY(-2px);
+  border-color: rgba(34, 197, 94, 0.65);
+  box-shadow:
+    0 22px 60px rgba(15, 23, 42, 0.95),
+    0 0 0 1px rgba(34, 197, 94, 0.32);
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.card__header-main {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.card__icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 0 0, #22c55e 0, #16a34a 45%, #14532d 100%);
+  color: #020617;
+  font-size: 1.05rem;
+}
+
+.card__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.card__title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #f9fafb;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.card__subtitle {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.card__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.card__body {
+  font-size: 0.85rem;
+  color: #e5e7eb;
+}
+
+.card__footer {
+  margin-top: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* Responsivo */
+
+@media (max-width: 768px) {
+  .card {
+    padding: 0.9rem 0.8rem;
+    border-radius: 1rem;
+  }
+
+  .card__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card__header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

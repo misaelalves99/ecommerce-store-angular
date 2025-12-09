@@ -1,0 +1,41 @@
+<!-- src/app/shared/components/layout/metric-card/metric-card.component.html -->
+
+<article class="metric-card">
+  <header class="metric-card__header">
+    <div class="metric-card__title-wrapper">
+      <span class="metric-card__label">
+        {{ label }}
+      </span>
+      <span
+        *ngIf="helper"
+        class="metric-card__helper"
+      >
+        {{ helper }}
+      </span>
+    </div>
+
+    <div
+      *ngIf="icon"
+      class="metric-card__icon"
+    >
+      {{ icon }}
+    </div>
+  </header>
+
+  <div class="metric-card__value-row">
+    <span class="metric-card__value">
+      {{ value }}
+    </span>
+
+    <span
+      *ngIf="trendLabel"
+      class="metric-card__trend"
+      [ngClass]="trendClass"
+    >
+      <span class="metric-card__trend-symbol">
+        {{ trend === 'up' ? '▲' : trend === 'down' ? '▼' : '◆' }}
+      </span>
+      {{ trendLabel }}
+    </span>
+  </div>
+</article>

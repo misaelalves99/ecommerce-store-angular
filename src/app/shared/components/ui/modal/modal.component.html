@@ -1,0 +1,54 @@
+<!-- src/app/shared/components/ui/modal/modal.component.html -->
+
+<div
+  *ngIf="open"
+  class="modal__backdrop"
+  (mousedown)="handleBackdropClick($event)"
+>
+  <section
+    class="modal"
+    [ngClass]="'modal--' + size"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="title || 'Janela modal'"
+  >
+    <header class="modal__header">
+      <div class="modal__titles">
+        <h2
+          *ngIf="title"
+          class="modal__title"
+        >
+          {{ title }}
+        </h2>
+        <p
+          *ngIf="subtitle"
+          class="modal__subtitle"
+        >
+          {{ subtitle }}
+        </p>
+      </div>
+
+      <button
+        *ngIf="showClose"
+        type="button"
+        class="modal__close"
+        aria-label="Fechar"
+        (click)="handleClose()
+        "
+      >
+        ✕
+      </button>
+    </header>
+
+    <div
+      class="modal__body"
+      [style.maxHeight]="maxHeight"
+    >
+      <ng-content></ng-content>
+    </div>
+
+    <footer class="modal__footer">
+      <ng-content select="[modal-footer]"></ng-content>
+    </footer>
+  </section>
+</div>

@@ -1,0 +1,25 @@
+<!-- src/app/shared/components/ui/search-input/search-input.component.html -->
+
+<div class="search">
+  <div class="search__field">
+    <span class="search__icon">🔍</span>
+
+    <input
+      type="search"
+      class="search__input"
+      [placeholder]="placeholder"
+      [value]="value"
+      (input)="onInputChange($event)"
+    />
+
+    <button
+      *ngIf="value"
+      type="button"
+      class="search__clear"
+      aria-label="Limpar busca"
+      (click)="onClear()"
+    >
+      ✕
+    </button>
+  </div>
+</div>

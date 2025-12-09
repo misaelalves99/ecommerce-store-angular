@@ -1,0 +1,59 @@
+<!-- src/app/shared/components/ui/table/table.component.html -->
+
+<div class="table-wrapper">
+  <div
+    class="table-wrapper__overlay"
+    *ngIf="loading"
+  >
+    <div class="table-wrapper__loader">
+      <span class="table-wrapper__spinner"></span>
+      <span class="table-wrapper__loader-text">Carregando dados...</span>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          class="table__th"
+          [ngClass]="'table__th--' + (col.align || 'left')"
+          [style.width]="col.width || null"
+        >
+          {{ col.label }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody *ngIf="rows?.length; else emptyState">
+      <ng-container *ngFor="let row of rows; index as i">
+        <ng-container
+          *ngIf="rowTemplate; else defaultRow"
+          [ngTemplateOutlet]="rowTemplate"
+          [ngTemplateOutletContext]="{ $implicit: row, index: i }"
+        ></ng-container>
+
+        <ng-template #defaultRow>
+          <tr class="table__tr">
+            <td
+              *ngFor="let col of columns"
+              class="table__td"
+              [ngClass]="'table__td--' + (col.align || 'left')"
+            >
+              {{ row[col.key] }}
+            </td>
+          </tr>
+        </ng-template>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <ng-template #emptyState>
+    <div class="table__empty">
+      <div class="table__empty-icon">📭</div>
+      <p class="table__empty-text">
+        {{ emptyMessage }}
+      </p>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,24 @@
+<!-- src/app/shared/components/ui/empty-state/empty-state.component.html -->
+
+<div class="empty">
+  <div class="empty__icon">
+    {{ emoji }}
+  </div>
+
+  <h3 class="empty__title">
+    {{ title }}
+  </h3>
+
+  <p class="empty__description">
+    {{ description }}
+  </p>
+
+  <button
+    *ngIf="actionLabel"
+    type="button"
+    class="empty__button"
+    (click)="onAction()"
+  >
+    {{ actionLabel }}
+  </button>
+</div>

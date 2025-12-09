@@ -1,0 +1,49 @@
+<!-- src/app/shared/components/feedback/confirm-dialog/confirm-dialog.component.html -->
+
+<div
+  *ngIf="open"
+  class="confirm-dialog__backdrop"
+  (mousedown)="handleBackdropClick($event)"
+>
+  <section
+    class="confirm-dialog"
+    role="alertdialog"
+    [attr.aria-label]="title"
+    aria-modal="true"
+  >
+    <header class="confirm-dialog__header">
+      <h2 class="confirm-dialog__title">
+        {{ title }}
+      </h2>
+    </header>
+
+    <div class="confirm-dialog__body">
+      <p class="confirm-dialog__message">
+        {{ description }}
+      </p>
+    </div>
+
+    <footer class="confirm-dialog__footer">
+      <button
+        type="button"
+        class="confirm-dialog__btn confirm-dialog__btn--ghost"
+        (click)="handleCancel()"
+      >
+        {{ cancelLabel }}
+      </button>
+
+      <button
+        type="button"
+        class="confirm-dialog__btn"
+        [ngClass]="{
+          'confirm-dialog__btn--danger': destructive,
+          'confirm-dialog__btn--primary': !destructive
+        }"
+        (click)="handleConfirm()"
+        [disabled]="loading"
+      >
+        {{ confirmLabel }}
+      </button>
+    </footer>
+  </section>
+</div>
