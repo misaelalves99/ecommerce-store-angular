@@ -1,0 +1,68 @@
+<!-- src/app/features/catalog/brands/pages/brands-delete-page/brands-delete-page.component.html -->
+
+<app-page-header
+  title="Excluir marca"
+  subtitle="Confirme a exclusão da marca selecionada."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog' },
+    { label: 'Marcas', link: '/catalog/brands' },
+    { label: 'Excluir', active: true }
+  ]"
+>
+</app-page-header>
+
+<section
+  class="brand-delete-page"
+  *ngIf="!loading() && brand() as brand"
+>
+  <div class="brand-delete-page__card">
+    <h2>Tem certeza que deseja excluir esta marca?</h2>
+
+    <p class="brand-delete-page__warning">
+      Esta ação não poderá ser desfeita. A marca deixará de ser utilizada em
+      novos produtos e listagens do catálogo.
+    </p>
+
+    <div class="brand-delete-page__info">
+      <div class="brand-delete-page__field">
+        <span class="label">Nome</span>
+        <span class="value">{{ brand.name }}</span>
+      </div>
+
+      <div class="brand-delete-page__field">
+        <span class="label">Slug</span>
+        <span class="value">{{ brand.slug || '—' }}</span>
+      </div>
+    </div>
+
+    <footer class="brand-delete-page__footer">
+      <app-button
+        type="button"
+        variant="ghost"
+        size="sm"
+        [disabled]="deleting()"
+        (appClick)="cancel()"
+      >
+        Cancelar
+      </app-button>
+
+      <app-button
+        type="button"
+        variant="danger"
+        size="sm"
+        [loading]="deleting()"
+        (appClick)="confirmDelete()"
+      >
+        Excluir marca
+      </app-button>
+    </footer>
+  </div>
+</section>
+
+<section
+  class="brand-delete-page brand-delete-page--loading"
+  *ngIf="loading() && !brand()"
+>
+  <p>Carregando dados da marca...</p>
+</section>

@@ -1,0 +1,50 @@
+/* src/app/features/marketing/coupons/pages/coupons-list-page/coupons-list-page.component.css */
+
+.coupons-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 0 0 1.8rem;
+}
+
+/* Toolbar fora do card, igual Products / Orders */
+.coupons-page__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  max-width: 420px;
+}
+
+/* Card “plano”: o visual vem do componente de tabela / EmptyState */
+.coupons-page__card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.coupons-page__table-wrapper {
+  width: 100%;
+}
+
+/* Paginação alinhada à direita, padrão dashboard */
+.coupons-page__pagination {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Responsivo */
+
+@media (max-width: 900px) {
+  .coupons-page__toolbar {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .coupons-page {
+    padding-inline: 0.25rem;
+  }
+}

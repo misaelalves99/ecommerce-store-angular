@@ -1,0 +1,187 @@
+/* src/app/features/orders/components/order-table/order-table.component.css */
+
+.order-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Estados (carregando / vazio) no padrão de dashboard */
+.order-table__state {
+  border-radius: 1rem;
+  border: 1px dashed rgba(148, 163, 184, 0.45);
+  padding: 1.3rem 1.4rem;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.9rem;
+  background: radial-gradient(
+    circle at top left,
+    rgba(56, 189, 248, 0.14),
+    rgba(15, 23, 42, 0.97)
+  );
+}
+
+.order-table__state--empty span {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* Card da tabela */
+.order-table__wrapper {
+  border-radius: 1.1rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(15, 23, 42, 0.96),
+    #020617
+  );
+  overflow: hidden;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.7);
+  overflow-x: auto;
+}
+
+/* Tabela em si */
+.order-table__table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+.order-table__table thead {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0.98),
+    rgba(15, 23, 42, 0.7)
+  );
+}
+
+.order-table__table th,
+.order-table__table td {
+  padding: 0.8rem 1rem;
+  font-size: 0.86rem;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.95);
+}
+
+.order-table__table th {
+  text-align: left;
+  font-weight: 500;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+}
+
+/* Hover / feeling de dashboard moderno */
+.order-table__table tbody tr {
+  transition: background-color 0.16s ease, transform 0.12s ease;
+}
+
+.order-table__table tbody tr:hover {
+  background: radial-gradient(
+    circle at top left,
+    rgba(56, 189, 248, 0.06),
+    rgba(15, 23, 42, 1)
+  );
+}
+
+/* Colunas e células específicas */
+.order-table__th--right {
+  text-align: right;
+}
+
+.order-table__id {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.order-table__id-main {
+  color: #e5e7eb;
+  font-weight: 600;
+}
+
+.order-table__id-sub {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.order-table__customer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.order-table__customer-name {
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+.order-table__customer-email {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.order-table__date {
+  font-size: 0.85rem;
+  color: #cbd5f5;
+}
+
+.order-table__total {
+  font-weight: 600;
+  color: #22c55e;
+}
+
+.order-table__td-actions {
+  text-align: right;
+}
+
+.order-table__actions {
+  display: inline-flex;
+  gap: 0.45rem;
+  justify-content: flex-end;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .order-table__wrapper {
+    border-radius: 1rem;
+  }
+
+  .order-table__table {
+    min-width: 640px;
+  }
+
+  .order-table__table th:nth-child(3),
+  .order-table__table td:nth-child(3) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .order-table__table {
+    min-width: 560px;
+  }
+
+  .order-table__table th:nth-child(2),
+  .order-table__table td:nth-child(2) {
+    display: none;
+  }
+
+  .order-table__actions {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .order-table__wrapper {
+    border-radius: 0.9rem;
+  }
+
+  .order-table__table th,
+  .order-table__table td {
+    padding-inline: 0.75rem;
+  }
+}

@@ -1,0 +1,45 @@
+<!-- src/app/features/catalog/categories/pages/categories-list-page/categories-list-page.component.html -->
+<app-page-header
+  title="Categorias"
+  subtitle="Organize seu catálogo em grupos claros e fáceis de encontrar."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog' },
+    { label: 'Categorias', link: '/catalog/categories', active: true }
+  ]"
+>
+  <app-button
+    variant="primary"
+    size="sm"
+    (appClick)="goToCreate()"
+  >
+    + Nova categoria
+  </app-button>
+</app-page-header>
+
+<section class="categories-page">
+  <!-- Filtros -->
+  <app-categories-filters
+    [search]="search()"
+    (searchChange)="onSearchChange($event)"
+  ></app-categories-filters>
+
+  <!-- Card / tabela -->
+  <div class="categories-page__panel">
+    <ng-container *ngIf="filteredCategories() as categories">
+      <app-empty-state
+        *ngIf="!categories.length"
+        title="Nenhuma categoria encontrada"
+        description="Crie categorias para estruturar o catálogo e facilitar filtros na loja."
+      >
+      </app-empty-state>
+
+      <app-category-table
+        *ngIf="categories.length"
+        [categories]="categories"
+        (detailsClicked)="onDetails($event)"
+        (deleteClicked)="onDelete($event)"
+      ></app-category-table>
+    </ng-container>
+  </div>
+</section>

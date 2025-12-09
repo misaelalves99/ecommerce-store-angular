@@ -1,0 +1,246 @@
+/* src/app/features/marketing/banners/components/banner-form/banner-form.component.css */
+
+.banner-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.7fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+/* PREVIEW ----------------------------------------------------- */
+
+.banner-form__preview {
+  display: flex;
+  align-items: stretch;
+}
+
+.banner-card {
+  position: relative;
+  width: 100%;
+  min-height: 230px;
+  border-radius: 1.4rem;
+  padding: 1.6rem 1.7rem;
+  background: radial-gradient(circle at 0 0, #22c55e, #0f172a);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.75);
+  overflow: hidden;
+}
+
+.banner-card::after {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle at 80% 0,
+    rgba(59, 130, 246, 0.45),
+    transparent
+  );
+  opacity: 0.7;
+}
+
+.banner-card__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  max-width: 440px;
+}
+
+.badge {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.78);
+  color: #e5e7eb;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.banner-card__content h2 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #f9fafb;
+}
+
+.banner-card__content p {
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.banner-card__content button {
+  margin-top: 0.4rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  background: rgba(15, 23, 42, 0.96);
+  color: #f9fafb;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: default;
+}
+
+/* FORM -------------------------------------------------------- */
+
+.banner-form__form {
+  background: radial-gradient(
+    circle at top left,
+    rgba(8, 47, 73, 0.45),
+    #020617
+  );
+  border-radius: 1.1rem;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.65);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.3rem;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form__field--full {
+  grid-column: 1 / -1;
+}
+
+.form__field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.form__field input,
+.form__field textarea,
+.form__field select {
+  border-radius: 0.9rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(15, 23, 42, 0.96);
+  color: #f9fafb;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.form__field textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.form__field input::placeholder,
+.form__field textarea::placeholder {
+  color: #6b7280;
+}
+
+.form__field input:focus,
+.form__field textarea:focus,
+.form__field select:focus {
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.6);
+  background: rgba(15, 23, 42, 0.98);
+}
+
+/* Switch + campo inline */
+
+.form__field--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 22px;
+}
+
+.switch input {
+  display: none;
+}
+
+.switch__slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #4b5563;
+  border-radius: 999px;
+  transition: 0.2s;
+}
+
+.switch__slider::before {
+  content: '';
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.switch input:checked + .switch__slider {
+  background-color: var(--primary-500);
+}
+
+.switch input:checked + .switch__slider::before {
+  transform: translateX(20px);
+}
+
+.switch__label {
+  font-size: 0.9rem;
+  color: #e5e7eb;
+}
+
+/* Rodapé do formulário */
+
+.form__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+/* RESPONSIVO -------------------------------------------------- */
+
+@media (max-width: 960px) {
+  .banner-form {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  /* Em mobile, mostra primeiro o formulário e depois o preview */
+  .banner-form__form {
+    order: 1;
+  }
+
+  .banner-form__preview {
+    order: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .banner-form__form {
+    padding: 1.2rem 1.1rem;
+  }
+
+  .banner-card {
+    padding: 1.3rem 1.2rem;
+    min-height: 200px;
+  }
+}

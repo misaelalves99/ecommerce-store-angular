@@ -1,0 +1,74 @@
+<!-- src/app/features/catalog/categories/components/category-form/category-form.component.html -->
+<form
+  class="category-form"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
+  <header class="category-form__header">
+    <div>
+      <h2>{{ title }}</h2>
+      <p>
+        Use nomes claros para melhorar filtros e a navegação da loja.
+      </p>
+    </div>
+  </header>
+
+  <div class="category-form__grid">
+    <div class="form-field">
+      <label for="name">Nome da categoria</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Ex: Camisetas"
+      />
+      <span
+        class="field-error"
+        *ngIf="form.controls.name.touched && form.controls.name.invalid"
+      >
+        Nome é obrigatório.
+      </span>
+    </div>
+
+    <div class="form-field">
+      <label for="slug">Slug</label>
+      <input
+        id="slug"
+        type="text"
+        formControlName="slug"
+        placeholder="Ex: camisetas"
+      />
+      <span
+        class="field-error"
+        *ngIf="form.controls.slug.touched && form.controls.slug.invalid"
+      >
+        Slug é obrigatório.
+      </span>
+      <span class="field-hint">
+        Usado na URL e em filtros. Ex: <code>/categoria/camisetas</code>
+      </span>
+    </div>
+
+    <div class="form-field form-field--full">
+      <label for="description">Descrição</label>
+      <textarea
+        id="description"
+        rows="3"
+        formControlName="description"
+        placeholder="Descrição interna da categoria, objetivo de uso, exemplos de produtos..."
+      ></textarea>
+      <span class="field-hint">
+        Opcional, mas ajuda na organização interna e documentação do catálogo.
+      </span>
+    </div>
+  </div>
+
+  <footer class="category-form__footer">
+    <app-button
+      type="submit"
+      variant="primary"
+    >
+      {{ submitLabel }}
+    </app-button>
+  </footer>
+</form>

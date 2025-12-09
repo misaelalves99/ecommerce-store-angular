@@ -1,0 +1,76 @@
+<!-- src/app/features/catalog/categories/components/category-table/category-table.component.html -->
+<div class="category-table">
+  <div class="category-table__wrapper">
+    <app-table
+      [columns]="columns"
+      [rows]="rows"
+      [rowTemplate]="rowTpl"
+      [emptyMessage]="'Nenhuma categoria encontrada.'"
+    >
+    </app-table>
+
+    <ng-template
+      #rowTpl
+      let-row
+      let-i="index"
+    >
+      <tr
+        class="category-table__row"
+        [attr.data-index]="i"
+      >
+        <td class="category-table__cell category-table__cell--name">
+          <div class="category-table__name-wrapper">
+            <span class="category-table__name">
+              {{ $any(row).name }}
+            </span>
+            <span class="category-table__id">
+              ID: {{ $any(row).id }}
+            </span>
+          </div>
+        </td>
+
+        <td class="category-table__cell category-table__cell--slug">
+          <span class="category-table__slug">
+            {{ $any(row).slug }}
+          </span>
+        </td>
+
+        <td class="category-table__cell category-table__cell--description">
+          <span class="category-table__description">
+            {{ $any(row).description || '—' }}
+          </span>
+        </td>
+
+        <td class="category-table__cell category-table__cell--actions">
+          <div class="category-table__actions">
+            <!-- Detalhes -->
+            <button
+              type="button"
+              class="category-table__link"
+              (click)="onDetailsClicked($any(row).id)"
+            >
+              Detalhes
+            </button>
+
+            <!-- Editar -->
+            <a
+              [routerLink]="['/catalog/categories/edit', $any(row).id]"
+              class="category-table__link"
+            >
+              Editar
+            </a>
+
+            <!-- Excluir -->
+            <app-button
+              variant="danger"
+              size="sm"
+              (appClick)="onDelete($any(row).id)"
+            >
+              Excluir
+            </app-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </div>
+</div>

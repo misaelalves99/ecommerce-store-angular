@@ -1,0 +1,56 @@
+<app-page-header
+  title="Editar cupom"
+  subtitle="Atualize regras, validade e limites de uso sem perder o histórico do cupom."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Marketing', link: '/marketing' },
+    { label: 'Cupons', link: '/marketing/coupons' },
+    { label: 'Editar cupom', active: true }
+  ]"
+>
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    class="coupons-edit-page__back-button"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section
+  class="coupons-edit-page"
+  *ngIf="!loading(); else loadingTpl"
+>
+  <ng-container *ngIf="coupon(); else notFoundTpl">
+    <div class="coupons-edit-page__inner">
+      <app-coupon-form
+        [coupon]="coupon()!"
+        (submitted)="onUpdated()"
+        (cancelled)="onCancel()"
+      ></app-coupon-form>
+    </div>
+  </ng-container>
+</section>
+
+<ng-template #loadingTpl>
+  <app-empty-state
+    emoji="⏳"
+    title="Carregando cupom..."
+    description="Buscando dados do cupom selecionado."
+  ></app-empty-state>
+</ng-template>
+
+<ng-template #notFoundTpl>
+  <app-empty-state
+    emoji="⚠️"
+    title="Cupom não encontrado"
+    description="Verifique se o link está correto ou volte para a listagem."
+  >
+    <!-- Nota: se o EmptyState não projeta conteúdo, isso é ignorado sem quebrar o build -->
+    <a routerLink="/marketing/coupons" class="back-link">
+      Voltar para cupons
+    </a>
+  </app-empty-state>
+</ng-template>

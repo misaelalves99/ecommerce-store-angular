@@ -1,0 +1,142 @@
+<!-- src/app/features/dashboard/pages/dashboard-page/dashboard-page.component.html -->
+
+<app-page-header
+  title="Visão geral do e-commerce"
+  subtitle="Acompanhe faturamento, pedidos, clientes e produtos em tempo real."
+  [breadcrumb]="[
+    { label: 'Dashboard' }
+  ]"
+>
+</app-page-header>
+
+<section class="dashboard-page">
+  <!-- Métricas principais -->
+  <section class="dashboard-page__metrics">
+    <app-metric-card
+      *ngFor="let metric of summaryMetrics()"
+      [label]="metric.label"
+      [value]="metric.value"
+      [helper]="metric.helper"
+      [trend]="metric.trend ?? 'neutral'"
+      [trendLabel]="metric.trendLabel"
+      [icon]="metric.icon"
+    >
+    </app-metric-card>
+  </section>
+
+  <!-- Grid principal -->
+  <section class="dashboard-page__grid">
+    <!-- Bloco: pedidos recentes -->
+    <article class="dashboard-card">
+      <header class="dashboard-card__header">
+        <div>
+          <h2 class="dashboard-card__title">Pedidos recentes</h2>
+          <p class="dashboard-card__subtitle">
+            Últimos pedidos registrados no sistema.
+          </p>
+        </div>
+
+        <a
+          routerLink="/orders"
+          class="dashboard-card__link"
+        >
+          Ver todos os pedidos →
+        </a>
+      </header>
+
+      <app-table
+        [columns]="latestOrdersColumns"
+        [rows]="latestOrders()"
+        [loading]="loading()"
+        [emptyMessage]="'Nenhum pedido recente.'"
+        [rowTemplate]="ordersRow"
+      >
+      </app-table>
+
+      <ng-template
+        #ordersRow
+        let-row
+        let-i="index"
+      >
+        <tr
+          class="table__tr"
+          [attr.data-index]="i"
+        >
+          <td class="table__td table__td--left">
+            #{{ row.code || row.id }}
+          </td>
+
+          <td class="table__td table__td--left">
+            {{ row.customerName }}
+          </td>
+
+          <td class="table__td table__td--right">
+            {{ row.total | currency : 'BRL' : 'symbol-narrow' }}
+          </td>
+
+          <td class="table__td table__td--center">
+            <app-badge
+              [variant]="getOrderBadgeVariant(row.status)"
+              [pill]="true"
+              [dot]="true"
+            >
+              {{ getOrderStatusLabel(row.status) }}
+            </app-badge>
+          </td>
+
+          <td class="table__td table__td--left">
+            {{ row.createdAt | date : 'dd/MM/yyyy HH:mm' }}
+          </td>
+        </tr>
+      </ng-template>
+    </article>
+
+    <!-- Bloco: produtos mais vendidos -->
+    <article class="dashboard-card dashboard-card--secondary">
+      <header class="dashboard-card__header">
+        <div>
+          <h2 class="dashboard-card__title">Produtos mais vendidos</h2>
+          <p class="dashboard-card__subtitle">
+            Itens com maior volume de vendas e faturamento.
+          </p>
+        </div>
+      </header>
+
+      <app-table
+        [columns]="topProductsColumns"
+        [rows]="topProducts()"
+        [loading]="loading()"
+        [emptyMessage]="'Nenhum produto encontrado.'"
+        [rowTemplate]="productsRow"
+      >
+      </app-table>
+
+      <ng-template
+        #productsRow
+        let-row
+        let-i="index"
+      >
+        <tr
+          class="table__tr"
+          [attr.data-index]="i"
+        >
+          <td class="table__td table__td--left">
+            {{ row.name }}
+          </td>
+
+          <td class="table__td table__td--left">
+            {{ row.sku }}
+          </td>
+
+          <td class="table__td table__td--right">
+            {{ row.totalSold }}
+          </td>
+
+          <td class="table__td table__td--right">
+            {{ row.revenue | currency : 'BRL' : 'symbol-narrow' }}
+          </td>
+        </tr>
+      </ng-template>
+    </article>
+  </section>
+</section>

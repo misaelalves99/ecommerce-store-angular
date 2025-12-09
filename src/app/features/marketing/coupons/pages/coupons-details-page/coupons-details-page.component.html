@@ -1,0 +1,109 @@
+<!-- src/app/features/marketing/coupons/pages/coupons-details-page/coupons-details-page.component.html -->
+
+<app-page-header
+  title="Detalhes do cupom"
+  subtitle="Visualize as informações completas do cupom selecionado."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Marketing', link: '/marketing' },
+    { label: 'Cupons', link: '/marketing/coupons' },
+    { label: 'Detalhes', active: true }
+  ]"
+>
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section
+  class="coupon-details-page"
+  *ngIf="!loading() && coupon() as coupon"
+>
+  <div class="coupon-details-page__card">
+    <header class="coupon-details-page__header">
+      <div>
+        <h2>{{ coupon.code }}</h2>
+        <p>{{ coupon.name || coupon.code }}</p>
+      </div>
+
+      <div class="coupon-details-page__status-wrapper">
+        <span
+          class="coupon-details-page__status"
+          [class.coupon-details-page__status--inactive]="isInactive()"
+        >
+          {{ isInactive() ? 'Inativo' : 'Ativo' }}
+        </span>
+      </div>
+    </header>
+
+    <div class="coupon-details-page__grid">
+      <div class="coupon-details-page__field">
+        <span class="label">Tipo de desconto</span>
+        <span class="value">{{ coupon.typeLabel }}</span>
+      </div>
+
+      <div class="coupon-details-page__field">
+        <span class="label">Valor</span>
+        <span class="value">{{ coupon.displayValue }}</span>
+      </div>
+
+      <div class="coupon-details-page__field">
+        <span class="label">Valor mínimo do pedido</span>
+        <span class="value">
+          {{ getMinOrderValue() | currency:'BRL' }}
+        </span>
+      </div>
+
+      <div class="coupon-details-page__field">
+        <span class="label">Limite de usos</span>
+        <span class="value">
+          {{ getUsageLimit() }}
+        </span>
+      </div>
+
+      <div class="coupon-details-page__field">
+        <span class="label">Período de validade</span>
+        <span class="value">
+          <ng-container *ngIf="coupon.validFrom as from">
+            {{ from | date: 'dd/MM/yyyy' }}
+          </ng-container>
+          <ng-container *ngIf="coupon.validUntil as until">
+            &nbsp;→&nbsp;{{ until | date: 'dd/MM/yyyy' }}
+          </ng-container>
+        </span>
+      </div>
+
+      <div class="coupon-details-page__field coupon-details-page__field--full">
+        <span class="label">Descrição</span>
+        <span class="value value--muted">
+          {{ coupon.description || 'Sem descrição registrada.' }}
+        </span>
+      </div>
+    </div>
+
+    <footer class="coupon-details-page__footer">
+      <app-button
+        type="button"
+        variant="outline"
+        size="sm"
+        (appClick)="goBack()"
+      >
+        Voltar
+      </app-button>
+
+      <app-button
+        type="button"
+        variant="primary"
+        size="sm"
+        (appClick)="goToEdit()"
+      >
+        Editar cupom
+      </app-button>
+    </footer>
+  </div>
+</section>

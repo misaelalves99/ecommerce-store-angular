@@ -1,0 +1,82 @@
+<!-- src/app/features/marketing/banners/components/banner-form/banner-form.component.html -->
+<div class="banner-form">
+  <div class="banner-form__preview">
+    <div class="banner-card">
+      <div class="banner-card__content">
+        <p class="badge">Preview</p>
+        <h2>{{ form.value.title || 'Título do banner' }}</h2>
+        <p>
+          {{
+            form.value.subtitle ||
+              'Subtítulo ou copy principal do banner aparece aqui.'
+          }}
+        </p>
+        <button type="button">
+          {{ form.value.buttonLabel || 'Call to action' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <form class="banner-form__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form__grid">
+      <div class="form__field form__field--full">
+        <label for="title">Título *</label>
+        <input id="title" type="text" formControlName="title" />
+      </div>
+
+      <div class="form__field form__field--full">
+        <label for="subtitle">Subtítulo</label>
+        <textarea id="subtitle" rows="2" formControlName="subtitle"></textarea>
+      </div>
+
+      <div class="form__field">
+        <label for="position">Posição *</label>
+        <select id="position" formControlName="position">
+          <option *ngFor="let pos of positions" [value]="pos.value">
+            {{ pos.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form__field">
+        <label for="imageUrl">Imagem (URL) *</label>
+        <input id="imageUrl" type="text" formControlName="imageUrl" />
+      </div>
+
+      <div class="form__field">
+        <label for="linkUrl">Link de destino *</label>
+        <input id="linkUrl" type="text" formControlName="linkUrl" />
+      </div>
+
+      <div class="form__field">
+        <label for="buttonLabel">Texto do botão</label>
+        <input id="buttonLabel" type="text" formControlName="buttonLabel" />
+      </div>
+
+      <div class="form__field form__field--full">
+        <label for="background">Background customizado (CSS)</label>
+        <input
+          id="background"
+          type="text"
+          formControlName="background"
+          placeholder="Ex: linear-gradient(90deg, #0ea5e9, #22c55e)"
+        />
+      </div>
+
+      <div class="form__field form__field--inline">
+        <label class="switch">
+          <input type="checkbox" formControlName="active" />
+          <span class="switch__slider"></span>
+        </label>
+        <span class="switch__label">Banner ativo</span>
+      </div>
+    </div>
+
+    <div class="form__actions">
+      <app-button type="submit" variant="primary">
+        Salvar banner
+      </app-button>
+    </div>
+  </form>
+</div>

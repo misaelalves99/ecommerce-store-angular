@@ -1,0 +1,41 @@
+<!-- src/app/features/catalog/products/components/product-filters/product-filters.component.html -->
+
+<div class="product-filters">
+  <div class="product-filters__left">
+    <label class="product-filters__field">
+      <span class="product-filters__label">Busca</span>
+      <input
+        #searchInput
+        type="text"
+        class="product-filters__input"
+        [value]="search"
+        (input)="onSearchInput(searchInput.value)"
+        placeholder="Buscar por nome, SKU, marca ou categoria..."
+      />
+    </label>
+  </div>
+
+  <div class="product-filters__right">
+    <label class="product-filters__field product-filters__field--compact">
+      <span class="product-filters__label">Status</span>
+      <select
+        #statusSelect
+        class="product-filters__select"
+        [value]="status"
+        (change)="onStatusSelect(statusSelect.value)"
+      >
+        <option value="all">Todos</option>
+        <option value="active">Ativos</option>
+        <option value="inactive">Inativos</option>
+      </select>
+    </label>
+
+    <button
+      type="button"
+      class="product-filters__button"
+      (click)="onCreateClick()"
+    >
+      + Novo produto
+    </button>
+  </div>
+</div>

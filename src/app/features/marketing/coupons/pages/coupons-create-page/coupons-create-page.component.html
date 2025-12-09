@@ -1,0 +1,30 @@
+<!-- src/app/features/marketing/coupons/pages/coupons-create-page/coupons-create-page.component.html -->
+<app-page-header
+  title="Novo cupom"
+  subtitle="Crie um novo cupom para campanhas promocionais e estratégias de marketing."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Marketing', link: '/marketing' },
+    { label: 'Cupons', link: '/marketing/coupons' },
+    { label: 'Novo cupom', active: true }
+  ]"
+>
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    class="coupons-create-page__back-button"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section class="coupons-create-page">
+  <div class="coupons-create-page__inner">
+    <app-coupon-form
+      (submitted)="onCreated()"
+      (cancelled)="onCancel()"
+    ></app-coupon-form>
+  </div>
+</section>

@@ -1,0 +1,36 @@
+<!-- src/app/features/catalog/categories/pages/categories-edit-page/categories-edit-page.component.html -->
+
+<app-page-header
+  title="Editar categoria"
+  subtitle="Atualize as informações da categoria."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog' },
+    { label: 'Categorias', link: '/catalog/categories' },
+    { label: 'Editar categoria', active: true }
+  ]"
+>
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    class="categories-edit-page__back-button"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section
+  class="categories-edit-page"
+  *ngIf="categorySig() as category"
+>
+  <div class="categories-edit-page__inner">
+    <app-category-form
+      title="Dados da categoria"
+      submitLabel="Salvar alterações"
+      [initialValue]="category"
+      (submitted)="handleSubmit($event)"
+    ></app-category-form>
+  </div>
+</section>

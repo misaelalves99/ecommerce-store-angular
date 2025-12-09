@@ -1,0 +1,101 @@
+/* src/app/features/catalog/categories/pages/categories-delete-page/categories-delete-page.component.css */
+
+.category-delete-page {
+  padding: 1.1rem 0 2rem;
+}
+
+.category-delete-page__card {
+  border-radius: 1.15rem;
+  border: 1px solid rgba(127, 29, 29, 0.8);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(127, 29, 29, 0.55),
+    #020617
+  );
+  padding: 1.3rem 1.4rem 1.25rem;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.9);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.category-delete-page__card h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fecaca;
+  letter-spacing: -0.01em;
+}
+
+.category-delete-page__warning {
+  font-size: 0.88rem;
+  color: #fecaca;
+}
+
+/* Bloco de informações, igual ao de cupons */
+.category-delete-page__info {
+  margin-top: 0.4rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.9rem;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px dashed rgba(239, 68, 68, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.category-delete-page__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+/* Label / value reaproveitando o mesmo estilo */
+.label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fca5a5;
+}
+
+.value {
+  font-size: 0.9rem;
+  color: #fef2f2;
+}
+
+/* Footer */
+.category-delete-page__footer {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+@media (max-width: 960px) {
+  .category-delete-page {
+    padding-inline: 0.5rem;
+  }
+
+  .category-delete-page__card {
+    border-radius: 1rem;
+    padding-inline: 1.1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .category-delete-page {
+    padding-inline: 0.25rem;
+  }
+
+  .category-delete-page__card {
+    padding-inline: 0.9rem;
+  }
+
+  .category-delete-page__footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .category-delete-page__footer app-button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,103 @@
+<!-- src/app/features/customers/components/customer-form/customer-form.component.html -->
+<section class="customer-form">
+  <header class="customer-form__header">
+    <h2 class="customer-form__title">
+      {{ title() }}
+    </h2>
+
+    <p class="customer-form__subtitle">
+      Preencha os dados do cliente para
+      {{
+        mode === 'create'
+          ? 'cadastrar um novo registro.'
+          : 'atualizar as informações.'
+      }}
+    </p>
+  </header>
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="customer-form__grid"
+  >
+    <div class="customer-form__field customer-form__field--full">
+      <label for="name">Nome completo</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Ex: Maria Silva"
+      />
+      <span
+        class="customer-form__error"
+        *ngIf="nameControl.touched && nameControl.invalid"
+      >
+        Informe o nome do cliente.
+      </span>
+    </div>
+
+    <div class="customer-form__field">
+      <label for="email">E-mail</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="exemplo@cliente.com"
+      />
+      <span
+        class="customer-form__error"
+        *ngIf="emailControl.touched && emailControl.invalid"
+      >
+        Informe um e-mail válido.
+      </span>
+    </div>
+
+    <div class="customer-form__field">
+      <label for="phone">Telefone</label>
+      <input
+        id="phone"
+        type="tel"
+        formControlName="phone"
+        placeholder="(00) 00000-0000"
+      />
+    </div>
+
+    <div class="customer-form__field">
+      <label for="document">CPF/CNPJ</label>
+      <input
+        id="document"
+        type="text"
+        formControlName="document"
+        placeholder="000.000.000-00"
+      />
+    </div>
+
+    <div class="customer-form__field customer-form__field--inline">
+      <label class="customer-form__checkbox">
+        <input type="checkbox" formControlName="isActive" />
+        <span>Cliente ativo</span>
+      </label>
+    </div>
+
+    <div class="customer-form__actions">
+      <app-button
+        type="button"
+        variant="ghost"
+        size="md"
+        [disabled]="loading"
+        (appClick)="onCancel()"
+      >
+        Cancelar
+      </app-button>
+
+      <app-button
+        type="submit"
+        [loading]="loading"
+        variant="primary"
+        size="md"
+      >
+        {{ mode === 'create' ? 'Salvar cliente' : 'Salvar alterações' }}
+      </app-button>
+    </div>
+  </form>
+</section>

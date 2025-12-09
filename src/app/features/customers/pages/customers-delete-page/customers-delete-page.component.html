@@ -1,0 +1,85 @@
+<!-- src/app/features/customers/pages/customers-delete-page/customers-delete-page.component.html -->
+
+<app-page-header
+  title="Excluir cliente"
+  subtitle="Confirme a exclusão do cliente selecionado."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Clientes', link: '/customers' },
+    { label: 'Excluir', active: true }
+  ]"
+>
+</app-page-header>
+
+<section
+  class="customers-delete-page"
+  *ngIf="!loading() && customer() as customer"
+>
+  <div class="customers-delete-page__card">
+    <h2>Tem certeza que deseja excluir este cliente?</h2>
+
+    <p class="customers-delete-page__warning">
+      Esta ação não poderá ser desfeita. O cliente deixará de aparecer em novas
+      operações e listagens.
+    </p>
+
+    <div class="customers-delete-page__info">
+      <div class="customers-delete-page__field">
+        <span class="label">Nome</span>
+        <span class="value">{{ customer.name }}</span>
+      </div>
+
+      <div class="customers-delete-page__field">
+        <span class="label">E-mail</span>
+        <span class="value">
+          {{ customer.email || '—' }}
+        </span>
+      </div>
+
+      <div class="customers-delete-page__field">
+        <span class="label">CPF</span>
+        <span class="value">
+          {{ customer.document || '—' }}
+        </span>
+      </div>
+
+      <div class="customers-delete-page__field">
+        <span class="label">Status</span>
+        <span
+          class="value"
+          [class.value--inactive]="customer.isActive === false"
+        >
+          {{ customer.isActive === false ? 'Inativo' : 'Ativo' }}
+        </span>
+      </div>
+    </div>
+
+    <footer class="customers-delete-page__footer">
+      <app-button
+        type="button"
+        variant="ghost"
+        size="sm"
+        [disabled]="deleting()"
+        (appClick)="cancel()"
+      >
+        Cancelar
+      </app-button>
+
+      <app-button
+        type="button"
+        variant="danger"
+        size="sm"
+        [loading]="deleting()"
+        (appClick)="confirmDelete()"
+      >
+        Excluir cliente
+      </app-button>
+    </footer>
+  </div>
+</section>
+
+<ng-template #loadingTpl>
+  <div class="customers-delete-page__loading">
+    Carregando informações do cliente...
+  </div>
+</ng-template>

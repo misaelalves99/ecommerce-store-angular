@@ -1,0 +1,43 @@
+/* src/app/features/catalog/brands/pages/brands-list-page/brands-list-page.component.css */
+
+.brands-list-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 0 0 1.8rem;
+}
+
+/* Toolbar igual Products / Orders: busca alinhada à esquerda */
+.brands-list-page__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  max-width: 420px;
+}
+
+/* Card da tabela: quem cuida do visual é o BrandTable */
+.brands-list-page__card {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.brands-list-page__table-wrapper {
+  width: 100%;
+}
+
+/* Responsivo */
+
+@media (max-width: 900px) {
+  .brands-list-page__toolbar {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .brands-list-page {
+    padding-inline: 0.25rem;
+  }
+}

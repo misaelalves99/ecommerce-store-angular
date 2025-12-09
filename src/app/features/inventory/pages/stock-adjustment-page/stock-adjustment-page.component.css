@@ -1,0 +1,19 @@
+/* src/app/features/inventory/pages/stock-adjustment-page/stock-adjustment-page.component.css */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page__card {
+  background: var(--surface-elevated);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+  max-width: 840px;
+}
+
+.page__hint {
+  max-width: 840px;
+}

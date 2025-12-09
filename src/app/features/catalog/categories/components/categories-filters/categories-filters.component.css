@@ -1,0 +1,54 @@
+/* src/app/features/catalog/categories/components/categories-filters/categories-filters.component.css */
+
+.categories-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: nowrap;
+
+  /* mesmo “respiro” entre header e tabela que a página de Products */
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* lado esquerdo: search com mesma largura da de Products */
+.categories-filters__left {
+  flex: 1 1 40%;
+  max-width: 420px;
+  min-width: 260px;
+  display: flex;
+}
+
+/* lado direito vazio, mas garantindo alinhamento à direita se um dia tiver algo */
+.categories-filters__right {
+  flex: 1 1 60%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media (max-width: 900px) {
+  .categories-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .categories-filters__left,
+  .categories-filters__right {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .categories-filters__right {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .categories-filters {
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+}

@@ -1,0 +1,116 @@
+<!-- src/app/features/catalog/brands/pages/brands-details-page/brands-details-page.component.html -->
+
+<app-page-header
+  title="Detalhes da marca"
+  subtitle="Visualize as informações completas da marca selecionada."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog' },
+    { label: 'Marcas', link: '/catalog/brands' },
+    { label: 'Detalhes', active: true }
+  ]"
+>
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section
+  class="brand-details-page"
+  *ngIf="!loading() && brand() as brand"
+>
+  <div class="brand-details-page__card">
+    <header class="brand-details-page__header">
+      <div>
+        <h2>{{ brand.name }}</h2>
+        <p>{{ brand.slug || '—' }}</p>
+      </div>
+
+      <div class="brand-details-page__status-wrapper">
+        <span
+          class="brand-details-page__status"
+          [class.brand-details-page__status--inactive]="isInactive()"
+        >
+          {{ getStatusLabel() }}
+        </span>
+      </div>
+    </header>
+
+    <div class="brand-details-page__grid">
+      <div class="brand-details-page__field">
+        <span class="label">Nome da marca</span>
+        <span class="value">{{ brand.name }}</span>
+      </div>
+
+      <div class="brand-details-page__field">
+        <span class="label">Slug</span>
+        <span class="value">{{ brand.slug || '—' }}</span>
+      </div>
+
+      <div class="brand-details-page__field">
+        <span class="label">ID</span>
+        <span class="value">{{ brand.id }}</span>
+      </div>
+
+      <div class="brand-details-page__field">
+        <span class="label">Status</span>
+        <span class="value">{{ getStatusLabel() }}</span>
+      </div>
+
+      <div class="brand-details-page__field">
+        <span class="label">Criada em</span>
+        <span class="value">
+          <ng-container *ngIf="brand.createdAt as created">
+            {{ created | date: 'dd/MM/yyyy HH:mm' }}
+          </ng-container>
+        </span>
+      </div>
+
+      <div class="brand-details-page__field">
+        <span class="label">Atualizada em</span>
+        <span class="value">
+          <ng-container
+            *ngIf="brand.updatedAt as updated; else noUpdated"
+          >
+            {{ updated | date: 'dd/MM/yyyy HH:mm' }}
+          </ng-container>
+          <ng-template #noUpdated>—</ng-template>
+        </span>
+      </div>
+
+      <div
+        class="brand-details-page__field brand-details-page__field--full"
+      >
+        <span class="label">Descrição</span>
+        <span class="value value--muted">
+          {{ getDescription() }}
+        </span>
+      </div>
+    </div>
+
+    <footer class="brand-details-page__footer">
+      <app-button
+        type="button"
+        variant="outline"
+        size="sm"
+        (appClick)="goBack()"
+      >
+        Voltar
+      </app-button>
+
+      <app-button
+        type="button"
+        variant="primary"
+        size="sm"
+        (appClick)="goToEdit()"
+      >
+        Editar marca
+      </app-button>
+    </footer>
+  </div>
+</section>

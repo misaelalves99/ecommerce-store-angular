@@ -1,0 +1,36 @@
+<!-- src/app/features/catalog/products/pages/products-edit-page/products-edit-page.component.html -->
+
+<app-page-header
+  title="Editar produto"
+  subtitle="Atualize as informações do produto selecionado."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog/products' },
+    { label: 'Editar produto', active: true }
+  ]"
+>
+  <!-- Botão Voltar igual ao Create -->
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    class="products-edit-page__back-button"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section
+  class="products-edit-page"
+  *ngIf="product() as product"
+>
+  <div class="products-edit-page__inner">
+    <app-product-form
+      title="Informações do produto"
+      submitLabel="Salvar alterações"
+      [initialValue]="product"
+      (submitted)="handleSubmit($event)"
+    ></app-product-form>
+  </div>
+</section>

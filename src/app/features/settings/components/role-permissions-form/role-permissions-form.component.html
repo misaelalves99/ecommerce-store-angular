@@ -1,0 +1,59 @@
+<!-- src/app/features/settings/components/role-permissions-form/role-permissions-form.component.html -->
+<div class="header">
+  <div class="header__info">
+    <span class="header__label">Papel selecionado</span>
+    <h2 class="header__title">{{ value.role }}</h2>
+    <p class="header__description">
+      {{ value.description }}
+    </p>
+  </div>
+
+  <div class="header__meta">
+    <div class="header__meta-item">
+      <span class="header__meta-label">Permissões ativas</span>
+      <span class="header__meta-value">
+        {{ workingPermissions.size }}
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="groups">
+  <section class="group" *ngFor="let group of groups">
+    <div class="group__header">
+      <div>
+        <h3 class="group__title">{{ group.label }}</h3>
+        <button
+          type="button"
+          class="group__toggle"
+          (click)="toggleGroup(group)"
+        >
+          {{ isGroupSelected(group) ? 'Remover todas' : 'Selecionar todas' }}
+        </button>
+
+      </div>
+    </div>
+
+    <ul class="group__list">
+      <li class="group__item" *ngFor="let perm of group.items">
+        <label class="perm">
+          <input
+            type="checkbox"
+            [checked]="isChecked(perm.key)"
+            (change)="togglePermission(perm.key)"
+          />
+          <div class="perm__body">
+            <span class="perm__label">{{ perm.label }}</span>
+            <span class="perm__desc">{{ perm.description }}</span>
+          </div>
+        </label>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<div class="actions">
+  <app-button variant="primary" (clicked)="onSave()">
+    Salvar permissões
+  </app-button>
+</div>

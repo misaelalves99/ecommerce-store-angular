@@ -1,0 +1,127 @@
+<!-- src/app/features/catalog/products/pages/products-details-page/products-details-page.component.html -->
+<ng-container *ngIf="productSig() as product">
+  <app-page-header
+    title="Detalhes do produto"
+    subtitle="Visualize as informações completas do produto selecionado."
+    [breadcrumb]="[
+      { label: 'Dashboard', link: '/dashboard' },
+      { label: 'Catálogo', link: '/catalog' },
+      { label: 'Produtos', link: '/catalog/products' },
+      { label: 'Detalhes', active: true }
+    ]"
+  >
+    <app-button
+      type="button"
+      variant="outline"
+      size="sm"
+      (appClick)="goBack()"
+    >
+      ← Voltar
+    </app-button>
+  </app-page-header>
+
+  <section class="product-details-page">
+    <div class="product-details-page__card">
+      <header class="product-details-page__header">
+        <div>
+          <h2>{{ product.name }}</h2>
+          <p>{{ product.sku || '—' }}</p>
+        </div>
+
+        <div class="product-details-page__status-wrapper">
+          <span
+            class="product-details-page__status"
+            [class.product-details-page__status--inactive]="isInactive(product)"
+          >
+            {{ isInactive(product) ? 'Inativo' : 'Ativo' }}
+          </span>
+        </div>
+      </header>
+
+      <div class="product-details-page__grid">
+        <div class="product-details-page__field">
+          <span class="label">Marca</span>
+          <span class="value">
+            {{ getBrandName(product) }}
+          </span>
+        </div>
+
+        <div class="product-details-page__field">
+          <span class="label">Categoria</span>
+          <span class="value">
+            {{ getCategoryName(product) }}
+          </span>
+        </div>
+
+        <div class="product-details-page__field">
+          <span class="label">Preço</span>
+          <span class="value">
+            {{ product.price | currencyBr }}
+          </span>
+        </div>
+
+        <div class="product-details-page__field">
+          <span class="label">Estoque atual</span>
+          <span class="value">
+            {{ getCurrentStock(product) }}
+          </span>
+        </div>
+
+        <div class="product-details-page__field">
+          <span class="label">Estoque mínimo</span>
+          <span class="value">
+            {{ getMinStock(product) }}
+          </span>
+        </div>
+
+        <div class="product-details-page__field">
+          <span class="label">Criado em</span>
+          <span class="value">
+            <ng-container *ngIf="product.createdAt as created">
+              {{ created | dateBr: 'short' }}
+            </ng-container>
+          </span>
+        </div>
+
+        <div class="product-details-page__field">
+          <span class="label">Atualizado em</span>
+          <span class="value">
+            <ng-container *ngIf="product.updatedAt as updated; else noUpdated">
+              {{ updated | dateBr: 'short' }}
+            </ng-container>
+            <ng-template #noUpdated>—</ng-template>
+          </span>
+        </div>
+
+        <div
+          class="product-details-page__field product-details-page__field--full"
+        >
+          <span class="label">Descrição</span>
+          <span class="value value--muted">
+            {{ product.description || 'Sem descrição registrada.' }}
+          </span>
+        </div>
+      </div>
+
+      <footer class="product-details-page__footer">
+        <app-button
+          type="button"
+          variant="outline"
+          size="sm"
+          (appClick)="goBack()"
+        >
+          Voltar
+        </app-button>
+
+        <app-button
+          type="button"
+          variant="primary"
+          size="sm"
+          (appClick)="goToEdit()"
+        >
+          Editar produto
+        </app-button>
+      </footer>
+    </div>
+  </section>
+</ng-container>

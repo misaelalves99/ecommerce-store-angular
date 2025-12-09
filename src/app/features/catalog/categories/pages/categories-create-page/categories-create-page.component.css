@@ -1,0 +1,48 @@
+/* src/app/features/catalog/categories/pages/categories-create-page/categories-create-page.component.css */
+
+.categories-create-page {
+  padding: 1.1rem 0 2rem;
+}
+
+/* Card idêntico ao layout de Edit Product */
+.categories-create-page__inner {
+  display: block;
+  border-radius: 1.15rem;
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(15, 23, 42, 0.9),
+    #020617
+  );
+  padding: 1.15rem 1.25rem 1.35rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.7);
+}
+
+/* Botão Voltar alinhado ao header (igual Products) */
+.categories-create-page__back-button {
+  min-width: auto;
+  padding-inline: 0.85rem;
+  font-size: 0.85rem;
+}
+
+/* Responsivo – espelhando Products Edit/Create */
+@media (max-width: 960px) {
+  .categories-create-page {
+    padding-inline: 0.5rem;
+  }
+
+  .categories-create-page__inner {
+    padding-inline: 1rem;
+    border-radius: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .categories-create-page {
+    padding-inline: 0.25rem;
+  }
+
+  .categories-create-page__inner {
+    padding-inline: 0.85rem;
+  }
+}

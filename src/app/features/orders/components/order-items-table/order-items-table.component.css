@@ -1,0 +1,171 @@
+/* src/app/features/orders/components/order-items-table/order-items-table.component.css */
+
+.order-items {
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: radial-gradient(
+    circle at top left,
+    rgba(56, 189, 248, 0.16),
+    rgba(15, 23, 42, 0.98)
+  );
+  padding: 1.25rem 1.35rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.order-items__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.order-items__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.order-items__subtitle {
+  font-size: 0.86rem;
+  color: #9ca3af;
+}
+
+/* wrapper com scroll suave em telas menores */
+.order-items__wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(30, 64, 175, 0.7);
+  background: rgba(15, 23, 42, 0.98);
+}
+
+/* tabela base */
+.order-items__table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+}
+
+.order-items__table thead {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0.98),
+    rgba(15, 23, 42, 0.7)
+  );
+}
+
+.order-items__table th,
+.order-items__table td {
+  padding: 0.75rem 0.8rem;
+  font-size: 0.84rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.95);
+}
+
+.order-items__table th {
+  text-align: left;
+  font-weight: 500;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.74rem;
+}
+
+.order-items__th--numeric {
+  text-align: right;
+}
+
+.order-items__td--numeric {
+  text-align: right;
+}
+
+/* linhas alternadas para legibilidade */
+.order-items__table tbody tr:nth-child(odd) {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.order-items__table tbody tr:nth-child(even) {
+  background: rgba(15, 23, 42, 0.96);
+}
+
+/* conteúdo das células */
+
+.order-items__product {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.order-items__product-name {
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+.order-items__product-brand {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.order-items__sku {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  color: #a5b4fc;
+  font-size: 0.8rem;
+}
+
+.order-items__qty {
+  color: #e5e7eb;
+}
+
+.order-items__price,
+.order-items__subtotal {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+/* estado vazio */
+
+.order-items__empty {
+  border-radius: 0.9rem;
+  border: 1px dashed rgba(148, 163, 184, 0.4);
+  padding: 0.95rem 1rem;
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.order-items__empty-title {
+  font-size: 0.88rem;
+  color: #e5e7eb;
+  margin-bottom: 0.15rem;
+}
+
+.order-items__empty-subtitle {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* Responsivo */
+
+@media (max-width: 900px) {
+  .order-items {
+    padding-inline: 1rem;
+  }
+
+  .order-items__table {
+    min-width: 560px;
+  }
+}
+
+@media (max-width: 640px) {
+  .order-items {
+    padding-inline: 0.85rem;
+  }
+
+  .order-items__title {
+    font-size: 0.96rem;
+  }
+
+  .order-items__table th,
+  .order-items__table td {
+    padding: 0.7rem 0.7rem;
+  }
+}

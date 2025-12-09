@@ -1,0 +1,160 @@
+/* src/app/features/marketing/coupons/components/coupon-form/coupon-form.component.css */
+
+/* Form como estrutura interna; card vem da página Create */
+.coupon-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+/* Header */
+
+.coupon-form__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.8);
+}
+
+.coupon-form__header h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #e5e7eb;
+}
+
+.coupon-form__header p {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  max-width: 520px;
+}
+
+/* Grid dos campos */
+
+.coupon-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+/* Campo genérico */
+
+.coupon-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.coupon-form__field--full {
+  grid-column: 1 / -1;
+}
+
+/* Checkbox ocupa a linha inteira */
+
+.coupon-form__field--checkbox {
+  grid-column: 1 / -1;
+}
+
+/* Labels */
+
+.coupon-form__field label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #e5e7eb;
+}
+
+/* Inputs / selects */
+
+.coupon-form__field input,
+.coupon-form__field select,
+.coupon-form__field textarea {
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(15, 23, 42, 0.9);
+  color: #f9fafb;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.coupon-form__field input::placeholder,
+.coupon-form__field textarea::placeholder {
+  color: #6b7280;
+}
+
+.coupon-form__field input:focus,
+.coupon-form__field select:focus,
+.coupon-form__field textarea:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+  background: rgba(15, 23, 42, 0.95);
+}
+
+/* Hint e erro */
+
+.coupon-form__hint {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  margin-left: 0.25rem;
+}
+
+.coupon-form__error {
+  font-size: 0.78rem;
+  color: #fecaca;
+}
+
+/* Checkbox "Cupom ativo" */
+
+.coupon-form__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #e5e7eb;
+}
+
+.coupon-form__checkbox input[type='checkbox'] {
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 0.4rem;
+}
+
+/* Footer / ações */
+
+.coupon-form__footer {
+  margin-top: 0.1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(31, 41, 55, 0.8);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* Responsivo */
+
+@media (max-width: 900px) {
+  .coupon-form__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .coupon-form__footer {
+    justify-content: stretch;
+  }
+
+  .coupon-form__footer app-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .coupon-form__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

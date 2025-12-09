@@ -1,0 +1,134 @@
+<!-- src/app/features/auth/pages/login-page/login-page.component.html -->
+
+<div class="auth-page">
+  <div class="auth-card-wrapper">
+    <app-card>
+      <div class="auth-card">
+        <div class="auth-card__header">
+          <h1 class="auth-title">Entrar no painel</h1>
+          <p class="auth-subtitle">
+            Acesse o dashboard administrativo para gerenciar catálogo, pedidos e clientes.
+          </p>
+        </div>
+
+        <form class="auth-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="form-field">
+            <label for="email">E-mail</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              [appAutofocus]="true"
+              placeholder="voce@empresa.com"
+            />
+            <div class="field-error" *ngIf="emailCtrl.touched && emailCtrl.invalid">
+              <span *ngIf="emailCtrl.errors?.['required']">
+                E-mail é obrigatório.
+              </span>
+              <span *ngIf="emailCtrl.errors?.['email']">
+                Informe um e-mail válido.
+              </span>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="password">Senha</label>
+            <input
+              id="password"
+              type="password"
+              formControlName="password"
+              placeholder="••••••••"
+            />
+            <div class="field-error" *ngIf="passwordCtrl.touched && passwordCtrl.invalid">
+              <span *ngIf="passwordCtrl.errors?.['required']">
+                Senha é obrigatória.
+              </span>
+              <span *ngIf="passwordCtrl.errors?.['minlength']">
+                A senha deve ter pelo menos 6 caracteres.
+              </span>
+            </div>
+          </div>
+
+          <div class="form-row form-row--between">
+            <label class="checkbox">
+              <input type="checkbox" formControlName="rememberMe" />
+              <span>Lembrar-me neste dispositivo</span>
+            </label>
+
+            <a class="link" routerLink="/auth/forgot-password">
+              Esqueci minha senha
+            </a>
+          </div>
+
+          <app-button
+            type="submit"
+            variant="primary"
+            class="submit-button"
+            [disabled]="!canSubmit()"
+            [loading]="loading()"
+          >
+            Entrar
+          </app-button>
+
+          <!-- Divider social -->
+          <div class="auth-divider">
+            <span class="auth-divider__line"></span>
+            <span class="auth-divider__label">ou continue com</span>
+            <span class="auth-divider__line"></span>
+          </div>
+
+          <!-- Botões sociais -->
+          <div class="auth-social">
+            <app-button
+              type="button"
+              variant="secondary"
+              class="social-button social-button--google"
+              [disabled]="loading()"
+              [loading]="loading()"
+              (appClick)="onLoginWithGoogle()"
+            >
+              <span class="social-button__icon social-button__icon--google" aria-hidden="true">
+                G
+              </span>
+              <span class="social-button__label">Entrar com Google</span>
+            </app-button>
+
+            <app-button
+              type="button"
+              variant="secondary"
+              class="social-button social-button--facebook"
+              [disabled]="loading()"
+              [loading]="loading()"
+              (appClick)="onLoginWithFacebook()"
+            >
+              <span class="social-button__icon social-button__icon--facebook" aria-hidden="true">
+                f
+              </span>
+              <span class="social-button__label">Entrar com Facebook</span>
+            </app-button>
+          </div>
+
+          <p class="auth-footer-text">
+            Não tem conta?
+            <a class="link" routerLink="/auth/register">Criar conta</a>
+          </p>
+
+          <p class="auth-error" *ngIf="errorMessage() as error">
+            {{ error }}
+          </p>
+        </form>
+      </div>
+    </app-card>
+  </div>
+
+  <div class="auth-hero">
+    <div class="auth-hero__overlay"></div>
+    <div class="auth-hero__content">
+      <h2>Visão completa do seu e-commerce</h2>
+      <p>
+        Acompanhe vendas, estoque, clientes e campanhas em um painel único,
+        desenhado para operação diária de lojas modernas.
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<!-- src/app/features/settings/components/store-settings-form/store-settings-form.component.html -->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2 class="form__title">Identidade da loja</h2>
+
+  <div class="form__grid">
+    <div class="form__field form__field--full">
+      <label for="name">Nome da loja *</label>
+      <input id="name" type="text" formControlName="name" />
+      <small *ngIf="hasError('name', 'required')">Informe o nome da loja.</small>
+    </div>
+
+    <div class="form__field">
+      <label for="cnpj">CNPJ *</label>
+      <input id="cnpj" type="text" formControlName="cnpj" />
+      <small *ngIf="hasError('cnpj', 'required')">Informe o CNPJ.</small>
+    </div>
+
+    <div class="form__field">
+      <label for="email">E-mail de contato *</label>
+      <input id="email" type="email" formControlName="email" />
+      <small *ngIf="hasError('email', 'required')">Informe o e-mail.</small>
+      <small *ngIf="hasError('email', 'email')">E-mail inválido.</small>
+    </div>
+
+    <div class="form__field">
+      <label for="phone">Telefone</label>
+      <input id="phone" type="text" formControlName="phone" />
+    </div>
+  </div>
+
+  <h2 class="form__title">Localização & fuso horário</h2>
+
+  <div class="form__grid">
+    <div class="form__field">
+      <label for="timezone">Fuso horário *</label>
+      <select id="timezone" formControlName="timezone">
+        <option *ngFor="let tz of timezones" [value]="tz">{{ tz }}</option>
+      </select>
+    </div>
+
+    <div class="form__field">
+      <label for="currency">Moeda padrão *</label>
+      <select id="currency" formControlName="currency">
+        <option *ngFor="let c of currencies" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <div class="form__field form__field--full">
+      <label for="addressLine1">Endereço *</label>
+      <input id="addressLine1" type="text" formControlName="addressLine1" />
+    </div>
+
+    <div class="form__field form__field--full">
+      <label for="addressLine2">Complemento</label>
+      <input id="addressLine2" type="text" formControlName="addressLine2" />
+    </div>
+
+    <div class="form__field">
+      <label for="city">Cidade *</label>
+      <input id="city" type="text" formControlName="city" />
+    </div>
+
+    <div class="form__field">
+      <label for="state">Estado *</label>
+      <input id="state" type="text" formControlName="state" />
+    </div>
+
+    <div class="form__field">
+      <label for="zipCode">CEP *</label>
+      <input id="zipCode" type="text" formControlName="zipCode" />
+    </div>
+  </div>
+
+  <div class="form__actions">
+    <app-button type="submit" variant="primary">Salvar configurações</app-button>
+  </div>
+</form>

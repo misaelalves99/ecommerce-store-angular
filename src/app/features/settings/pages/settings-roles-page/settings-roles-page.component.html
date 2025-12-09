@@ -1,0 +1,52 @@
+<!-- src/app/features/settings/pages/settings-roles-page/settings-roles-page.component.html -->
+<app-page-header
+  title="Papéis & permissões"
+  subtitle="Controle o que cada papel de usuário pode visualizar ou alterar no painel."
+  [breadcrumb]="['Configurações', 'Papéis']"
+></app-page-header>
+
+<section class="page" *ngIf="!loading(); else loadingTpl">
+  <div class="page__layout" *ngIf="roles().length; else emptyTpl">
+    <aside class="page__sidebar">
+      <h2 class="sidebar__title">Papéis</h2>
+      <ul class="sidebar__list">
+        <li
+          *ngFor="let role of roles()"
+          class="sidebar__item"
+          (click)="selectRole(role)"
+          [class.sidebar__item--active]="selectedRole()?.role === role.role"
+        >
+          <div class="sidebar__item-main">
+            <span class="sidebar__item-role">{{ role.role }}</span>
+            <span class="sidebar__item-desc">{{ role.description }}</span>
+          </div>
+          <app-badge
+            [label]="role.permissions.length + ' permissões'"
+            variant="neutral"
+          ></app-badge>
+        </li>
+      </ul>
+    </aside>
+
+    <div class="page__content" *ngIf="selectedRole()">
+      <app-role-permissions-form
+        [value]="selectedRole()!"
+        (saved)="onPermissionsSaved($event)"
+      ></app-role-permissions-form>
+    </div>
+  </div>
+</section>
+
+<ng-template #loadingTpl>
+  <app-empty-state
+    title="Carregando papéis..."
+    description="Buscando papéis e permissões configurados."
+  ></app-empty-state>
+</ng-template>
+
+<ng-template #emptyTpl>
+  <app-empty-state
+    title="Nenhum papel configurado"
+    description="Crie papéis e permissões padrão no backend para começar."
+  ></app-empty-state>
+</ng-template>

@@ -1,0 +1,27 @@
+/* src/app/features/inventory/components/stock-table/stock-table.component.css */
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.product__name {
+  font-weight: 500;
+  color: #f9fafb;
+}
+
+.product__meta {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+.numeric {
+  text-align: right;
+}

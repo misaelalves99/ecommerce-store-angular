@@ -1,0 +1,22 @@
+/* src/app/features/catalog/categories/pages/categories-list-page/categories-list-page.component.css */
+
+.categories-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 0 0 1.8rem;
+}
+
+/* painel só organiza layout; quem faz o card é o CategoryTable */
+.categories-page__panel {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* responsivo básico igual aos outros módulos */
+@media (max-width: 640px) {
+  .categories-page {
+    padding-inline: 0.25rem;
+  }
+}

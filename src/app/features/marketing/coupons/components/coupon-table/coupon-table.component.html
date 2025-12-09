@@ -1,0 +1,108 @@
+<!-- src/app/features/marketing/coupons/components/coupon-table/coupon-table.component.html -->
+
+<div class="coupon-table__wrapper" *ngIf="!loading; else loadingTpl">
+  <table class="coupon-table" *ngIf="coupons.length; else emptyTpl">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>Valor</th>
+        <th>Período</th>
+        <th>Status</th>
+        <th class="coupon-table__actions-column">Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr
+        *ngFor="let coupon of coupons; trackBy: trackById; let i = index"
+      >
+        <td class="coupon-table__code">
+          {{ coupon.code }}
+        </td>
+
+        <td>
+          {{ coupon.name || coupon.code }}
+        </td>
+
+        <td>
+          {{ coupon.typeLabel || '—' }}
+        </td>
+
+        <td>
+          {{ coupon.displayValue || '—' }}
+        </td>
+
+        <td>
+          <span *ngIf="coupon.validFrom as from">
+            {{ from | date: 'dd/MM/yyyy' }}
+          </span>
+          <span *ngIf="coupon.validUntil as until">
+            &nbsp;→&nbsp;{{ until | date: 'dd/MM/yyyy' }}
+          </span>
+        </td>
+
+        <td>
+          <span
+            class="coupon-table__status"
+            [class.coupon-table__status--inactive]="isInactive(coupon)"
+          >
+            {{ isInactive(coupon) ? 'Inativo' : 'Ativo' }}
+          </span>
+        </td>
+
+        <!-- COLUNA DE AÇÕES -->
+        <td class="coupon-table__actions">
+          <app-button
+            variant="ghost"
+            size="sm"
+            class="coupon-table__action-btn"
+            [routerLink]="[
+              '/marketing/coupons/details',
+              getRouteId(coupon, i)
+            ]"
+          >
+            Detalhes
+          </app-button>
+
+          <app-button
+            variant="outline"
+            size="sm"
+            class="coupon-table__action-btn"
+            [routerLink]="[
+              '/marketing/coupons/edit',
+              getRouteId(coupon, i)
+            ]"
+          >
+            Editar
+          </app-button>
+
+          <app-button
+            variant="danger"
+            size="sm"
+            class="coupon-table__action-btn"
+            [routerLink]="[
+              '/marketing/coupons/delete',
+              getRouteId(coupon, i)
+            ]"
+          >
+            Excluir
+          </app-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="coupon-table__loading">
+    Carregando cupons...
+  </div>
+</ng-template>
+
+<ng-template #emptyTpl>
+  <div class="coupon-table__empty">
+    {{ emptyMessage }}
+  </div>
+</ng-template>

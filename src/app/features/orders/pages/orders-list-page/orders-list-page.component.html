@@ -1,0 +1,32 @@
+<!-- src/app/features/orders/pages/orders-list-page/orders-list-page.component.html -->
+<app-page-header
+  title="Pedidos"
+  subtitle="Visão geral de todos os pedidos realizados na loja."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Pedidos', link: '/orders', active: true }
+  ]"
+></app-page-header>
+
+<section class="orders-list-page">
+  <div class="orders-list-page__inner">
+    <!-- Toolbar / Filtros -->
+    <div class="orders-list-page__toolbar">
+      <app-search-input
+        placeholder="Buscar por código, cliente ou e-mail..."
+        [value]="searchTerm()"
+        (valueChange)="onSearch($event)"
+      ></app-search-input>
+    </div>
+
+    <!-- Card da tabela -->
+    <div class="orders-list-page__table-card">
+      <app-order-table
+        [orders]="filteredOrders()"
+        [loading]="loading()"
+        (details)="onDetails($event)"
+        (timeline)="onTimeline($event)"
+      ></app-order-table>
+    </div>
+  </div>
+</section>

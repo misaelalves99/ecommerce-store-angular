@@ -1,0 +1,176 @@
+/* src/app/features/customers/components/customer-table/customer-table.component.css */
+
+:host {
+  display: block;
+}
+
+/* ======================================================================
+   WRAPPER
+   ====================================================================== */
+
+.customers-table-wrapper {
+  width: 100%;
+}
+
+/* ======================================================================
+   BASE DA TABELA – igual Products
+   ====================================================================== */
+
+.table.customers-list-page__table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 0.86rem;
+  text-align: left;
+}
+
+/* Cabeçalho */
+.table.customers-list-page__table thead {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0.98),
+    rgba(15, 23, 42, 0.93)
+  );
+}
+
+.table.customers-list-page__table thead th {
+  padding: 0.85rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.28);
+  white-space: nowrap;
+}
+
+.customers-list-page__th-actions {
+  text-align: right;
+  width: 240px;
+}
+
+/* ======================================================================
+   Linhas / células
+   ====================================================================== */
+
+.table.customers-list-page__table tbody tr {
+  background: transparent;
+  transition:
+    background 0.14s ease,
+    transform 0.08s ease;
+}
+
+.table.customers-list-page__table tbody tr:hover {
+  background: radial-gradient(
+    circle at top left,
+    rgba(37, 99, 235, 0.12),
+    rgba(15, 23, 42, 0.98)
+  );
+  transform: translateY(-0.5px);
+}
+
+.table.customers-list-page__table tbody td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+  color: #e5e7eb;
+  vertical-align: middle;
+}
+
+/* última linha encosta “limpo” no fim do card */
+.table.customers-list-page__table tbody tr:last-child td {
+  border-bottom-color: rgba(31, 41, 55, 0.9);
+}
+
+/* ======================================================================
+   Coluna “Cliente”
+   ====================================================================== */
+
+.customers-list-page__name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.customers-list-page__name-main {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.customers-list-page__name-id {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* ======================================================================
+   E-mail / CPF
+   ====================================================================== */
+
+.customers-list-page__email,
+.customers-list-page__document {
+  font-size: 0.84rem;
+  color: #e5e7eb;
+}
+
+/* ======================================================================
+   Ações – alinhamento como Products
+   ====================================================================== */
+
+.customers-list-page__td-actions {
+  text-align: right;
+}
+
+.customers-list-page__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* Deixa os app-button mais compactos na linha da tabela */
+.customers-list-page__actions app-button {
+  font-size: 0.8rem;
+}
+
+/* ======================================================================
+   Estados (vazio / carregando)
+   ====================================================================== */
+
+.customers-list-page__state {
+  padding: 1rem;
+  font-size: 0.86rem;
+  text-align: center;
+  border-radius: 0.9rem;
+}
+
+.customers-list-page__state--empty {
+  color: #9ca3af;
+  border: 1px dashed rgba(55, 65, 81, 0.9);
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.customers-list-page__state--loading {
+  color: #e5e7eb;
+  border: 1px solid rgba(31, 41, 55, 0.85);
+  background: rgba(15, 23, 42, 0.96);
+}
+
+/* ======================================================================
+   Responsivo – scroll horizontal como Products
+   ====================================================================== */
+
+@media (max-width: 768px) {
+  .customers-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .table.customers-list-page__table {
+    min-width: 720px;
+  }
+
+  .table.customers-list-page__table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+}

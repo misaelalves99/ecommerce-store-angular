@@ -1,0 +1,32 @@
+<!-- src/app/features/catalog/products/pages/products-create-page/products-create-page.component.html -->
+
+<app-page-header
+  title="Novo produto"
+  subtitle="Cadastre um novo item no catálogo da loja."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog/products' },
+    { label: 'Novo produto', active: true }
+  ]"
+>
+  <!-- Botão Voltar projetado para o header -->
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    class="products-create-page__back-button"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section class="products-create-page">
+  <div class="products-create-page__inner">
+    <app-product-form
+      title="Informações do produto"
+      submitLabel="Salvar produto"
+      (submitted)="handleSubmit($event)"
+    ></app-product-form>
+  </div>
+</section>

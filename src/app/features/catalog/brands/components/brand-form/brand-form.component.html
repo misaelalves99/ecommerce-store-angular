@@ -1,0 +1,62 @@
+<!-- src/app/features/catalog/brands/components/brand-form/brand-form.component.html -->
+<section class="brand-form">
+  <header class="brand-form__header">
+    <h2>{{ title() }}</h2>
+    <p>
+      Preencha os campos abaixo para
+      {{ mode === 'create' ? 'cadastrar uma nova marca.' : 'atualizar a marca.' }}
+    </p>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="brand-form__grid">
+    <div class="brand-form__field">
+      <label for="name">Nome da marca</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Ex: Apple, Samsung"
+      />
+      <span class="brand-form__error" *ngIf="nameControl.touched && nameControl.invalid">
+        O nome é obrigatório e deve ter ao menos 2 caracteres.
+      </span>
+    </div>
+
+    <div class="brand-form__field">
+      <label for="slug">Slug</label>
+      <input
+        id="slug"
+        type="text"
+        formControlName="slug"
+        placeholder="ex: apple"
+      />
+      <span class="brand-form__hint">
+        Usado em URLs e integrações. Somente letras minúsculas, números e hífens.
+      </span>
+      <span class="brand-form__error" *ngIf="slugControl.touched && slugControl.invalid">
+        O slug é obrigatório.
+      </span>
+    </div>
+
+    <div class="brand-form__field brand-form__field--inline">
+      <label class="brand-form__checkbox">
+        <input type="checkbox" formControlName="isActive" />
+        <span>Marca ativa no catálogo</span>
+      </label>
+      <span class="brand-form__hint">
+        Desmarque para esconder temporariamente a marca da loja.
+      </span>
+    </div>
+
+    <div class="brand-form__actions">
+      <app-button
+        type="submit"
+        [loading]="loading()"
+        variant="primary"
+        size="md"
+      >
+        {{ mode === 'create' ? 'Salvar marca' : 'Salvar alterações' }}
+      </app-button>
+    </div>
+  </form>
+</section>

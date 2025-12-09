@@ -1,0 +1,129 @@
+<app-page-header
+  title="Produtos"
+  subtitle="Gerencie o catálogo de produtos, status, marcas e categorias."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog' },
+    { label: 'Produtos', link: '/catalog/products', active: true }
+  ]"
+>
+  <app-button
+    variant="primary"
+    size="sm"
+    routerLink="/catalog/products/create"
+  >
+    + Novo produto
+  </app-button>
+</app-page-header>
+
+<section class="products-page">
+  <!-- Toolbar de filtros -->
+  <div class="products-page__toolbar">
+    <div class="products-page__filters-left">
+      <app-search-input
+        placeholder="Buscar por nome ou SKU..."
+        (valueChange)="onSearchChange($event)"
+      ></app-search-input>
+    </div>
+
+    <div class="products-page__filters-right">
+      <div class="products-page__select-group">
+        <!-- Status -->
+        <label class="products-page__select">
+          <span class="products-page__select-label">Status</span>
+          <select
+            [value]="statusFilter()"
+            (change)="onStatusChange($event)"
+          >
+            <option value="all">Todos</option>
+            <option value="active">Ativos</option>
+            <option value="inactive">Inativos</option>
+          </select>
+        </label>
+
+        <!-- Marca -->
+        <label class="products-page__select">
+          <span class="products-page__select-label">Marca</span>
+          <select
+            [value]="brandFilter()"
+            (change)="onBrandChange($event)"
+          >
+            <option value="all">Todas</option>
+            <option
+              *ngFor="let brand of brandOptions()"
+              [value]="brand.id"
+            >
+              {{ brand.name }}
+            </option>
+          </select>
+        </label>
+
+        <!-- Categoria -->
+        <label class="products-page__select">
+          <span class="products-page__select-label">Categoria</span>
+          <select
+            [value]="categoryFilter()"
+            (change)="onCategoryChange($event)"
+          >
+            <option value="all">Todas</option>
+            <option
+              *ngFor="let category of categoryOptions()"
+              [value]="category.id"
+            >
+              {{ category.name }}
+            </option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card principal -->
+  <div
+    class="products-page__card"
+    *ngIf="!loading(); else loadingTpl"
+  >
+    <ng-container *ngIf="filteredProducts().length; else emptyTpl">
+      <div class="products-page__table-wrapper">
+        <app-product-table
+          [products]="paginatedProducts()"
+          (deleteClicked)="onDeleteProduct($event)"
+          (detailsClicked)="onDetailsProduct($event)"
+        ></app-product-table>
+      </div>
+
+      <div class="products-page__pagination">
+        <app-pagination
+          [page]="page()"
+          [pageSize]="pageSize"
+          [totalItems]="filteredProducts().length"
+          (pageChange)="onPageChange($event)"
+        ></app-pagination>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Loading -->
+  <ng-template #loadingTpl>
+    <app-empty-state
+      title="Carregando produtos..."
+      description="Buscando itens do catálogo. Isso levará apenas alguns instantes."
+    ></app-empty-state>
+  </ng-template>
+
+  <!-- Empty -->
+  <ng-template #emptyTpl>
+    <app-empty-state
+      title="Nenhum produto encontrado"
+      description="Cadastre um produto para começar a montar o catálogo da loja."
+    >
+      <app-button
+        variant="primary"
+        size="sm"
+        routerLink="/catalog/products/create"
+      >
+        Novo produto
+      </app-button>
+    </app-empty-state>
+  </ng-template>
+</section>

@@ -1,0 +1,69 @@
+<!-- src/app/features/marketing/coupons/pages/coupons-list-page/coupons-list-page.component.html -->
+
+<app-page-header
+  title="Cupons de Desconto"
+  subtitle="Gerencie códigos promocionais, validade, limites de uso e impacto em vendas."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Marketing', link: '/marketing' },
+    { label: 'Cupons', link: '/marketing/coupons', active: true }
+  ]"
+>
+  <app-button
+    variant="primary"
+    size="sm"
+    routerLink="/marketing/coupons/create"
+  >
+    + Novo cupom
+  </app-button>
+</app-page-header>
+
+<section class="coupons-page">
+  <!-- Toolbar (busca) fora do card, igual Products -->
+  <div class="coupons-page__toolbar">
+    <app-search-input
+      placeholder="Buscar por código, nome ou descrição..."
+      (valueChange)="onSearchChange($event)"
+    ></app-search-input>
+  </div>
+
+  <!-- Container “plano”: tabela + paginação + empty -->
+  <div class="coupons-page__card">
+    <div class="coupons-page__table-wrapper">
+      <!-- Tabela de cupons (usa TableComponent internamente) -->
+      <app-coupon-table
+        [coupons]="paginatedCoupons()"
+        [loading]="loading()"
+        emptyMessage="Nenhum cupom encontrado."
+      ></app-coupon-table>
+    </div>
+
+    <!-- Paginação (só aparece se houver registros) -->
+    <div
+      class="coupons-page__pagination"
+      *ngIf="filteredCoupons().length"
+    >
+      <app-pagination
+        [page]="page()"
+        [pageSize]="pageSize"
+        [totalItems]="filteredCoupons().length"
+        (pageChange)="onPageChange($event)"
+      ></app-pagination>
+    </div>
+
+    <!-- Estado vazio global (sem nenhum cupom cadastrado) -->
+    <app-empty-state
+      *ngIf="!loading() && !filteredCoupons().length"
+      title="Nenhum cupom cadastrado"
+      description="Crie o primeiro cupom para começar a oferecer benefícios ao seu cliente."
+    >
+      <app-button
+        variant="primary"
+        size="sm"
+        routerLink="/marketing/coupons/create"
+      >
+        Criar cupom
+      </app-button>
+    </app-empty-state>
+  </div>
+</section>

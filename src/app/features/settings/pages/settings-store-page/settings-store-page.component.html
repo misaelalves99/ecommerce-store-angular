@@ -1,0 +1,31 @@
+<!-- src/app/features/settings/pages/settings-store-page/settings-store-page.component.html -->
+<app-page-header
+  title="Configurações da loja"
+  subtitle="Defina nome, dados fiscais, endereço, fuso horário e moeda padrão."
+  [breadcrumb]="['Configurações', 'Loja']"
+></app-page-header>
+
+<section class="page" *ngIf="!loading(); else loadingTpl">
+  <div class="page__card" *ngIf="settings(); else emptyTpl">
+    <app-store-settings-form
+      [value]="settings()!"
+      (saved)="onSaved($event)"
+    ></app-store-settings-form>
+  </div>
+</section>
+
+<ng-template #loadingTpl>
+  <app-empty-state
+    emoji="⏳"
+    title="Carregando configurações..."
+    description="Buscando dados da loja no painel."
+  ></app-empty-state>
+</ng-template>
+
+<ng-template #emptyTpl>
+  <app-empty-state
+    emoji="⚙️"
+    title="Configurações não encontradas"
+    description="Ainda não há configurações cadastradas. Preencha os dados iniciais da loja."
+  ></app-empty-state>
+</ng-template>

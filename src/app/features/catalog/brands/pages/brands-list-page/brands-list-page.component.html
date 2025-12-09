@@ -1,0 +1,38 @@
+<!-- src/app/features/catalog/brands/pages/brands-list-page/brands-list-page.component.html -->
+<app-page-header
+  title="Marcas"
+  subtitle="Gerencie as marcas utilizadas no catálogo da loja."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog' },
+    { label: 'Marcas', link: '/catalog/brands', active: true }
+  ]"
+>
+  <app-button variant="primary" size="sm" (appClick)="onCreate()">
+    + Nova marca
+  </app-button>
+</app-page-header>
+
+<section class="brands-list-page">
+  <!-- Toolbar (busca) FORA do card, igual Products -->
+  <div class="brands-list-page__toolbar">
+    <app-search-input
+      placeholder="Buscar por nome ou slug..."
+      [value]="searchTerm()"
+      (valueChange)="onSearch($event)"
+    ></app-search-input>
+  </div>
+
+  <!-- Card apenas com a tabela -->
+  <div class="brands-list-page__card">
+    <div class="brands-list-page__table-wrapper">
+      <app-brand-table
+        [brands]="filteredBrands()"
+        [loading]="loading()"
+        (edit)="onEdit($event)"
+        (details)="onDetails($event)"
+        (delete)="onDelete($event)"
+      ></app-brand-table>
+    </div>
+  </div>
+</section>

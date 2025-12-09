@@ -1,0 +1,102 @@
+<!-- src/app/features/customers/components/customer-table/customer-table.component.html -->
+<div class="customers-table-wrapper">
+  <table class="table customers-list-page__table">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>E-mail</th>
+        <th>CPF</th>
+        <th>Status</th>
+        <th class="customers-list-page__th-actions">
+          Ações
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Linhas -->
+      <tr *ngFor="let item of customers">
+        <td>
+          <div class="customers-list-page__name">
+            <span class="customers-list-page__name-main">
+              {{ getCustomerName(item) }}
+            </span>
+            <span class="customers-list-page__name-id">
+              ID: {{ item.id }}
+            </span>
+          </div>
+        </td>
+
+        <td>
+          <span class="customers-list-page__email">
+            {{ getCustomerEmail(item) }}
+          </span>
+        </td>
+
+        <td>
+          <span class="customers-list-page__document">
+            {{ getCustomerDocument(item) }}
+          </span>
+        </td>
+
+        <td>
+          <app-badge
+            [variant]="isCustomerActive(item) ? 'success' : 'neutral'"
+            size="sm"
+          >
+            {{ isCustomerActive(item) ? 'Ativo' : 'Inativo' }}
+          </app-badge>
+        </td>
+
+        <td class="customers-list-page__td-actions">
+          <div class="customers-list-page__actions">
+            <app-button
+              size="sm"
+              variant="ghost"
+              (appClick)="onDetails(item.id)"
+            >
+              Detalhes
+            </app-button>
+
+            <app-button
+              size="sm"
+              variant="secondary"
+              (appClick)="onEdit(item.id)"
+            >
+              Editar
+            </app-button>
+
+            <app-button
+              size="sm"
+              variant="danger"
+              (appClick)="onDelete(item.id)"
+            >
+              Excluir
+            </app-button>
+          </div>
+        </td>
+      </tr>
+
+      <!-- Estado vazio (sem clientes) -->
+      <tr *ngIf="!loading && customers.length === 0">
+        <td
+          colspan="5"
+          class="customers-list-page__state customers-list-page__state--empty"
+        >
+          Nenhum cliente encontrado. Ajuste a busca ou cadastre novos
+          clientes.
+        </td>
+      </tr>
+
+      <!-- Estado carregando -->
+      <tr *ngIf="loading">
+        <td
+          colspan="5"
+          class="customers-list-page__state customers-list-page__state--loading"
+        >
+          Carregando clientes...
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

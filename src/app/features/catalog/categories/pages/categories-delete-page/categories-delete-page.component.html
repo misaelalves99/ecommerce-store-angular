@@ -1,0 +1,57 @@
+<app-page-header
+  title="Excluir categoria"
+  subtitle="Confirme a exclusão da categoria selecionada."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog' },
+    { label: 'Categorias', link: '/catalog/categories' },
+    { label: 'Excluir', active: true }
+  ]"
+>
+</app-page-header>
+
+<section
+  class="category-delete-page"
+  *ngIf="categorySig() as category"
+>
+  <div class="category-delete-page__card">
+    <h2>Tem certeza que deseja excluir esta categoria?</h2>
+
+    <p class="category-delete-page__warning">
+      Esta ação não poderá ser desfeita. A categoria deixará de ser usada em novos produtos
+      e listagens do catálogo.
+    </p>
+
+    <div class="category-delete-page__info">
+      <div class="category-delete-page__field">
+        <span class="label">Nome</span>
+        <span class="value">{{ category.name }}</span>
+      </div>
+
+      <div class="category-delete-page__field">
+        <span class="label">Slug</span>
+        <span class="value">{{ category.slug }}</span>
+      </div>
+    </div>
+
+    <footer class="category-delete-page__footer">
+      <app-button
+        type="button"
+        variant="ghost"
+        size="sm"
+        (appClick)="cancel()"
+      >
+        Cancelar
+      </app-button>
+
+      <app-button
+        type="button"
+        variant="danger"
+        size="sm"
+        (appClick)="confirmDelete()"
+      >
+        Excluir categoria
+      </app-button>
+    </footer>
+  </div>
+</section>

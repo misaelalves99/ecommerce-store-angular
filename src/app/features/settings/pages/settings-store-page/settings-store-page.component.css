@@ -1,0 +1,32 @@
+/* src/app/features/settings/pages/settings-store-page/settings-store-page.component.css */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: 0.75rem 0 1.75rem;
+  align-items: center;
+}
+
+/* Card principal das configurações da loja */
+.page__card {
+  width: 100%;
+  max-width: 960px;
+  border-radius: 1.1rem;
+  padding: 1.6rem 1.7rem;
+  background: radial-gradient(
+    circle at top left,
+    rgba(8, 47, 73, 0.45),
+    var(--surface-elevated, #020617)
+  );
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.6);
+}
+
+/* Deixa o conteúdo interno respirar melhor em telas menores */
+@media (max-width: 768px) {
+  .page__card {
+    padding: 1.3rem 1.1rem;
+    border-radius: 1rem;
+  }
+}

@@ -1,0 +1,31 @@
+<!-- src/app/features/catalog/brands/pages/brands-edit-page/brands-edit-page.component.html -->
+
+<app-page-header
+  title="Editar marca"
+  subtitle="Atualize as informações da marca selecionada."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog' },
+    { label: 'Marcas', link: '/catalog/brands' },
+    { label: 'Editar marca', active: true }
+  ]"
+>
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    class="brands-edit-page__back-button"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section class="brands-edit-page">
+  <div class="brands-edit-page__inner">
+    <app-brand-form
+      mode="edit"
+      [brandId]="brandId()"
+    ></app-brand-form>
+  </div>
+</section>

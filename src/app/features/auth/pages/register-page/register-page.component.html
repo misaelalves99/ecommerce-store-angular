@@ -1,0 +1,173 @@
+<!-- src/app/features/auth/pages/register-page/register-page.component.html -->
+
+<div class="auth-page">
+  <div class="auth-card-wrapper">
+    <app-card>
+      <div class="auth-card">
+        <div class="auth-card__header">
+          <h1 class="auth-title">Criar conta administrativa</h1>
+          <p class="auth-subtitle">
+            Configure o primeiro acesso para começar a gerenciar o e-commerce.
+          </p>
+        </div>
+
+        <form class="auth-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="form-field">
+            <label for="name">Nome completo</label>
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              [appAutofocus]="true"
+              placeholder="Nome da pessoa responsável"
+            />
+            <div class="field-error" *ngIf="nameCtrl.touched && nameCtrl.invalid">
+              <span *ngIf="nameCtrl.errors?.['required']">
+                Nome é obrigatório.
+              </span>
+              <span *ngIf="nameCtrl.errors?.['minlength']">
+                Nome deve ter pelo menos 3 caracteres.
+              </span>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="email">E-mail corporativo</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="voce@empresa.com"
+            />
+            <div class="field-error" *ngIf="emailCtrl.touched && emailCtrl.invalid">
+              <span *ngIf="emailCtrl.errors?.['required']">
+                E-mail é obrigatório.
+              </span>
+              <span *ngIf="emailCtrl.errors?.['email']">
+                Informe um e-mail válido.
+              </span>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="password">Senha</label>
+            <input
+              id="password"
+              type="password"
+              formControlName="password"
+              placeholder="Crie uma senha segura"
+            />
+            <div class="field-error" *ngIf="passwordCtrl.touched && passwordCtrl.invalid">
+              <span *ngIf="passwordCtrl.errors?.['required']">
+                Senha é obrigatória.
+              </span>
+              <span *ngIf="passwordCtrl.errors?.['minlength']">
+                A senha deve ter pelo menos 6 caracteres.
+              </span>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="confirmPassword">Confirmar senha</label>
+            <input
+              id="confirmPassword"
+              type="password"
+              formControlName="confirmPassword"
+              placeholder="Repita a senha"
+            />
+            <div
+              class="field-error"
+              *ngIf="
+                (confirmPasswordCtrl.touched || passwordCtrl.touched) &&
+                (confirmPasswordCtrl.invalid || passwordMismatch)
+              "
+            >
+              <span *ngIf="confirmPasswordCtrl.errors?.['required']">
+                A confirmação de senha é obrigatória.
+              </span>
+              <span *ngIf="passwordMismatch">
+                As senhas não coincidem.
+              </span>
+            </div>
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" formControlName="acceptTerms" />
+            <span>
+              Li e aceito os termos de uso e política de privacidade do painel
+              administrativo.
+            </span>
+          </label>
+
+          <app-button
+            type="submit"
+            variant="primary"
+            class="submit-button"
+            [disabled]="!canSubmit()"
+            [loading]="loading()"
+          >
+            Criar conta
+          </app-button>
+
+          <!-- Divider social -->
+          <div class="auth-divider">
+            <span class="auth-divider__line"></span>
+            <span class="auth-divider__label">ou continue com</span>
+            <span class="auth-divider__line"></span>
+          </div>
+
+          <!-- Botões sociais -->
+          <div class="auth-social">
+            <app-button
+              type="button"
+              variant="secondary"
+              class="social-button social-button--google"
+              [disabled]="loading()"
+              [loading]="loading()"
+              (appClick)="onRegisterWithGoogle()"
+            >
+              <span class="social-button__icon social-button__icon--google" aria-hidden="true">
+                G
+              </span>
+              <span class="social-button__label">Criar conta com Google</span>
+            </app-button>
+
+            <app-button
+              type="button"
+              variant="secondary"
+              class="social-button social-button--facebook"
+              [disabled]="loading()"
+              [loading]="loading()"
+              (appClick)="onRegisterWithFacebook()"
+            >
+              <span class="social-button__icon social-button__icon--facebook" aria-hidden="true">
+                f
+              </span>
+              <span class="social-button__label">Criar conta com Facebook</span>
+            </app-button>
+          </div>
+
+          <p class="auth-footer-text">
+            Já tem acesso?
+            <a class="link" routerLink="/auth/login">Fazer login</a>
+          </p>
+
+          <p class="auth-error" *ngIf="errorMessage() as error">
+            {{ error }}
+          </p>
+        </form>
+      </div>
+    </app-card>
+  </div>
+
+  <div class="auth-hero auth-hero--register">
+    <div class="auth-hero__overlay"></div>
+    <div class="auth-hero__content">
+      <h2>Configure seu time de operação</h2>
+      <p>
+        Crie usuários administrativos com segurança e mantenha o acesso ao painel
+        sob controle, com permissões claras e auditáveis.
+      </p>
+    </div>
+  </div>
+</div>

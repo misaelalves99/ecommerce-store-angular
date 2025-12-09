@@ -1,0 +1,62 @@
+<!-- src/app/features/catalog/products/pages/products-delete-page/products-delete-page.component.html -->
+
+<app-page-header
+  title="Excluir produto"
+  subtitle="Confirme a exclusão do produto selecionado."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog' },
+    { label: 'Produtos', link: '/catalog/products' },
+    { label: 'Excluir', active: true }
+  ]"
+>
+</app-page-header>
+
+<section
+  class="product-delete-page"
+  *ngIf="productSig() as product"
+>
+  <div class="product-delete-page__card">
+    <h2>Tem certeza que deseja excluir este produto?</h2>
+
+    <p class="product-delete-page__warning">
+      Esta ação não poderá ser desfeita. O produto deixará de ser exibido no catálogo e em novos pedidos.
+    </p>
+
+    <div class="product-delete-page__info">
+      <div class="product-delete-page__field">
+        <span class="label">Nome</span>
+        <span class="value">{{ product.name }}</span>
+      </div>
+
+      <div class="product-delete-page__field">
+        <span class="label">Preço</span>
+        <span class="value">
+          {{ product.price | currencyBr }}
+        </span>
+      </div>
+    </div>
+
+    <footer class="product-delete-page__footer">
+      <app-button
+        type="button"
+        variant="ghost"
+        size="sm"
+        [disabled]="deleting()"
+        (appClick)="cancel()"
+      >
+        Cancelar
+      </app-button>
+
+      <app-button
+        type="button"
+        variant="danger"
+        size="sm"
+        [loading]="deleting()"
+        (appClick)="confirmDelete()"
+      >
+        Excluir produto
+      </app-button>
+    </footer>
+  </div>
+</section>

@@ -1,0 +1,48 @@
+<!-- src/app/features/customers/components/customer-address-list/customer-address-list.component.html -->
+<section class="customer-address-list">
+  <header class="customer-address-list__header">
+    <h3>Endereços do cliente</h3>
+    <p>
+      Visualize rapidamente os endereços cadastrados para faturamento, entrega
+      ou contato.
+    </p>
+  </header>
+
+  <!-- Empty state -->
+  <div
+    *ngIf="!addresses || addresses.length === 0"
+    class="customer-address-list__empty"
+  >
+    Nenhum endereço cadastrado para este cliente.
+  </div>
+
+  <!-- Grid de endereços -->
+  <div
+    *ngIf="addresses && addresses.length > 0"
+    class="customer-address-list__grid"
+  >
+    <article
+      class="customer-address-list__card"
+      *ngFor="let address of addresses; trackBy: trackByAddressId; let i = index"
+    >
+      <h4>
+        {{ address['label'] || ('Endereço ' + (i + 1)) }}
+      </h4>
+
+      <p>
+        {{ address.street }}, {{ address.number }}
+        <ng-container *ngIf="address.complement">
+          – {{ address.complement }}
+        </ng-container>
+      </p>
+
+      <p>
+        {{ address.district }} - {{ address.city }} / {{ address.state }}
+      </p>
+
+      <p class="customer-address-list__zipcode">
+        CEP: {{ address.zipCode }}
+      </p>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,99 @@
+<!-- src/app/features/catalog/brands/components/brand-table/brand-table.component.html -->
+<div class="brand-table">
+  <!-- Estados -->
+  <div class="brand-table__state" *ngIf="loading">
+    <p>Carregando marcas...</p>
+  </div>
+
+  <div
+    class="brand-table__state brand-table__state--empty"
+    *ngIf="!loading && !brands.length"
+  >
+    <p>Nenhuma marca encontrada.</p>
+    <span>Crie a primeira marca para começar a organizar seu catálogo.</span>
+  </div>
+
+  <!-- Tabela principal – layout igual Products -->
+  <div class="brand-table__wrapper" *ngIf="!loading && brands.length">
+    <table class="brand-table__table">
+      <thead>
+        <tr>
+          <th class="brand-table__th brand-table__th--left">Nome</th>
+          <th class="brand-table__th brand-table__th--left">Slug</th>
+          <th class="brand-table__th brand-table__th--center">Status</th>
+          <th
+            class="brand-table__th brand-table__th--right brand-table__th-actions"
+          >
+            Ações
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="let brand of brands; trackBy: trackById"
+          class="brand-table__row"
+        >
+          <!-- Nome + ID -->
+          <td class="brand-table__td brand-table__td--left">
+            <div class="brand-table__name">
+              <span class="brand-table__name-main">
+                {{ brand.name }}
+              </span>
+              <span class="brand-table__name-id">
+                ID: {{ brand.id }}
+              </span>
+            </div>
+          </td>
+
+          <!-- Slug -->
+          <td class="brand-table__td brand-table__td--left">
+            <span class="brand-table__slug">
+              {{ brand.slug }}
+            </span>
+          </td>
+
+          <!-- Status (pill idêntica à de Products) -->
+          <td class="brand-table__td brand-table__td--center">
+            <span
+              class="brand-table__status-pill"
+              [class.brand-table__status-pill--active]="brand.isActive"
+              [class.brand-table__status-pill--inactive]="!brand.isActive"
+            >
+              {{ brand.isActive ? 'Ativa' : 'Inativa' }}
+            </span>
+          </td>
+
+          <!-- Ações -->
+          <td
+            class="brand-table__td brand-table__td--right brand-table__td-actions"
+          >
+            <div class="brand-table__actions">
+              <a
+                class="brand-table__link"
+                (click)="onDetails(brand.id)"
+              >
+                Detalhes
+              </a>
+
+              <a
+                class="brand-table__link"
+                (click)="onEdit(brand.id)"
+              >
+                Editar
+              </a>
+
+              <app-button
+                size="sm"
+                variant="danger"
+                (appClick)="onDelete(brand.id)"
+              >
+                Excluir
+              </app-button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

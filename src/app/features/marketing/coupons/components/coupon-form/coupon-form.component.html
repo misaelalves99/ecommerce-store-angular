@@ -1,0 +1,203 @@
+<!-- src/app/features/marketing/coupons/components/coupon-form/coupon-form.component.html -->
+<form
+  class="coupon-form"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
+  <header class="coupon-form__header">
+    <div>
+      <h2>Dados do cupom</h2>
+      <p>Configure código, valor, regras e período de validade do cupom.</p>
+    </div>
+  </header>
+
+  <div class="coupon-form__grid">
+    <!-- Código -->
+    <div class="coupon-form__field">
+      <label for="code">Código do cupom</label>
+      <input
+        id="code"
+        type="text"
+        formControlName="code"
+        placeholder="EX: BLACKFRIDAY10"
+      />
+      <div
+        class="coupon-form__error"
+        *ngIf="hasError('code', 'required')"
+      >
+        O código é obrigatório.
+      </div>
+      <div
+        class="coupon-form__error"
+        *ngIf="hasError('code', 'minlength')"
+      >
+        O código deve ter pelo menos 3 caracteres.
+      </div>
+    </div>
+
+    <!-- Nome -->
+    <div class="coupon-form__field">
+      <label for="name">Nome interno</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Ex: Cupom Black Friday 10%"
+      />
+      <div
+        class="coupon-form__error"
+        *ngIf="hasError('name', 'required')"
+      >
+        O nome é obrigatório.
+      </div>
+    </div>
+
+    <!-- Tipo de desconto -->
+    <div class="coupon-form__field">
+      <label for="type">Tipo de desconto</label>
+      <select
+        id="type"
+        formControlName="type"
+      >
+        <option
+          *ngFor="let option of discountTypes"
+          [value]="option.value"
+        >
+          {{ option.label }}
+        </option>
+      </select>
+      <div
+        class="coupon-form__error"
+        *ngIf="hasError('type', 'required')"
+      >
+        Selecione o tipo de desconto.
+      </div>
+    </div>
+
+    <!-- Valor -->
+    <div class="coupon-form__field">
+      <label for="value">
+        Valor do desconto
+        <span class="coupon-form__hint">
+          {{
+            form.get('type')?.value === discountTypes[0].value
+              ? '(%)'
+              : '(R$)'
+          }}
+        </span>
+      </label>
+      <input
+        id="value"
+        type="number"
+        formControlName="value"
+        min="0"
+        step="0.01"
+        placeholder="Ex: 10"
+      />
+      <div
+        class="coupon-form__error"
+        *ngIf="hasError('value', 'required')"
+      >
+        Informe o valor do desconto.
+      </div>
+      <div
+        class="coupon-form__error"
+        *ngIf="hasError('value', 'min')"
+      >
+        O valor não pode ser negativo.
+      </div>
+    </div>
+
+    <!-- Valor mínimo do pedido -->
+    <div class="coupon-form__field">
+      <label for="minOrderValue">Valor mínimo do pedido (R$)</label>
+      <input
+        id="minOrderValue"
+        type="number"
+        formControlName="minOrderValue"
+        min="0"
+        step="0.01"
+        placeholder="Ex: 100,00"
+      />
+      <div
+        class="coupon-form__error"
+        *ngIf="hasError('minOrderValue', 'min')"
+      >
+        O valor mínimo não pode ser negativo.
+      </div>
+    </div>
+
+    <!-- Limite de usos -->
+    <div class="coupon-form__field">
+      <label for="maxUses">Limite de usos</label>
+      <input
+        id="maxUses"
+        type="number"
+        formControlName="maxUses"
+        min="0"
+        step="1"
+        placeholder="Deixe vazio para ilimitado"
+      />
+    </div>
+
+    <!-- Data início -->
+    <div class="coupon-form__field">
+      <label for="validFrom">Válido a partir de</label>
+      <input
+        id="validFrom"
+        type="date"
+        formControlName="validFrom"
+      />
+      <div
+        class="coupon-form__error"
+        *ngIf="hasError('validFrom', 'required')"
+      >
+        Informe a data de início de validade.
+      </div>
+    </div>
+
+    <!-- Data fim -->
+    <div class="coupon-form__field">
+      <label for="validUntil">Válido até</label>
+      <input
+        id="validUntil"
+        type="date"
+        formControlName="validUntil"
+      />
+      <div
+        class="coupon-form__error"
+        *ngIf="hasError('validUntil', 'required')"
+      >
+        Informe a data de término de validade.
+      </div>
+    </div>
+
+    <!-- Ativo -->
+    <div class="coupon-form__field coupon-form__field--checkbox">
+      <label class="coupon-form__checkbox">
+        <input
+          type="checkbox"
+          formControlName="active"
+        />
+        <span>Cupom ativo</span>
+      </label>
+    </div>
+  </div>
+
+  <footer class="coupon-form__footer">
+    <app-button
+      type="button"
+      variant="ghost"
+      (click)="onCancel()"
+    >
+      Cancelar
+    </app-button>
+
+    <app-button
+      type="submit"
+      variant="primary"
+    >
+      Salvar cupom
+    </app-button>
+  </footer>
+</form>

@@ -1,0 +1,222 @@
+/* src/app/features/settings/components/role-permissions-form/role-permissions-form.component.css */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ===============================
+   Cabeçalho (papel selecionado)
+   =============================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 0.75rem 0.25rem 0.85rem;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+}
+
+.header__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.header__label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+}
+
+.header__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #e5e7eb;
+}
+
+.header__description {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  max-width: 520px;
+}
+
+/* Stat de permissões ativas */
+.header__meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.header__meta-item {
+  background: radial-gradient(circle at 0 0, #0b1120, #020617);
+  border-radius: 0.9rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  min-width: 150px;
+}
+
+.header__meta-label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin-bottom: 0.2rem;
+}
+
+.header__meta-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e5e7eb;
+}
+
+/* ===============================
+   Grupos de permissões
+   =============================== */
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.group {
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: radial-gradient(circle at 0 0, #020617 0, #020617 100%);
+  padding: 0.9rem 0.9rem 0.8rem;
+}
+
+.group__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.55rem;
+}
+
+.group__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+/* Botão "Selecionar/Remover todas" com cara de chip */
+.group__toggle {
+  font-size: 0.78rem;
+  border-radius: 999px;
+  border: 1px solid rgba(129, 140, 248, 0.7);
+  padding: 0.25rem 0.75rem;
+  background: rgba(15, 23, 42, 0.9);
+  color: #a5b4fc;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.08s ease,
+    box-shadow 0.15s ease;
+}
+
+.group__toggle:hover {
+  background: rgba(79, 70, 229, 0.14);
+  border-color: rgba(129, 140, 248, 1);
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.35);
+  transform: translateY(-0.5px);
+}
+
+/* Lista de permissões */
+.group__list {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.group__item {
+  border-radius: 0.7rem;
+  padding: 0.45rem 0.5rem;
+  transition:
+    background 0.12s ease,
+    transform 0.08s ease;
+}
+
+.group__item:hover {
+  background: rgba(15, 23, 42, 0.95);
+  transform: translateY(-0.5px);
+}
+
+/* Linha de permissão */
+.perm {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  font-size: 0.88rem;
+}
+
+.perm input {
+  margin-top: 0.2rem;
+  accent-color: #4f46e5;
+}
+
+.perm__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.perm__label {
+  font-weight: 500;
+  color: #e5e7eb;
+}
+
+.perm__desc {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* ===============================
+   Rodapé / Ações
+   =============================== */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.25rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(31, 41, 55, 0.9);
+}
+
+/* ===============================
+   Responsivo
+   =============================== */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header__meta {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .header__meta-item {
+    width: 100%;
+  }
+
+  .groups {
+    gap: 0.85rem;
+  }
+
+  .actions {
+    justify-content: stretch;
+  }
+
+  .actions app-button {
+    width: 100%;
+  }
+}

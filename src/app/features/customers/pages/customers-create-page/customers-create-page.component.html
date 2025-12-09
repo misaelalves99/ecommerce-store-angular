@@ -1,0 +1,27 @@
+<!-- src/app/features/customers/pages/customers-create-page/customers-create-page.component.html -->
+
+<app-page-header
+  title="Novo cliente"
+  subtitle="Preencha os dados do cliente para cadastrar um novo registro."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Clientes', link: '/customers' },
+    { label: 'Novo cliente', active: true }
+  ]"
+>
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    class="customers-create-page__back-button"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section class="customers-create-page">
+  <div class="customers-create-page__inner">
+    <app-customer-form mode="create"></app-customer-form>
+  </div>
+</section>

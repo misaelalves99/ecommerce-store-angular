@@ -1,0 +1,27 @@
+<!-- src/app/features/catalog/brands/pages/brands-create-page/brands-create-page.component.html -->
+<app-page-header
+  title="Nova marca"
+  subtitle="Cadastre uma nova marca para organizar melhor o catálogo da loja."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog' },
+    { label: 'Marcas', link: '/catalog/brands' },
+    { label: 'Nova marca', active: true }
+  ]"
+>
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    class="brands-create-page__back-button"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section class="brands-create-page">
+  <div class="brands-create-page__inner">
+    <app-brand-form mode="create"></app-brand-form>
+  </div>
+</section>

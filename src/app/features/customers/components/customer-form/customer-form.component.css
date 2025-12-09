@@ -1,0 +1,126 @@
+/* src/app/features/customers/components/customer-form/customer-form.component.css */
+
+.customer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+/* Header do form */
+.customer-form__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.customer-form__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #e5e7eb;
+}
+
+.customer-form__subtitle {
+  font-size: 0.88rem;
+  color: #9ca3af;
+}
+
+/* Grid de campos */
+.customer-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+.customer-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.customer-form__field--full {
+  grid-column: 1 / -1;
+}
+
+.customer-form__field label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #e5e7eb;
+}
+
+/* Inputs */
+.customer-form__field input {
+  border-radius: 0.8rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(15, 23, 42, 0.9);
+  color: #f9fafb;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    background-color 0.16s ease;
+}
+
+.customer-form__field input::placeholder {
+  color: #6b7280;
+}
+
+.customer-form__field input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.45);
+  background: rgba(15, 23, 42, 0.98);
+}
+
+/* Erros */
+.customer-form__error {
+  font-size: 0.78rem;
+  color: #fecaca;
+}
+
+/* Checkbox “Cliente ativo” */
+.customer-form__field--inline {
+  grid-column: 1 / -1;
+}
+
+.customer-form__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  color: #e5e7eb;
+}
+
+.customer-form__checkbox input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  border-radius: 0.4rem;
+  accent-color: #22c55e;
+}
+
+/* Ações (Cancelar / Salvar) */
+.customer-form__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.3rem;
+}
+
+/* Responsivo */
+@media (max-width: 960px) {
+  .customer-form__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .customer-form__actions {
+    justify-content: stretch;
+  }
+
+  .customer-form__actions app-button {
+    width: 100%;
+  }
+}

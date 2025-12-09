@@ -1,0 +1,31 @@
+<app-page-header
+  title="Editar cliente"
+  subtitle="Atualize os dados do cliente selecionado."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Clientes', link: '/customers' },
+    { label: 'Editar cliente', active: true }
+  ]"
+>
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    class="customers-edit-page__back-button"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section
+  class="customers-edit-page"
+  *ngIf="customerId() as id"
+>
+  <div class="customers-edit-page__inner">
+    <app-customer-form
+      mode="edit"
+      [customerId]="id"
+    ></app-customer-form>
+  </div>
+</section>

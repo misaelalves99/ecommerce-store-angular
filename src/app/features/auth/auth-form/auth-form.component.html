@@ -1,0 +1,94 @@
+<!-- src/app/features/auth/components/auth-form/auth-form.component.html -->
+
+<div class="auth-form-wrapper">
+  <div class="auth-form-header">
+    <h1 class="auth-form-title">{{ title }}</h1>
+    <p class="auth-form-subtitle">
+      {{ subtitle }}
+    </p>
+  </div>
+
+  <form class="auth-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-field" *ngIf="showNameField">
+      <label for="name">Nome completo</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        appAutofocus
+        placeholder="Nome da pessoa responsável"
+      />
+      <div class="field-error" *ngIf="nameCtrl.touched && nameCtrl.invalid">
+        <span>Nome é obrigatório.</span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="email">E-mail</label>
+      <input
+        id="email"
+        type="email"
+        [appAutofocus]="!showNameField"
+        formControlName="email"
+        placeholder="voce@empresa.com"
+      />
+      <div class="field-error" *ngIf="emailCtrl.touched && emailCtrl.invalid">
+        <span *ngIf="emailCtrl.errors?.['required']">
+          E-mail é obrigatório.
+        </span>
+        <span *ngIf="emailCtrl.errors?.['email']">
+          Informe um e-mail válido.
+        </span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="password">Senha</label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="••••••••"
+      />
+      <div
+        class="field-error"
+        *ngIf="passwordCtrl.touched && passwordCtrl.invalid"
+      >
+        <span *ngIf="passwordCtrl.errors?.['required']">
+          Senha é obrigatória.
+        </span>
+        <span *ngIf="passwordCtrl.errors?.['minlength']">
+          A senha deve ter pelo menos 6 caracteres.
+        </span>
+      </div>
+    </div>
+
+    <div class="form-row" *ngIf="showRememberMe">
+      <label class="checkbox">
+        <input type="checkbox" formControlName="rememberMe" />
+        <span>Lembrar-me neste dispositivo</span>
+      </label>
+    </div>
+
+    <app-button
+      type="submit"
+      variant="primary"
+      class="submit-button"
+      [disabled]="!canSubmit()"
+      [loading]="loading.value"
+    >
+      {{ primaryButtonLabel }}
+    </app-button>
+
+    <p class="auth-form-footer">
+      {{ secondaryText }}
+      <a class="link" [routerLink]="secondaryLink">
+        {{ secondaryLinkLabel }}
+      </a>
+    </p>
+
+    <p class="auth-error" *ngIf="errorMessage.value as error">
+      {{ error }}
+    </p>
+  </form>
+</div>

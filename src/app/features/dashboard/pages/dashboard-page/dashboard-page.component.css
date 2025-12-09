@@ -1,0 +1,167 @@
+/* src/app/features/dashboard/pages/dashboard-page/dashboard-page.component.css */
+
+/* ===== Container principal da página ===== */
+
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: 1.5rem 0 2.25rem;
+}
+
+/* ===== Métricas principais (cards do topo) ===== */
+
+.dashboard-page__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+/* ===== Grid principal (cards grandes) ===== */
+
+.dashboard-page__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.1fr);
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+/* ===== Cards genéricos da dashboard ===== */
+
+.dashboard-card {
+  border-radius: 1.25rem;
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.9), #020617);
+  padding: 1.1rem 1rem 1rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dashboard-card--secondary {
+  background:
+    radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.18), transparent 55%),
+    radial-gradient(circle at 0 100%, rgba(34, 197, 94, 0.14), transparent 55%),
+    linear-gradient(135deg, #020617, #020617);
+}
+
+/* ===== Cabeçalho dos cards ===== */
+
+.dashboard-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.dashboard-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #e5e7eb;
+}
+
+.dashboard-card__subtitle {
+  margin-top: 0.15rem;
+  font-size: 0.86rem;
+  color: #9ca3af;
+}
+
+.dashboard-card__link {
+  font-size: 0.84rem;
+  color: #a5b4fc;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.35rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(129, 140, 248, 0.25);
+  transition:
+    background 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease,
+    transform 0.12s ease;
+}
+
+.dashboard-card__link:hover {
+  background: rgba(79, 70, 229, 0.15);
+  border-color: rgba(129, 140, 248, 0.55);
+  color: #e5e7eb;
+  transform: translateY(-1px);
+}
+
+/* ===== Tabela dentro dos cards ===== */
+
+.dashboard-card app-table {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+/* Mensagem de vazio, se quiser customizar separado */
+.dashboard-card__empty {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0.9rem;
+  border: 1px dashed #4b5563;
+  background: rgba(15, 23, 42, 0.9);
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+/* ===== Responsivo ===== */
+
+@media (max-width: 1280px) {
+  .dashboard-page__metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-page__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-page {
+    padding-inline: 0.5rem;
+  }
+
+  .dashboard-page__metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-card {
+    padding-inline: 0.85rem;
+  }
+
+  .dashboard-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-card__link {
+    margin-top: 0.4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-page {
+    padding-inline: 0.25rem;
+  }
+
+  .dashboard-card {
+    border-radius: 1rem;
+  }
+
+  .dashboard-card__title {
+    font-size: 0.96rem;
+  }
+
+  .dashboard-card__subtitle {
+    font-size: 0.82rem;
+  }
+}

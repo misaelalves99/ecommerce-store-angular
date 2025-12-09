@@ -1,0 +1,167 @@
+/* src/app/features/marketing/banners/pages/banners-page/banners-page.component.css */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.75rem 0 1.75rem;
+}
+
+/* Layout principal: sidebar + conteúdo */
+.layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* SIDEBAR ----------------------------------------------------- */
+
+.layout__sidebar {
+  background: radial-gradient(
+      circle at top left,
+      rgba(56, 189, 248, 0.12),
+      rgba(15, 23, 42, 0.98)
+    );
+  border-radius: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.layout__sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.layout__sidebar-header h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #e5e7eb;
+}
+
+/* Lista de banners */
+
+.banner-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 0.1rem;
+}
+
+/* Scroll discreto na sidebar */
+.banner-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.banner-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.banner-list::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45);
+  border-radius: 999px;
+}
+
+/* Item da lista */
+
+.banner-item {
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    transform 0.12s ease;
+}
+
+.banner-item:hover {
+  background: rgba(15, 23, 42, 0.78);
+  border-color: rgba(148, 163, 184, 0.55);
+  transform: translateY(-1px);
+}
+
+.banner-item--active {
+  background: radial-gradient(
+      circle at 0 0,
+      rgba(59, 130, 246, 0.25),
+      #020617
+    );
+  border-color: rgba(59, 130, 246, 0.9);
+}
+
+.banner-item__title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f9fafb;
+}
+
+.banner-item__subtitle {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* CONTEÚDO ---------------------------------------------------- */
+
+.layout__content {
+  background: radial-gradient(
+      circle at top left,
+      rgba(8, 47, 73, 0.4),
+      #020617
+    );
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 20px 55px rgba(15, 23, 42, 0.7);
+}
+
+/* Empty state actions */
+
+.empty__actions {
+  margin-top: 0.85rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* RESPONSIVO -------------------------------------------------- */
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .layout__sidebar {
+    order: 2;
+  }
+
+  .layout__content {
+    order: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .layout__sidebar {
+    padding: 0.9rem;
+  }
+
+  .layout__content {
+    padding: 1.25rem;
+  }
+}

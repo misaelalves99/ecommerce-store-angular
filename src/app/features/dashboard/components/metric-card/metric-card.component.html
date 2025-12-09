@@ -1,0 +1,9 @@
+<!-- src/app/features/dashboard/components/metric-card/metric-card.component.html -->
+
+<div class="metric-card">
+  <div class="metric-card__title">{{ title }}</div>
+  <div class="metric-card__value">{{ value }}</div>
+  <div class="metric-card__hint" *ngIf="hint">
+    {{ hint }}
+  </div>
+</div>

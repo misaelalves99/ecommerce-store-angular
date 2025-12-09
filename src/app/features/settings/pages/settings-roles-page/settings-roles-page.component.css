@@ -1,0 +1,124 @@
+/* src/app/features/settings/pages/settings-roles-page/settings-roles-page.component.css */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: 0.75rem 0 1.75rem;
+}
+
+/* Layout principal centralizado e com respiro de dashboard */
+.page__layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 1.5rem;
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+/* Sidebar dos papéis */
+.page__sidebar {
+  background: radial-gradient(
+    circle at top left,
+    rgba(30, 64, 175, 0.25),
+    var(--surface-elevated, #020617)
+  );
+  border-radius: 1rem;
+  padding: 1.1rem 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.55);
+}
+
+.sidebar__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #e5e7eb;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sidebar__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.sidebar__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.08s ease,
+    box-shadow 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.sidebar__item:hover {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(148, 163, 184, 0.7);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.7);
+}
+
+.sidebar__item--active {
+  background: radial-gradient(
+    circle at top left,
+    rgba(59, 130, 246, 0.32),
+    rgba(15, 23, 42, 0.98)
+  );
+  border-color: rgba(59, 130, 246, 0.8);
+}
+
+.sidebar__item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.sidebar__item-role {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.sidebar__item-desc {
+  font-size: 0.76rem;
+  color: #cbd5f5;
+}
+
+/* Card de conteúdo (form de permissões) */
+.page__content {
+  background: var(--surface-elevated, #020617);
+  border-radius: 1.05rem;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.6);
+}
+
+/* Responsivo */
+@media (max-width: 960px) {
+  .page__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page__sidebar {
+    order: 1;
+  }
+
+  .page__content {
+    order: 2;
+    padding: 1.25rem 1.1rem;
+  }
+}

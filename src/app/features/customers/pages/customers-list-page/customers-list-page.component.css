@@ -1,0 +1,77 @@
+/* src/app/features/customers/pages/customers-list-page/customers-list-page.component.css */
+
+.customers-list-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 1.1rem 0 2rem;
+}
+
+/* Toolbar de filtros (busca) */
+.customers-list-page__toolbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 420px;
+}
+
+/* Card da tabela */
+.customers-list-page__card {
+  border-radius: 1.2rem;
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(15, 23, 42, 0.95),
+    #020617
+  );
+  padding: 1.1rem 1rem 1.1rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.8);
+}
+
+/* Cabeçalho do card (título + descrição da tabela) */
+.customers-list-page__card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.customers-list-page__card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #e5e7eb;
+}
+
+.customers-list-page__card-subtitle {
+  margin-top: 0.15rem;
+  font-size: 0.86rem;
+  color: #9ca3af;
+}
+
+/* Wrapper para scroll horizontal em telas menores */
+.customers-list-page__table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Responsivo */
+@media (max-width: 1024px) {
+  .customers-list-page {
+    padding-inline: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .customers-list-page {
+    padding-inline: 0.25rem;
+  }
+
+  .customers-list-page__toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 100%;
+  }
+}

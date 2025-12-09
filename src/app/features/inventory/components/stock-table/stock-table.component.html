@@ -1,0 +1,39 @@
+<!-- src/app/features/inventory/components/stock-table/stock-table.component.html -->
+<app-table>
+  <thead>
+    <tr>
+      <th>Produto</th>
+      <th>SKU</th>
+      <th>Marca</th>
+      <th>Categoria</th>
+      <th class="numeric">Estoque atual</th>
+      <th class="numeric">Ponto de reposição</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items; trackBy: trackById">
+      <td>
+        <div class="product">
+          <span class="product__name">{{ item.productName }}</span>
+          <span class="product__meta">
+            {{ getVariantName(item) }}
+          </span>
+        </div>
+      </td>
+      <td class="code">{{ item.sku }}</td>
+      <td>{{ item.brandName || '-' }}</td>
+      <td>{{ item.categoryName || '-' }}</td>
+
+      <!-- 🔽 Aqui é onde ajustamos -->
+      <td class="numeric">{{ item.quantity }}</td>
+
+      <td class="numeric">{{ getReorderPoint(item) }}</td>
+      <td>
+        <app-badge [variant]="getStatusVariant(item)">
+          {{ getStatusLabel(item) }}
+        </app-badge>
+      </td>
+    </tr>
+  </tbody>
+</app-table>

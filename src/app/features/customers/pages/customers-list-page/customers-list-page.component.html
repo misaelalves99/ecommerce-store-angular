@@ -1,0 +1,52 @@
+<!-- src/app/features/customers/pages/customers-list-page/customers-list-page.component.html -->
+<app-page-header
+  title="Clientes"
+  subtitle="Gerencie o cadastro de clientes da loja."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Clientes', link: '/customers', active: true }
+  ]"
+>
+  <app-button
+    variant="primary"
+    size="sm"
+    (appClick)="create()"
+  >
+    + Novo cliente
+  </app-button>
+</app-page-header>
+
+<section class="customers-list-page">
+  <!-- Toolbar com busca -->
+  <div class="customers-list-page__toolbar">
+    <app-search-input
+      placeholder="Buscar por nome, e-mail ou documento..."
+      [value]="searchTerm()"
+      (valueChange)="onSearch($event)"
+    ></app-search-input>
+  </div>
+
+  <!-- Card da tabela -->
+  <div class="customers-list-page__card">
+    <div class="customers-list-page__card-header">
+      <div>
+        <h2 class="customers-list-page__card-title">
+          Lista de clientes
+        </h2>
+        <p class="customers-list-page__card-subtitle">
+          Visualize, edite e exclua clientes cadastrados na plataforma.
+        </p>
+      </div>
+    </div>
+
+    <div class="customers-list-page__table-wrapper">
+      <app-customer-table
+        [customers]="filteredCustomers()"
+        [loading]="loading()"
+        (detailsClicked)="details($event)"
+        (editClicked)="edit($event)"
+        (deleteClicked)="delete($event)"
+      ></app-customer-table>
+    </div>
+  </div>
+</section>

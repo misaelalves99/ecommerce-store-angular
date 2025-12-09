@@ -1,0 +1,76 @@
+<!-- src/app/features/inventory/components/stock-movement-form/stock-movement-form.component.html -->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form__grid">
+    <div class="form__field">
+      <label for="sku">SKU *</label>
+      <input
+        id="sku"
+        type="text"
+        formControlName="sku"
+        placeholder="Código do produto (SKU)"
+      />
+      <small *ngIf="hasError('sku', 'required')">Informe o SKU.</small>
+    </div>
+
+    <div class="form__field">
+      <label for="movementType">Tipo de movimento *</label>
+      <select id="movementType" formControlName="movementType">
+        <option *ngFor="let type of movementTypes" [value]="type.value">
+          {{ type.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form__field">
+      <label for="quantity">Quantidade *</label>
+      <input
+        id="quantity"
+        type="number"
+        min="1"
+        formControlName="quantity"
+        placeholder="0"
+      />
+      <small *ngIf="hasError('quantity', 'required')">Informe a quantidade.</small>
+      <small *ngIf="hasError('quantity', 'min')">A quantidade deve ser maior que zero.</small>
+    </div>
+
+    <div class="form__field">
+      <label for="occurredAt">Data do movimento *</label>
+      <input id="occurredAt" type="date" formControlName="occurredAt" />
+    </div>
+
+    <div class="form__field form__field--full">
+      <label for="reason">Motivo *</label>
+      <input
+        id="reason"
+        type="text"
+        formControlName="reason"
+        placeholder="Ex: acerto de inventário, perda, devolução do fornecedor..."
+      />
+    </div>
+
+    <div class="form__field form__field--full">
+      <label for="note">Observações</label>
+      <textarea
+        id="note"
+        rows="3"
+        formControlName="note"
+        placeholder="Detalhes adicionais sobre a movimentação."
+      ></textarea>
+    </div>
+
+    <div class="form__field form__field--full">
+      <label for="reference">Referência (pedido, NF, etc.)</label>
+      <input
+        id="reference"
+        type="text"
+        formControlName="reference"
+        placeholder="Número do pedido, nota fiscal ou referência interna."
+      />
+    </div>
+  </div>
+
+  <div class="form__actions">
+    <app-button type="submit" variant="primary">Registrar movimentação</app-button>
+  </div>
+</form>

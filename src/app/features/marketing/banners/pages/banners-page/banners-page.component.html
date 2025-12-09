@@ -1,0 +1,82 @@
+<!-- src/app/features/marketing/banners/pages/banners-page/banners-page.component.html -->
+
+<app-page-header
+  title="Banners e campanhas"
+  subtitle="Gerencie banners do site, destaques da home e campanhas sazonais."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Marketing', link: '/marketing' },
+    { label: 'Banners e campanhas', link: '/marketing/banners', active: true }
+  ]"
+>
+  <!-- CTA principal no header -->
+  <app-button
+    variant="primary"
+    size="sm"
+    (appClick)="onCreateNew()"
+  >
+    + Novo banner
+  </app-button>
+</app-page-header>
+
+<section class="page" *ngIf="!loading(); else loadingTpl">
+  <div class="layout">
+    <aside class="layout__sidebar">
+      <div class="layout__sidebar-header">
+        <h3>Banners cadastrados</h3>
+
+        <!-- Botão de novo banner SEMPRE visível na sidebar -->
+        <app-button size="sm" variant="ghost" (click)="onCreateNew()">
+          + Novo
+        </app-button>
+      </div>
+
+      <!-- Lista de banners ou estado vazio -->
+      <ng-container *ngIf="hasBanners(); else noBannersTpl">
+        <ul class="banner-list">
+          <li
+            *ngFor="let banner of banners()"
+            (click)="onSelectBanner(banner)"
+            [class.banner-item--active]="banner.id === selectedBanner()?.id"
+            class="banner-item"
+          >
+            <span class="banner-item__title">{{ banner.title }}</span>
+            <span class="banner-item__subtitle">{{ banner.position }}</span>
+          </li>
+        </ul>
+      </ng-container>
+
+      <ng-template #noBannersTpl>
+        <div class="banner-list banner-list--empty">
+          <app-empty-state
+            title="Nenhum banner configurado"
+            description="Crie o primeiro banner para destacar campanhas na vitrine do e-commerce."
+            icon="image"
+          >
+            <div class="empty__actions">
+              <app-button variant="primary" (click)="onCreateNew()">
+                Criar banner
+              </app-button>
+            </div>
+          </app-empty-state>
+        </div>
+      </ng-template>
+    </aside>
+
+    <div class="layout__content">
+      <!-- Formulário sempre visível; quando selectedBanner = null, cria novo -->
+      <app-banner-form
+        [banner]="selectedBanner()"
+        (saved)="onBannerSaved($event)"
+      ></app-banner-form>
+    </div>
+  </div>
+</section>
+
+<ng-template #loadingTpl>
+  <app-empty-state
+    title="Carregando banners..."
+    description="Buscando configurações de banners do painel."
+    icon="loader"
+  ></app-empty-state>
+</ng-template>

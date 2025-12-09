@@ -1,0 +1,64 @@
+<!-- src/app/features/orders/pages/orders-timeline-page/orders-timeline-page.component.html -->
+<app-page-header
+  title="Timeline do pedido"
+  subtitle="Histórico de eventos e mudanças de status do pedido."
+>
+  <app-button
+    variant="ghost"
+    size="sm"
+    (appClick)="goBack()"
+  >
+    Voltar
+  </app-button>
+</app-page-header>
+
+<section class="order-timeline" *ngIf="order() as o">
+  <app-card>
+    <header class="order-timeline__header">
+      <div>
+        <h2>#{{ getOrderCode(o) }}</h2>
+        <p>
+          Cliente:
+          <span>{{ o.customer?.name ?? 'Não informado' }}</span>
+        </p>
+      </div>
+
+      <app-order-status-badge [status]="o.status"></app-order-status-badge>
+    </header>
+
+    <ul class="order-timeline__list">
+      <li
+        class="order-timeline__item"
+        *ngFor="let event of o.timeline ?? []; trackBy: trackByEventId"
+      >
+        <div class="order-timeline__bullet"></div>
+        <div class="order-timeline__content">
+          <div class="order-timeline__row">
+            <span class="order-timeline__title">
+              {{ event.title }}
+            </span>
+            <span class="order-timeline__date">
+              {{ event.createdAt | date : 'dd/MM/yyyy HH:mm' }}
+            </span>
+          </div>
+          <p class="order-timeline__description">
+            {{ event.description }}
+          </p>
+          <span
+            class="order-timeline__meta"
+            *ngIf="event.meta"
+          >
+            {{ event.meta }}
+          </span>
+        </div>
+      </li>
+    </ul>
+  </app-card>
+</section>
+
+<section
+  class="order-timeline order-timeline--loading"
+  *ngIf="loading() && !order()"
+>
+  <p>Carregando timeline do pedido...</p>
+</section>

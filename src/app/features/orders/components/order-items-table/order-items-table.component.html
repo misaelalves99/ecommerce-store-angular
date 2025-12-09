@@ -1,0 +1,80 @@
+<!-- src/app/features/orders/components/order-items-table/order-items-table.component.html -->
+<div class="order-items">
+  <div class="order-items__header">
+    <h3 class="order-items__title">Itens do pedido</h3>
+    <p class="order-items__subtitle">
+      Detalhamento dos produtos, quantidades e valores deste pedido.
+    </p>
+  </div>
+
+  <ng-container *ngIf="items.length; else emptyState">
+    <div class="order-items__wrapper">
+      <table class="order-items__table">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>SKU</th>
+            <th class="order-items__th--numeric">Qtd.</th>
+            <th class="order-items__th--numeric">Preço</th>
+            <th class="order-items__th--numeric">Subtotal</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of items; trackBy: trackByItemId">
+            <td>
+              <div class="order-items__product">
+                <span class="order-items__product-name">
+                  {{ item.productName }}
+                </span>
+                <span class="order-items__product-brand">
+                  {{
+                    $any(item).brandName
+                      ?? $any(item).brand
+                      ?? '-'
+                  }}
+                </span>
+              </div>
+            </td>
+
+            <td>
+              <span class="order-items__sku">
+                {{ item.sku }}
+              </span>
+            </td>
+
+            <td class="order-items__td--numeric">
+              <span class="order-items__qty">
+                {{ item.quantity }}
+              </span>
+            </td>
+
+            <td class="order-items__td--numeric">
+              <span class="order-items__price">
+                {{ item.unitPrice | currency : 'BRL' : 'symbol-narrow' }}
+              </span>
+            </td>
+
+            <td class="order-items__td--numeric">
+              <span class="order-items__subtotal">
+                {{
+                  ($any(item).subtotal ?? (item.quantity * item.unitPrice))
+                    | currency : 'BRL' : 'symbol-narrow'
+                }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-template #emptyState>
+    <div class="order-items__empty">
+      <p class="order-items__empty-title">Nenhum item encontrado para este pedido.</p>
+      <p class="order-items__empty-subtitle">
+        Assim que os produtos forem adicionados, eles aparecerão aqui.
+      </p>
+    </div>
+  </ng-template>
+</div>

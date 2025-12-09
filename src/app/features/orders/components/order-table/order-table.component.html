@@ -1,0 +1,96 @@
+<!-- src/app/features/orders/components/order-table/order-table.component.html -->
+<div class="order-table">
+  <div class="order-table__state" *ngIf="loading">
+    <p>Carregando pedidos...</p>
+  </div>
+
+  <div
+    class="order-table__state order-table__state--empty"
+    *ngIf="!loading && !orders.length"
+  >
+    <p>Nenhum pedido encontrado.</p>
+    <span>Os pedidos aparecerão aqui assim que forem criados.</span>
+  </div>
+
+  <div class="order-table__wrapper" *ngIf="!loading && orders.length">
+    <table class="order-table__table">
+      <thead>
+        <tr>
+          <th># Pedido</th>
+          <th>Cliente</th>
+          <th>Data</th>
+          <th>Valor</th>
+          <th>Status</th>
+          <th class="order-table__th--right">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let order of orders; trackBy: trackByOrderId">
+          <td>
+            <div class="order-table__id">
+              <span class="order-table__id-main">
+                #{{ getOrderDisplayCode(order) }}
+              </span>
+              <span class="order-table__id-sub">
+                {{ order.id }}
+              </span>
+            </div>
+          </td>
+
+          <td>
+            <div class="order-table__customer">
+              <span class="order-table__customer-name">
+                {{ order.customer?.name ?? 'Cliente não informado' }}
+              </span>
+              <span class="order-table__customer-email">
+                {{ order.customer?.email }}
+              </span>
+            </div>
+          </td>
+
+          <td>
+            <span class="order-table__date">
+              {{ order.createdAt | date : 'dd/MM/yyyy HH:mm' }}
+            </span>
+          </td>
+
+          <td>
+            <span class="order-table__total">
+              {{
+                getOrderTotal(order)
+                  | currency : 'BRL' : 'symbol-narrow'
+              }}
+            </span>
+          </td>
+
+          <td>
+            <app-order-status-badge
+              [status]="order.status"
+            ></app-order-status-badge>
+          </td>
+
+          <td class="order-table__td-actions">
+            <div class="order-table__actions">
+              <app-button
+                size="sm"
+                variant="ghost"
+                (appClick)="onTimeline(order.id)"
+              >
+                Timeline
+              </app-button>
+
+              <app-button
+                size="sm"
+                variant="secondary"
+                (appClick)="onDetails(order.id)"
+              >
+                Detalhes
+              </app-button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

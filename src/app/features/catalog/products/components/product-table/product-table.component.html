@@ -1,0 +1,111 @@
+<!-- src/app/features/catalog/products/components/product-table/product-table.component.html -->
+<div class="product-table">
+  <div class="product-table__wrapper">
+    <app-table
+      [columns]="columns"
+      [rows]="rows"
+      [rowTemplate]="rowTpl"
+      [emptyMessage]="'Nenhum produto encontrado.'"
+    >
+    </app-table>
+
+    <ng-template
+      #rowTpl
+      let-row
+      let-i="index"
+    >
+      <tr
+        class="product-table__row"
+        [attr.data-index]="i"
+      >
+        <!-- Produto + ID -->
+        <td class="product-table__td product-table__td--left">
+          <div class="product-table__name">
+            <span class="product-table__name-main">
+              {{ $any(row).name }}
+            </span>
+            <span class="product-table__name-id">
+              ID: {{ $any(row).id }}
+            </span>
+          </div>
+        </td>
+
+        <!-- SKU -->
+        <td class="product-table__td product-table__td--left">
+          <span class="product-table__sku">
+            {{ $any(row).sku }}
+          </span>
+        </td>
+
+        <!-- Marca -->
+        <td class="product-table__td product-table__td--left">
+          <span class="product-table__brand">
+            {{ $any(row).brandName || '-' }}
+          </span>
+        </td>
+
+        <!-- Categoria -->
+        <td class="product-table__td product-table__td--left">
+          <span class="product-table__category">
+            {{ $any(row).categoryName || '-' }}
+          </span>
+        </td>
+
+        <!-- Preço -->
+        <td class="product-table__td product-table__td--right">
+          <span class="product-table__price">
+            {{ $any(row).unitPrice | currency: 'BRL' : 'symbol' : '1.2-2' }}
+          </span>
+        </td>
+
+        <!-- Estoque -->
+        <td class="product-table__td product-table__td--right">
+          <span class="product-table__stock">
+            {{ $any(row).stockQuantity }}
+          </span>
+        </td>
+
+        <!-- Status -->
+        <td class="product-table__td product-table__td--center">
+          <span
+            class="product-table__status-pill"
+            [class.product-table__status-pill--active]="$any(row).statusLabel === 'Ativo'"
+            [class.product-table__status-pill--inactive]="$any(row).statusLabel !== 'Ativo'"
+          >
+            {{ $any(row).statusLabel }}
+          </span>
+        </td>
+
+        <!-- Ações -->
+        <td class="product-table__td product-table__td--right product-table__td-actions">
+          <div class="product-table__actions">
+            <!-- Detalhes: emite id para a página -->
+            <button
+              type="button"
+              class="product-table__link"
+              (click)="onDetails($any(row).id)"
+            >
+              Detalhes
+            </button>
+
+            <!-- Editar continua com routerLink -->
+            <a
+              [routerLink]="['/catalog/products/edit', $any(row).id]"
+              class="product-table__link"
+            >
+              Editar
+            </a>
+
+            <app-button
+              variant="danger"
+              size="sm"
+              (appClick)="onDelete($any(row).id)"
+            >
+              Excluir
+            </app-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </div>
+</div>

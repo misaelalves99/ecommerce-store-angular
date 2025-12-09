@@ -1,0 +1,121 @@
+<!-- src/app/features/catalog/categories/pages/categories-details-page/categories-details-page.component.html -->
+
+<app-page-header
+  title="Detalhes da categoria"
+  subtitle="Visualize as informações completas da categoria selecionada."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Catálogo', link: '/catalog' },
+    { label: 'Categorias', link: '/catalog/categories' },
+    { label: 'Detalhes', active: true }
+  ]"
+>
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<section
+  class="category-details-page"
+  *ngIf="categorySig() as category; else loadingTpl"
+>
+  <div class="category-details-page__card">
+    <header class="category-details-page__header">
+      <div>
+        <h2>{{ category.name }}</h2>
+        <p>{{ category.slug || '—' }}</p>
+      </div>
+
+      <div class="category-details-page__status-wrapper">
+        <span
+          class="category-details-page__status"
+          [class.category-details-page__status--inactive]="
+            isInactive(category)
+          "
+        >
+          {{ getStatusLabel(category) }}
+        </span>
+      </div>
+    </header>
+
+    <div class="category-details-page__grid">
+      <div class="category-details-page__field">
+        <span class="label">Nome da categoria</span>
+        <span class="value">{{ category.name }}</span>
+      </div>
+
+      <div class="category-details-page__field">
+        <span class="label">Slug</span>
+        <span class="value">{{ category.slug || '—' }}</span>
+      </div>
+
+      <div class="category-details-page__field">
+        <span class="label">Status</span>
+        <span class="value">{{ getStatusLabel(category) }}</span>
+      </div>
+
+      <div class="category-details-page__field">
+        <span class="label">Criada em</span>
+        <span class="value">
+          <ng-container *ngIf="category.createdAt as created">
+            {{ created | date: 'dd/MM/yyyy' }}
+          </ng-container>
+        </span>
+      </div>
+
+      <div class="category-details-page__field">
+        <span class="label">Atualizada em</span>
+        <span class="value">
+          <ng-container
+            *ngIf="category.updatedAt as updated; else noUpdated"
+          >
+            {{ updated | date: 'dd/MM/yyyy' }}
+          </ng-container>
+          <ng-template #noUpdated>—</ng-template>
+        </span>
+      </div>
+
+      <div
+        class="category-details-page__field category-details-page__field--full"
+      >
+        <span class="label">Descrição</span>
+        <span class="value value--muted">
+          {{ getDescription(category) }}
+        </span>
+      </div>
+    </div>
+
+    <footer class="category-details-page__footer">
+      <app-button
+        type="button"
+        variant="outline"
+        size="sm"
+        (appClick)="goBack()"
+      >
+        Voltar
+      </app-button>
+
+      <app-button
+        type="button"
+        variant="primary"
+        size="sm"
+        (appClick)="goToEdit()"
+      >
+        Editar categoria
+      </app-button>
+    </footer>
+  </div>
+</section>
+
+<ng-template #loadingTpl>
+  <section class="category-details-page category-details-page--loading">
+    <p>
+      {{ loading() ? 'Carregando detalhes da categoria...' : 'Categoria não encontrada.' }}
+    </p>
+  </section>
+</ng-template>

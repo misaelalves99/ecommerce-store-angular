@@ -1,0 +1,128 @@
+<!-- src/app/features/settings/pages/settings-users-page/settings-users-page.component.html -->
+<app-page-header
+  title="Usuários do painel"
+  subtitle="Gerencie quem pode acessar o dashboard, seus papéis e status de acesso."
+  [breadcrumb]="['Configurações', 'Usuários']"
+></app-page-header>
+
+<section class="page" *ngIf="!loading(); else loadingTpl">
+  <div class="page__stats">
+    <div class="stat">
+      <span class="stat__label">Usuários ativos</span>
+      <span class="stat__value">{{ totalActive() }}</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">Administradores</span>
+      <span class="stat__value">{{ totalAdmins() }}</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">Total cadastrado</span>
+      <span class="stat__value">{{ users().length }}</span>
+    </div>
+  </div>
+
+  <div class="page__toolbar">
+    <app-search-input
+      placeholder="Buscar por nome, e-mail ou papel..."
+      (valueChange)="onSearchChange($event)"
+    ></app-search-input>
+
+    <app-button variant="primary" (appClick)="openCreate()">
+      Novo usuário
+    </app-button>
+  </div>
+
+  <div class="page__card">
+    <ng-container *ngIf="filteredUsers().length; else emptyTpl">
+      <app-table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Papel</th>
+            <th>Status</th>
+            <th class="actions-col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of paginatedUsers()">
+            <td>
+              <div class="user">
+                <div class="user__avatar">
+                  {{ user.name ? user.name.charAt(0) : '?' }}
+                </div>
+                <div class="user__info">
+                  <span class="user__name">{{ user.name }}</span>
+                  <span class="user__meta">ID: {{ user.id }}</span>
+                </div>
+              </div>
+            </td>
+            <td>{{ user.email }}</td>
+            <td>
+              <app-badge label="{{ user.role }}" variant="neutral"></app-badge>
+            </td>
+            <td>
+              <app-badge
+                [label]="user.isActive ? 'Ativo' : 'Inativo'"
+                [variant]="user.isActive ? 'success' : 'danger'"
+              ></app-badge>
+            </td>
+            <td class="actions-col">
+              <div class="row-actions">
+                <app-button
+                  size="sm"
+                  variant="ghost"
+                  (appClick)="openEdit(user)"
+                >
+                  Editar
+                </app-button>
+                <app-button
+                  size="sm"
+                  [variant]="user.isActive ? 'outline' : 'secondary'"
+                  (appClick)="toggleActive(user)"
+                >
+                  {{ user.isActive ? 'Desativar' : 'Reativar' }}
+                </app-button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+
+      <div class="page__pagination">
+        <app-pagination
+          [page]="page()"
+          [pageSize]="pageSize"
+          [totalItems]="filteredUsers().length"
+          (pageChange)="onPageChange($event)"
+        ></app-pagination>
+      </div>
+    </ng-container>
+  </div>
+</section>
+
+<ng-template #loadingTpl>
+  <app-empty-state
+    title="Carregando usuários..."
+    description="Buscando usuários configurados para o painel administrativo."
+  ></app-empty-state>
+</ng-template>
+
+<ng-template #emptyTpl>
+  <app-empty-state
+    title="Nenhum usuário cadastrado"
+    description="Crie o primeiro usuário administrador para começar a usar o painel."
+  ></app-empty-state>
+</ng-template>
+
+<app-modal
+  *ngIf="showModal()"
+  [title]="selectedUser() ? 'Editar usuário' : 'Novo usuário'"
+  (closed)="closeModal()"
+>
+  <app-user-form
+    [value]="selectedUser()"
+    (saved)="onFormSaved($event)"
+    (cancelled)="closeModal()"
+  ></app-user-form>
+</app-modal>

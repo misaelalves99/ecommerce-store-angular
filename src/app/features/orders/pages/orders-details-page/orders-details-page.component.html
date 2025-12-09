@@ -1,0 +1,170 @@
+<!-- src/app/features/orders/pages/orders-details-page/orders-details-page.component.html -->
+<app-page-header
+  [title]="
+    order()
+      ? 'Pedido #' + (order()?.code || order()?.id || '')
+      : 'Detalhes do pedido'
+  "
+  subtitle="Veja os dados completos do pedido, itens e valores."
+  [breadcrumb]="[
+    { label: 'Pedidos', routerLink: ['/orders'] },
+    { label: 'Detalhes' }
+  ]"
+>
+</app-page-header>
+
+<section
+  class="order-details"
+  *ngIf="order() as o; else loadingOrEmpty"
+>
+  <header class="order-details__header">
+    <div class="order-details__main">
+      <h2 class="order-details__title">
+        Pedido #{{ o.code || o.id }}
+      </h2>
+
+      <p class="order-details__meta">
+        Criado em
+        <span>
+          {{ o.createdAt | date : 'dd/MM/yyyy HH:mm' : 'UTC' }}
+        </span>
+      </p>
+    </div>
+
+    <div class="order-details__badges">
+      <!-- Status principal do pedido -->
+      <app-order-status-badge
+        [status]="o.status"
+      ></app-order-status-badge>
+
+      <!-- Exemplo de uso de app-badge para pagamento -->
+      <app-badge
+        *ngIf="o.paymentStatus"
+        [variant]="o.paymentStatus === 'paid' ? 'success' : 'warning'"
+      >
+        {{ o.paymentStatus === 'paid' ? 'Pago' : 'Pendente' }}
+      </app-badge>
+    </div>
+  </header>
+
+  <div class="order-details__content">
+    <section class="order-details__section">
+      <h3>Cliente</h3>
+
+      <p class="order-details__field">
+        <span class="order-details__field-label">Nome</span>
+        <span class="order-details__field-value">
+          {{ o.customerName || 'Não informado' }}
+        </span>
+      </p>
+
+      <p class="order-details__field">
+        <span class="order-details__field-label">E-mail</span>
+        <span class="order-details__field-value">
+          {{ o.customerEmail || 'Não informado' }}
+        </span>
+      </p>
+    </section>
+
+    <section class="order-details__section">
+      <h3>Resumo financeiro</h3>
+
+      <p class="order-details__field">
+        <span class="order-details__field-label">Subtotal</span>
+        <span class="order-details__field-value">
+          {{
+            (o.subtotal || o.total || 0)
+              | currency : 'BRL' : 'symbol-narrow'
+          }}
+        </span>
+      </p>
+
+      <p class="order-details__field">
+        <span class="order-details__field-label">Frete</span>
+        <span class="order-details__field-value">
+          {{
+            (o.shippingTotal || 0)
+              | currency : 'BRL' : 'symbol-narrow'
+          }}
+        </span>
+      </p>
+
+      <p class="order-details__field">
+        <span class="order-details__field-label">Descontos</span>
+        <span class="order-details__field-value">
+          -{{
+            (o.discountTotal || 0)
+              | currency : 'BRL' : 'symbol-narrow'
+          }}
+        </span>
+      </p>
+
+      <p class="order-details__field order-details__field--strong">
+        <span class="order-details__field-label">Total</span>
+        <span class="order-details__field-value">
+          {{
+            (o.total || o.grandTotal || 0)
+              | currency : 'BRL' : 'symbol-narrow'
+          }}
+        </span>
+      </p>
+    </section>
+  </div>
+
+  <section class="order-details__items">
+    <h3>Itens do pedido</h3>
+
+    <app-order-items-table
+      [items]="o.items ?? []"
+    ></app-order-items-table>
+  </section>
+
+  <footer class="order-details__footer">
+    <app-button
+      variant="secondary"
+      size="sm"
+      type="button"
+      (appClick)="goBack()"
+    >
+      Voltar para lista
+    </app-button>
+
+    <app-button
+      variant="primary"
+      size="sm"
+      type="button"
+      (appClick)="goTimeline()"
+    >
+      Ver linha do tempo
+    </app-button>
+  </footer>
+</section>
+
+<ng-template #loadingOrEmpty>
+  <section
+    class="order-details__loading"
+    *ngIf="loading(); else emptyOrder"
+  >
+    <p>Carregando dados do pedido...</p>
+  </section>
+
+  <ng-template #emptyOrder>
+    <section class="order-details__empty">
+      <p *ngIf="errorMessage() as error">
+        {{ error }}
+      </p>
+      <p *ngIf="!errorMessage()">
+        Pedido não encontrado ou não disponível.
+      </p>
+
+      <app-button
+        variant="secondary"
+        size="sm"
+        type="button"
+        (appClick)="goBack()"
+      >
+        Voltar para pedidos
+      </app-button>
+    </section>
+  </ng-template>
+</ng-template>

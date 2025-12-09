@@ -1,0 +1,132 @@
+<!-- src/app/features/customers/pages/customers-details-page/customers-details-page.component.html -->
+<app-page-header
+  title="Detalhes do cliente"
+  subtitle="Visualize as informações completas do cliente selecionado."
+  [breadcrumb]="[
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Clientes', link: '/customers' },
+    { label: 'Detalhes', active: true }
+  ]"
+>
+  <app-button
+    type="button"
+    variant="outline"
+    size="sm"
+    (appClick)="goBack()"
+  >
+    ← Voltar
+  </app-button>
+</app-page-header>
+
+<!-- CARD PRINCIPAL (aparece quando já existe customer) -->
+<section
+  class="customer-details-page"
+  *ngIf="customer() as customer; else loadingTpl"
+>
+  <div class="customer-details-page__card">
+    <header class="customer-details-page__header">
+      <div>
+        <h2>{{ getCustomerName() }}</h2>
+        <p class="customer-details-page__email">
+          {{ getCustomerEmail() || 'Sem e-mail cadastrado' }}
+        </p>
+      </div>
+
+      <div class="customer-details-page__status-wrapper">
+        <span
+          class="customer-details-page__status"
+          [class.customer-details-page__status--inactive]="!isCustomerActive()"
+        >
+          {{ isCustomerActive() ? 'Ativo' : 'Inativo' }}
+        </span>
+      </div>
+    </header>
+
+    <div class="customer-details-page__grid">
+      <div class="customer-details-page__field">
+        <span class="label">Documento</span>
+        <span class="value">
+          {{ getCustomerDocument() || '—' }}
+        </span>
+      </div>
+
+      <div class="customer-details-page__field">
+        <span class="label">Telefone</span>
+        <span class="value">
+          {{ getCustomerPhone() || '—' }}
+        </span>
+      </div>
+
+      <div class="customer-details-page__field">
+        <span class="label">ID</span>
+        <span class="value">
+          {{ customer.id }}
+        </span>
+      </div>
+
+      <div class="customer-details-page__field">
+        <span class="label">Criado em</span>
+        <span class="value">
+          <ng-container *ngIf="customer.createdAt as created">
+            {{ created | date: 'dd/MM/yyyy HH:mm' }}
+          </ng-container>
+        </span>
+      </div>
+
+      <div class="customer-details-page__field">
+        <span class="label">Atualizado em</span>
+        <span class="value">
+          <ng-container
+            *ngIf="customer.updatedAt as updated; else noUpdated"
+          >
+            {{ updated | date: 'dd/MM/yyyy HH:mm' }}
+          </ng-container>
+          <ng-template #noUpdated>—</ng-template>
+        </span>
+      </div>
+
+      <div
+        class="customer-details-page__field customer-details-page__field--full"
+      >
+        <span class="label">Endereços</span>
+        <div class="customer-details-page__addresses">
+          <app-customer-address-list
+            [addresses]="getCustomerAddresses()"
+          ></app-customer-address-list>
+        </div>
+      </div>
+    </div>
+
+    <footer class="customer-details-page__footer">
+      <app-button
+        type="button"
+        variant="outline"
+        size="sm"
+        (appClick)="goBack()"
+      >
+        Voltar
+      </app-button>
+
+      <app-button
+        type="button"
+        variant="primary"
+        size="sm"
+        (appClick)="goToEdit()"
+      >
+        Editar cliente
+      </app-button>
+    </footer>
+  </div>
+</section>
+
+<!-- LOADING / ESTADO SEM DADOS -->
+<ng-template #loadingTpl>
+  <section class="customer-details-page customer-details-page--loading">
+    <p *ngIf="loading(); else noData">
+      Carregando detalhes do cliente...
+    </p>
+    <ng-template #noData>
+      Cliente não encontrado.
+    </ng-template>
+  </section>
+</ng-template>

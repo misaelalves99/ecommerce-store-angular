@@ -1,0 +1,23 @@
+/* src/app/features/orders/components/order-status-badge/order-status-badge.component.css */
+
+:host {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Deixa o chip com cara de status de dashboard */
+.order-status-badge {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding-inline: 0.65rem;
+}
+
+/* Em telas muito pequenas, não deixa o chip esmagar demais */
+@media (max-width: 640px) {
+  .order-status-badge {
+    font-size: 0.76rem;
+    padding-inline: 0.55rem;
+  }
+}

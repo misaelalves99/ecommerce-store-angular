@@ -1,0 +1,63 @@
+/* src/app/features/inventory/components/stock-movement-form/stock-movement-form.component.css */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form__field--full {
+  grid-column: 1 / -1;
+}
+
+.form__field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.form__field input,
+.form__field textarea,
+.form__field select {
+  border-radius: 0.9rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: radial-gradient(circle at 0 0, #020617, #020617);
+  color: #f9fafb;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.form__field input:focus,
+.form__field textarea:focus,
+.form__field select:focus {
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.6);
+}
+
+.form__field small {
+  font-size: 0.75rem;
+  color: #f97373;
+}
+
+.form__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .form__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

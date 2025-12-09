@@ -1,0 +1,15 @@
+<!-- src/app/features/catalog/categories/components/categories-filters/categories-filters.component.html -->
+
+<div class="categories-filters">
+  <!-- Esquerda: barra de busca (mesmo width do Products) -->
+  <div class="categories-filters__left">
+    <app-search-input
+      [value]="search"
+      placeholder="Buscar por nome ou slug..."
+      (valueChange)="onSearchChange($event)"
+    ></app-search-input>
+  </div>
+
+  <!-- Direita: reservada (vazia), só para manter o alinhamento/proporção -->
+  <div class="categories-filters__right"></div>
+</div>

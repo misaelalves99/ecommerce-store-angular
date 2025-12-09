@@ -1,0 +1,82 @@
+<!-- src/app/features/inventory/pages/stock-dashboard-page/stock-dashboard-page.component.html -->
+<app-page-header
+  title="Estoque & Inventário"
+  subtitle="Acompanhe níveis de estoque, produtos críticos e rupturas em tempo real."
+  [breadcrumb]="['Estoque']"
+></app-page-header>
+
+<section class="page" *ngIf="!loading(); else loadingTpl">
+  <div class="page__metrics">
+    <app-metric-card
+      label="SKUs monitorados"
+      [value]="totalSkusDisplay()"
+      description="Quantidade total de produtos com controle de estoque."
+      icon="package"
+      trendLabel="Produtos ativos"
+    ></app-metric-card>
+
+    <app-metric-card
+      label="Qtd. total em estoque"
+      [value]="totalQuantityDisplay()"
+      description="Soma de todas as unidades disponíveis."
+      icon="layers"
+      trendLabel="Unidades disponíveis"
+    ></app-metric-card>
+
+    <app-metric-card
+      label="Itens em alerta"
+      [value]="lowStockCountDisplay()"
+      description="Produtos próximos da ruptura de estoque."
+      icon="alert-triangle"
+      trendLabel="Em nível crítico"
+      variant="warning"
+    ></app-metric-card>
+
+    <app-metric-card
+      label="Sem estoque"
+      [value]="outOfStockCountDisplay()"
+      description="Itens esgotados na vitrine."
+      icon="x-circle"
+      trendLabel="Esgotados"
+      variant="danger"
+    ></app-metric-card>
+  </div>
+
+  <div class="page__toolbar">
+    <app-search-input
+      placeholder="Buscar por nome, SKU, marca ou categoria..."
+      (valueChange)="onSearchChange($event)"
+    ></app-search-input>
+  </div>
+
+  <div class="page__card">
+    <ng-container *ngIf="filteredItems().length; else emptyTpl">
+      <app-stock-table [items]="paginatedItems()"></app-stock-table>
+
+      <div class="page__pagination">
+        <app-pagination
+          [page]="page()"
+          [pageSize]="pageSize"
+          [totalItems]="filteredItems().length"
+          (pageChange)="onPageChange($event)"
+        ></app-pagination>
+      </div>
+    </ng-container>
+  </div>
+</section>
+
+<ng-template #loadingTpl>
+  <app-empty-state
+    emoji="⏳"
+    title="Carregando estoque..."
+    description="Buscando dados de inventário. Isso leva apenas alguns instantes."
+  ></app-empty-state>
+</ng-template>
+
+<ng-template #emptyTpl>
+  <app-empty-state
+    emoji="📥"
+    title="Nenhum item em estoque"
+    description="Ainda não há produtos com controle de estoque. Cadastre produtos no catálogo para começar."
+  ></app-empty-state>
+</ng-template>

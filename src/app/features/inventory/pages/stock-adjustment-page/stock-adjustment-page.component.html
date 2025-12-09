@@ -1,0 +1,31 @@
+<!-- src/app/features/inventory/pages/stock-adjustment-page/stock-adjustment-page.component.html -->
+<app-page-header
+  title="Ajuste de estoque"
+  subtitle="Registre entradas, saídas e correções de estoque para produtos específicos."
+  [breadcrumb]="[
+    { label: 'Estoque', routerLink: ['/inventory'] },
+    { label: 'Ajuste de estoque', disabled: true }
+  ]"
+>
+</app-page-header>
+
+<section class="stock-adjustment-page">
+  <ng-container *ngIf="hasSelection(); else noSelection">
+    <div class="stock-adjustment-page__content">
+      <!-- Formulário de movimento de estoque -->
+      <app-stock-movement-form></app-stock-movement-form>
+    </div>
+  </ng-container>
+
+  <ng-template #noSelection>
+    <div class="stock-adjustment-page__empty">
+      <app-empty-state
+        emoji="📦"
+        title="Nenhum produto selecionado"
+        description="Volte para a listagem de estoque e escolha um item para ajustar."
+        actionLabel="Ver estoque"
+        (action)="onGoToStock()"
+      ></app-empty-state>
+    </div>
+  </ng-template>
+</section>

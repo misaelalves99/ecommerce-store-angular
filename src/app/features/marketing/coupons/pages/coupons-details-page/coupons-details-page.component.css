@@ -1,0 +1,134 @@
+/* src/app/features/marketing/coupons/pages/coupons-details-page/coupons-details-page.component.css */
+
+.coupon-details-page {
+  padding: 1.1rem 0 2rem;
+}
+
+.coupon-details-page__card {
+  border-radius: 1.2rem;
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(15, 23, 42, 0.95),
+    #020617
+  );
+  padding: 1.3rem 1.4rem 1.25rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.coupon-details-page__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+  padding-bottom: 0.7rem;
+}
+
+.coupon-details-page__header h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #f9fafb;
+  letter-spacing: -0.02em;
+}
+
+.coupon-details-page__header p {
+  font-size: 0.88rem;
+  color: #9ca3af;
+}
+
+.coupon-details-page__status {
+  padding: 0.22rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  background: rgba(22, 163, 74, 0.15);
+  color: #4ade80;
+}
+
+.coupon-details-page__status--inactive {
+  background: rgba(239, 68, 68, 0.16);
+  color: #fecaca;
+}
+
+.coupon-details-page__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 1.1rem;
+}
+
+.coupon-details-page__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.coupon-details-page__field--full {
+  grid-column: 1 / -1;
+}
+
+.label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+}
+
+.value {
+  font-size: 0.9rem;
+  color: #e5e7eb;
+}
+
+.value--muted {
+  color: #9ca3af;
+}
+
+/* Footer */
+.coupon-details-page__footer {
+  margin-top: 0.75rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(31, 41, 55, 0.9);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+@media (max-width: 960px) {
+  .coupon-details-page {
+    padding-inline: 0.5rem;
+  }
+
+  .coupon-details-page__card {
+    border-radius: 1rem;
+    padding-inline: 1.1rem;
+  }
+
+  .coupon-details-page__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .coupon-details-page {
+    padding-inline: 0.25rem;
+  }
+
+  .coupon-details-page__card {
+    padding-inline: 0.9rem;
+  }
+
+  .coupon-details-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .coupon-details-page__footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .coupon-details-page__footer app-button {
+    width: 100%;
+  }
+}

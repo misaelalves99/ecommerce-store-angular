@@ -1,0 +1,23 @@
+/* src/app/features/dashboard/components/metric-card/metric-card.component.css */
+
+.metric-card {
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.metric-card__title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.metric-card__value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
