@@ -1,0 +1,57 @@
+<!-- src/app/layout/page-header/page-header.component.html -->
+
+<header class="page-header">
+  <!-- Breadcrumb no topo -->
+  <div
+    class="page-header__breadcrumb-wrapper"
+    *ngIf="breadcrumbItems().length"
+  >
+    <app-breadcrumb
+      [items]="breadcrumbItems()"
+    ></app-breadcrumb>
+  </div>
+
+  <!-- Linha principal: título + ações -->
+  <div class="page-header__main">
+    <!-- Título / subtítulo -->
+    <div class="page-header__titles">
+      <h1 class="page-header__title">
+        {{ title }}
+      </h1>
+
+      <p
+        *ngIf="subtitle"
+        class="page-header__subtitle"
+      >
+        {{ subtitle }}
+      </p>
+    </div>
+
+    <!-- Ações (botões à direita) -->
+    <div class="page-header__actions">
+      <!-- Ações declaradas via Input -->
+      <ng-container *ngFor="let action of actions">
+        <app-button
+          [variant]="action.variant || 'secondary'"
+          [type]="action.type || 'button'"
+          [disabled]="!!(action.disabled || action.loading)"
+          (appClick)="onActionClick(action)"
+        >
+          <span
+            *ngIf="action.icon"
+            class="page-header__action-icon"
+          >
+            <i [class]="action.icon"></i>
+          </span>
+
+          <span class="page-header__action-label">
+            {{ action.label }}
+          </span>
+        </app-button>
+      </ng-container>
+
+      <!-- Botões customizados projetados (ex: + Novo produto) -->
+      <ng-content></ng-content>
+    </div>
+  </div>
+</header>

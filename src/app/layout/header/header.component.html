@@ -1,0 +1,66 @@
+<!-- src/app/layout/header/header.component.html -->
+
+<header class="header">
+  <div class="header__left">
+    <button
+      type="button"
+      class="header__icon-button header__icon-button--ghost"
+      (click)="onToggleSidebar()"
+      aria-label="Alternar menu lateral"
+    >
+      <span class="header__icon">☰</span>
+    </button>
+
+    <div class="header__search">
+      <span class="header__search-icon">🔍</span>
+      <input
+        type="search"
+        class="header__search-input"
+        placeholder="Buscar pedidos, clientes, produtos..."
+      />
+    </div>
+  </div>
+
+  <div class="header__right">
+    <button
+      type="button"
+      class="header__icon-button"
+      (click)="onToggleTheme()"
+      [attr.aria-label]="isDarkTheme() ? 'Modo claro' : 'Modo escuro'"
+    >
+      <span class="header__icon">
+        {{ isDarkTheme() ? '🌙' : '☀️' }}
+      </span>
+    </button>
+
+    <button
+      type="button"
+      class="header__icon-button"
+      aria-label="Notificações"
+    >
+      <span class="header__icon">🔔</span>
+      <span class="header__badge"></span>
+    </button>
+
+    <div class="header__user">
+      <div class="header__user-avatar">
+        {{ userDisplayName.charAt(0) | uppercase }}
+      </div>
+      <div class="header__user-info">
+        <span class="header__user-name">
+          {{ userDisplayName }}
+        </span>
+        <span class="header__user-role">
+          Admin
+        </span>
+      </div>
+      <button
+        type="button"
+        class="header__icon-button header__icon-button--ghost"
+        (click)="onLogout()"
+      >
+        <span class="header__icon">⎋</span>
+      </button>
+    </div>
+  </div>
+</header>

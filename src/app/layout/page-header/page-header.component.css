@@ -1,0 +1,108 @@
+/* src/app/layout/page-header/page-header.component.css */
+
+.page-header {
+  padding: 1.3rem 0 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.85);
+  /* garante que os filhos ocupem a largura total */
+  align-items: stretch;
+}
+
+/* Breadcrumb alinhado ao topo/esquerda */
+.page-header__breadcrumb-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* Linha principal: título + ações */
+.page-header__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  /* 👇 ESSENCIAL: ocupa 100% da largura do header */
+  width: 100%;
+}
+
+/* Bloco de título/subtítulo */
+.page-header__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.page-header__title {
+  font-size: 1.95rem;
+  line-height: 1.2;
+  letter-spacing: -0.045em;
+  font-weight: 700;
+  color: #f9fafb;
+  text-shadow:
+    0 0 20px rgba(15, 23, 42, 0.7),
+    0 0 40px rgba(15, 23, 42, 0.9);
+}
+
+.page-header__subtitle {
+  font-size: 0.93rem;
+  color: #9ca3af;
+  max-width: 680px;
+}
+
+/* Ações (botões à direita) */
+.page-header__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+/* Conteúdo projetado (ex: + Novo produto) mantém o mesmo alinhamento */
+.page-header__actions ::ng-deep app-button,
+.page-header__actions ::ng-deep button {
+  white-space: nowrap;
+}
+
+.page-header__action-icon {
+  margin-right: 0.35rem;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-header__action-label {
+  font-size: 0.9rem;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .page-header {
+    padding-top: 1rem;
+  }
+
+  .page-header__main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+
+  .page-header__actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .page-header__title {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-header__subtitle {
+    max-width: 100%;
+  }
+}
